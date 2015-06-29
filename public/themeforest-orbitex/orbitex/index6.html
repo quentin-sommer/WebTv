@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <!--=============== basic  ===============-->
+        <meta charset="UTF-8">
+        <title>Orbitex - Responsive Coming Soon Template </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="robots" content="index, follow"/>
+        <meta name="keywords" content=""/>
+        <meta name="description" content=""/>
+        <!--=============== css  ===============-->	
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/reset.css">
+        <link rel="stylesheet" type="text/css" href="css/plugins.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <!--=============== favicons ===============-->
+        <link rel="shortcut icon" href="images/favicon.ico">
+    </head>
+    <body>
+        <!--Loader-->
+        <div class="loader-holder">
+            <div class="loader">
+                <div id="movingBallG">
+                    <div class="movingBallLineG"></div>
+                    <div id="movingBallG_1" class="movingBallG"></div>
+                </div>
+            </div>
+        </div>
+        <!--Loader end -->
+        <!--================= main start ================-->
+        <div id="main">
+            <div id="fall-holder"></div>
+            <!--================= menu ================-->
+            <div class="nav-button">
+                <span  class="nos"></span>
+                <span class="ncs"></span>
+                <span class="nbs"></span>
+            </div>
+            <div id="nav" class="vis elem">
+                <div id="menu" class="elem-anim">
+                    <a>About <span class="transition"></span></a>
+                    <a class="active">Home <span class="transition"></span></a>
+                    <a>Contacts <span class="transition"></span></a>
+                </div>
+            </div>
+            <!--Navigation end-->
+            <!--================= Subscribe  ================-->
+            <div class="subcribe-form-holder elem">
+                <div class="subcribe-form elem-anim">
+                    <form id="subscribe">
+                        <input class="enteremail" name="email" id="subscribe-email" placeholder="Email" spellcheck="false" type="text">
+                        <button type="submit" id="subscribe-button" class="subscribe-button">Subscribe</button>
+                        <label for="subscribe-email" class="subscribe-message"></label>
+                    </form>
+                </div>
+            </div>
+            <!--Subscribe end-->
+            <!--================= Social links  ================-->
+            <div class="social-links elem">
+                <ul class="elem-anim">
+                    <li><a href="#" target="_blank"  class="transition"><i class="fa fa-facebook"></i><span class="tooltip">Facebook</span></a></li>
+                    <li><a href="#" target="_blank" class="transition"><i class="fa fa-dribbble"></i><span class="tooltip">Dribbble</span></a></li>
+                    <li><a href="#" target="_blank" class="transition"><i class="fa fa-twitter"></i><span class="tooltip">Twitter</span></a></li>
+                    <li><a href="#" target="_blank" class="transition"><i class="fa fa-tumblr"></i><span class="tooltip">Tumblr</span></a></li>
+                </ul>
+            </div>
+            <!--Social links  end-->
+			<!--Play/pause button-->
+            <div id="audio-control" class="elem-anim"></div>
+            <!--================= Wrapper start  ================-->
+            <div class="wrapper transition">
+                <!--================= arrow  navigation ================-->
+                <a href="#" class="arrow-right transition2"><i class="fa fa-angle-right"></i></a>
+                <a href="#" class="arrow-left transition2"><i class="fa fa-angle-left"></i></a>
+                <!--================= audio  ================-->
+                <audio src="http://orbitex.kwst.net/site/audio/1.mp3" autoplay loop id="player"></audio>
+                <!--start content-->
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!--============= about section =============-->
+                        <div class="swiper-slide slide-bg" style="background:url(images/bg/1.jpg)">
+                            <div class="overlay hmoov"></div>
+                            <div class="container">
+                                <section>
+                                    <div class="content-inner">
+                                        <div class="section-decor"></div>
+                                        <div class="content-holder">
+                                            <div class="about">
+                                                <h3>About us</h3>
+                                                <h4> Ut enim ad minim veniam, quis nostrud exercitation ullamco sit voluptatem.</h4>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat. Ultricies nisi voluptatem, illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo nemo enim ipsam voluptatem. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                                                <div class="btn go-contact">Our contacts</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <!--about end-->
+                        <!--================= Home section ================-->
+                        <div class="swiper-slide slide-bg" style="background:url(images/bg/1.jpg)">
+                            <div class="overlay hmoov"></div>
+                            <div class="container">
+                                <div id="canvas-holder">
+                                    <canvas id="demo-canvas"></canvas>
+                                </div>
+                                <div class="logo">
+                                    <img src="images/logo2.png" alt="">
+                                </div>
+                                <div class="counter-content">
+                                    <ul class="countdown">
+                                        <li>
+                                            <span class="days rot">00</span>
+                                            <p>days</p>
+                                        </li>
+                                        <li>
+                                            <span class="hours rot">00</span>
+                                            <p>hours </p>
+                                        </li>
+                                        <li>
+                                            <span class="minutes rot2">00</span>
+                                            <p>minutes </p>
+                                        </li>
+                                        <li>
+                                            <span class="seconds rot2">00</span>
+                                            <p>seconds</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="hero-text">
+                                    <h2>Our website is  coming soon </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <!--home end-->	
+                        <!--============= Contact section =============-->
+                        <div class="swiper-slide slide-bg" style="background:url(images/bg/1.jpg)">
+                            <div class="overlay hmoov"></div>
+                            <div class="container">
+                                <section>
+                                    <div class="content-inner">
+                                        <div class="section-decor"></div>
+                                        <div class="content-holder">
+                                            <div class="contact">
+                                                <div class="hide-con-info transition">
+                                                    <h3>Contacts</h3>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                    <div class="contact-info-holder">
+                                                        <ul class="contact-info">
+                                                            <li>
+                                                                <a href="#" target="_blank"><i class="fa fa-phone"></i>  +1 (000) 123456</a> 
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" target="_blank"><i class="fa fa-envelope-o"></i> yourmail@yuormail.com </a> 
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" target="_blank"><i class="fa fa-globe"></i> Heritage Park Minneapolis </a> 
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="btn show-form">Write us</div>
+                                                </div>
+                                                <div class="contact-form-holder transition">
+                                                    <h3>Get in Touch</h3>
+                                                    <div class="close-form"><span class="rcd"></span><span class="lcd"></span></div>
+                                                    <div id="contact-form">
+                                                        <div id="message"></div>
+                                                        <form method="post" action="php/contact.php" name="contactform" id="contactform">
+                                                            <input name="name" type="text" id="name"   onClick="this.select()" value="Name" >
+                                                            <input name="email" type="text" id="email" onClick="this.select()" value="E-mail" >            
+                                                            <textarea name="comments"  id="comments" onClick="this.select()" >Message</textarea>  
+                                                            <button type="submit"  id="submit"><i class="fa fa-envelope-o   button__icon"></i><span>Send Message</span></button>          										           											
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <!--Contact  end-->					
+                    </div>
+                </div>
+            </div>
+            <!--Wrapper  end -->
+        </div>
+        <!--Main  end -->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
+    </body>
+</html>

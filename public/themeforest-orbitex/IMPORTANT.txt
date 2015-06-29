@@ -1,0 +1,4 @@
+upload files from a folder 'orbitex' to web server or local server to test
+
+
+Important!   Subscribe  and Contact form work  , video background (youtube or vimeo) - work only on a local server or host.

@@ -1,0 +1,338 @@
+<!doctype html>  
+<!--[if IE 6 ]><html lang="en-us" class="ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en-us" class="ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en-us" class="ie8"> <![endif]-->
+<!--[if (gt IE 7)|!(IE)]><!-->
+<html lang="en-us"><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	
+	<title>Orbitex - Concept Responsive Coming Soon Template</title>
+	
+	
+	<link rel="stylesheet" href="css/documenter_style.css" media="all">
+	
+	
+
+	
+	<style>
+		html{background-color:#FFFFFF;color:#383838;}
+		::-moz-selection{background:#444444;color:#DDDDDD;}
+		::selection{background:#444444;color:#DDDDDD;}
+		#documenter_sidebar #documenter_logo{background-image:url(assets/images/image_1.png);}
+		a{color:#DE6325;}
+		hr{border-top:1px solid #EBEBEB;border-bottom:1px solid #FFFFFF;}
+		#documenter_sidebar, #documenter_sidebar ol a{background-color:#DDDDDD;color:#222222;}
+		#documenter_sidebar ol a{-webkit-text-shadow:1px 1px 0px #EEEEEE;-moz-text-shadow:1px 1px 0px #EEEEEE;text-shadow:1px 1px 0px #EEEEEE;}
+		#documenter_sidebar ol{border-top:1px solid #AAAAAA;}
+		#documenter_sidebar ol a{border-top:1px solid #EEEEEE;border-bottom:1px solid #AAAAAA;color:#444444;}
+		#documenter_sidebar ol a:hover{background:#444444;color:#DDDDDD;border-top:1px solid #444444;}
+		#documenter_sidebar ol a.current{background:#444444;color:#DDDDDD;border-top:1px solid #444444;}
+		#documenter_copyright{display:block !important;visibility:visible !important;}
+	</style>
+		<script src="js/jquery.1.6.4.js"></script>
+	
+	<script src="js/jquery.scrollTo-1.4.2-min.js"></script>
+	<script src="js/jquery.easing.js"></script>
+	
+	<link rel="stylesheet" href="css/shDocumenter.css" media="screen">
+	<script src="js/shCore.js"></script>
+	<script src="js/shBrushCss.js"></script>
+	<script src="js/shBrushXml.js"></script>
+	<script src="js/shBrushJScript.js"></script>
+	<script src="js/shBrushPhp.js"></script>
+	<script>SyntaxHighlighter.defaults['toolbar'] = false;SyntaxHighlighter.all();</script>
+
+	<script>document.createElement('section');var duration=500,easing='swing';</script>
+	<script src="js/script.js"></script>
+	
+</head>
+<body>
+	<div id="documenter_sidebar">
+		<a href="#documenter_cover" id="documenter_logo"></a>
+		<ol id="documenter_nav">
+			<li><a class="current" href="#documenter_cover">Start - Files</a></li>
+			<li><a href="#images">Images</a></li>
+			<li><a href="#countdown">Countdown</a></li>
+			<li><a href="#icons">Icons</a></li>
+			<li><a href="#sub">Subscribe mailchimp</a></li>
+			<li><a href="#contact_form">Contact form</a></li>
+			<li><a href="#video">Video background</a></li>
+			<li><a href="#sources_credits">Sources & Credits</a></li>
+			<li><a href="#thanks">Thanks</a></li>
+
+		</ol>
+	</div>
+	<div id="documenter_content">
+
+	<section id="documenter_cover"><h1>Orbitex </h1><h2>  Concept Responsive Coming Soon Template </h2><hr><ul><li>Created: 12/03/2015</li><li>latest Update: 12/03/2015</li><li>By: KWST</li><li><a href="http://themeforest.net/user/kwst"></a></li><li>Email: <a href="mailto:support@kwst.net">support@kwst.net</a></li></ul>
+	<p>Thanks for purchasing tempalte and for supporting my work. Orbitex - Concept Responsive Coming Soon Template . This documentation will not teach you HTML & CSS, it's just showcase of custom elements used in template. This site template has 6 options background: static background, audio background, animated slideshow , slideshow , video background (youtube or vimeo) . Also included in the archive selection page version. It is located in the folder "intro". </p>
+	<p><strong style="color:red"> Very important !</strong> In order to work php scripts (contact form)  ,video background (youtube or vimeo) and subscribe form   - your site files must reside on the local host or server. In turn, you can easily edit any page (all JavaScript files will work).</p>
+
+<br><br><h3>Files</h3><hr class="notop"><br>
+<p>All site files are divided into folders:<br><br>
+<strong>css folder</strong> - css files that are responsible for the style themes.<br>
+<strong>js folder</strong> - javascript files.<br>
+<strong>php folder</strong> - php files.<br>
+<strong>images folder</strong> - folder that contains all images.<br>
+<strong>fonts folder</strong> - folder that contains  fonts plugin "Font-Awesome".<br>
+<strong>audio</strong> - folder that contains  all audio files.<br>
+</p>
+
+
+</section>
+
+<section id="images">	
+<h3>Images</h3><hr class="notop">
+<p>All images are in the folder "images".<br>       
+</p>
+<br>
+<h3>How to add and change the background image</h3>
+
+<p>To change the background you can simply change the path in the style rendered in html code, for example : </p>
+<pre class="brush: html">
+ 
+	<div class="swiper-slide slide-bg" style="background:url(images/bg/1.jpg)">
+		
+</pre>
+ 
+ <p>For slideshow : </p>
+ <pre class="brush: html">
+ 
+	<div style="background-image: url('images/bg/1.jpg');" class="slides-fullscreen-img">
+		
+</pre>
+</section>
+<section id="countdown">
+<h3>Countdown</h3><hr class="notop">
+
+<p>To configure the countdown to find the file <span style="color:red">'scripts.js'</span>, it is located in the folder 'js'. In it, find the line date: <span style="color:red">'09/12/2015', // your date</span></p>
+<pre class="brush: js">
+
+    $(".countdown").downCount({
+        date: "09/12/2015", //your date
+        offset: 0
+    });
+
+
+
+</pre>
+
+
+
+
+</section>
+<section id="icons">
+	<h3>Icons</h3><hr class="notop">
+<p>	All  icons are generated by the plugin <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">"Font-Awesome"</a>. List of all the icons can be found <a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">here</a>. 
+<br>
+To change the icon, you have to copy and paste the code icon at the right place for you. Icons size-five . Read the documentation plugin - it is described in detail how to change the icons size.
+
+</p>
+<p>For example: </p>
+<pre class="brush: html">
+
+<div class="social-links">
+	<ul>
+		<li><a href="#" target="_blank"  class="transition"><i class="fa fa-facebook-square fa-2x"></i><span>Facebook</span></a></li> - increased twice
+		<li><a href="#" target="_blank" class="transition"><i class="fa fa-dribbble fa-3x"></i><span>Dribbble</span></a></li> - tripled
+		<li><a href="#" target="_blank" class="transition"><i class="fa fa-twitter fa-4x"></i><span>Twitter</span></a></li> - quadrupled
+	</ul>
+</div>
+
+</pre>
+
+<p>&nbsp;
+	</p>
+</section>
+
+
+<section id="sub">
+<h3>Subscribe mailchimp</h3><hr class="notop">
+
+ 
+<p>  To set up the subscription form, you must perform the following steps :</p>
+<p>
+1. Sign up  on <a href="http://mailchimp.com/" target="_blank">mailchimp</a> . It's free.	
+<br>
+2. Next, open the 	  <strong style="color:red">Lists --- Signup forms --- Embedded forms </strong> 
+<br>
+3. Locate the folder js  file <strong>scripts.js</strong> and open it with your text editor.	
+<br>
+4.In this file, you should find a code :
+<br>
+ </p>
+<pre class="brush: js">
+//=============== subscribe form  ==============
+    // Example MailChimp url: http://xxx.xxx.list-manage.com/subscribe/post?u=xxx&id=xxx
+ 
+    $('#subscribe').ajaxChimp({
+        language: 'eng',
+        url: 'http://kwst.us9.list-manage1.com/subscribe/post?u=992ebe1f14864e841317ca145&id=163340d9c8'
+    });
+
+    // Mailchimp translation
+    //
+    // Defaults:
+    //'submit': 'Submitting...',
+    //  0: 'We have sent you a confirmation email',
+    //  1: 'Please enter a value',
+    //  2: 'An email address must contain a single @',
+    //  3: 'The domain portion of the email address is invalid (the portion after the @: )',
+    //  4: 'The username portion of the email address is invalid (the portion before the @: )',
+    //  5: 'This email address looks fake or invalid. Please enter a real email address'
+
+    $.ajaxChimp.translations.eng = {
+        'submit': 'Submitting...',
+        0: '<i class="fa fa-check"></i> We will be in touch soon!',
+        1: '<i class="fa fa-warning"></i> You must enter a valid e-mail address.',
+        2: '<i class="fa fa-warning"></i> E-mail address is not valid.',
+        3: '<i class="fa fa-warning"></i> E-mail address is not valid.',
+        4: '<i class="fa fa-warning"></i> E-mail address is not valid.',
+        5: '<i class="fa fa-warning"></i> E-mail address is not valid.'
+    }
+</pre>
+ 
+<p> 5.In the form  <strong style="color:red">Copy/paste onto your site </strong> copy code <strong style="color:red">"http://xxx.xxx.list-manage.com/subscribe/post?u=xxx&id=xxx" </strong> copy of the code and substitute your own values instead "xxx"  For example : </p>
+
+<pre class="brush: js">
+
+ 
+    $('#subscribe').ajaxChimp({
+        language: 'eng',
+        url: 'http://kwst.us9.list-manage1.com/subscribe/post?u=992ebe1f14864e841317ca145&id=163340d9c8'
+    });
+
+</pre>
+
+ </section>	
+
+<section id="contact_form">
+	<h3>Contact Form</h3><hr class="notop">
+<p>
+Find the file "contact_me" in the folder <strong>php</strong> . In this file, find the line <strong style="color:red">$to_Email = "myemail@gmail.com";</strong> and add you e-mail.</p> 
+<p>How to forward mail to your mailbox ask your Hosting Service Provider. Because providers use different control panel site and I find it hard to predict what you use. Server side script for sending emails is in "contact_me.php" . Ajax submit is initialized in "scripts.js" file.</p>
+<p>&nbsp;
+	</p>
+	
+<pre class="brush: js">
+
+    $("#contactform").submit(function() {
+        var a = $(this).attr("action");
+        $("#message").slideUp(750, function() {
+            $("#message").hide();
+            $("#submit").attr("disabled", "disabled");
+            $.post(a, {
+                name: $("#name").val(),
+                email: $("#email").val(),
+                comments: $("#comments").val()
+            }, function(a) {
+                document.getElementById("message").innerHTML = a;
+                $("#message").slideDown("slow");
+                $("#submit").removeAttr("disabled");
+                if (null != a.match("success")) $("#contactform").slideDown("slow");
+            });
+        });
+        return false;
+    });
+    $("#contactform input, #contactform textarea").keyup(function() {
+        $("#message").slideUp(1500);
+    });
+
+</pre>
+</section>
+
+
+<section id="video">
+
+	<h3>Video background</h3><hr class="notop">
+	<p>A video is played using YouTube or vimeo</p>
+<p>To add background YouTube  video, follow these steps:</p>
+<p>
+1.Open file "index.html" with your text editor;<br>
+</p>
+<p>
+2. Find the line:
+</p>
+<pre class="brush: js">
+ 
+
+var vstring = 'hQfNtnKm5nA'; // YouTube Video ID here
+
+
+</pre> 
+3. Find the line<strong> 'hQfNtnKm5nA',</strong> and  in single quotes add youtube code<br>
+</p>
+
+<h3>How to find video code?</h3>
+<p><br>
+1. Go to <a href="http://www.youtube.com/" target="_blank">Youtube</a>.<br>
+2.Under video click to share.<br>
+3. In the screen that appears after <span style="color:red">http://youtu.be/</span>  copy and replace the code.<br>
+</p>
+
+<p>And yet the video does not play on smartphones :( - so if a user comes to your site from a mobile browser - the background is replaced by a picture :)
+	</p>
+<p>&nbsp;
+	</p>
+<p>To add background Vimeo  video, follow these steps:</p>
+<p>
+1.Open file "index.html" with your text editor;<br>
+</p>
+<p>
+2. Find the line:
+</p>
+<pre class="brush: html">
+ 
+<iframe src="http://player.vimeo.com/video/33560900?autoplay=1&amp;loop=1" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+</pre> 
+3. Find the line<strong> '33560900',</strong> and  replace on your vimeo code<br>
+</p>
+</section>
+<section id="sources_credits">
+	<h3>Sources & Credits</h3><hr class="notop">
+<p>
+	<strong>Fonts</strong><br>
+	http://www.google.com/fonts<br>
+	<br><br>
+
+	<strong>Images</strong><br>
+	wallpaperswide<br>
+	http://wallpaperswide.com/1920x1080-wallpapers-r.html
+
+<p>
+	<strong>Icons</strong><br>
+		Font-Awesome<br>
+	http://fortawesome.github.io/Font-Awesome/</p>
+<p>
+<strong>Javascripts </strong><br><br>
+
+	<strong>JQuery</strong><br>
+	http://jquery.com</p>
+		<p>
+	<strong> gsap</strong><br>
+	http://greensock.com/jquery-gsap-plugin#</p>	
+<p>
+	<strong>JQuery Easing</strong><br>
+	http://gsgd.co.uk/sandbox/jquery/easing/</p>
+
+		<p>
+	<strong> DownCount</strong><br>
+	http://asonnyt.com</p>	
+
+		<p>
+	<strong> Swiper</strong><br>
+	http://www.idangero.us/sliders/swiper/</p>		
+</section>
+<section id="thanks">
+	<h3>Thanks</h3><hr class="notop">
+<p>
+	Thanks for purchasing template and for supporting my work. If we fail here in this documentation, please e-mail me  <a href="mailto:support@kwst.net">support@kwst.net</a>. If you have a spare time, please go and rate my template. I will apreciate that.</p>
+<p>
+	Thanks</p>
+</section>
+
+	</div>
+</body>
+</html>
