@@ -1,19 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Quentin
- * Date: 28/06/2015
- * Time: 16:31
- */
 
-namespace app\src;
+namespace Webtv;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Models\ExpLevel;
 
 class ExperienceManager
 {
     protected $mnBetweenReq;
     protected $user;
+    protected $xpPerRequest;
 
     public function __construct($minutesBetweenRequest)
     {
@@ -79,5 +76,28 @@ class ExperienceManager
     public function levelUp()
     {
 
+    }
+
+    public function generateExperienceSystem()
+    {
+        $maxLevel = env('MAX_LEVEL');
+        $xpFirstLevel = 100;
+        $xpLastLevel = $xpFirstLevel * $maxLevel * 1000;
+
+        $B = log((double)$xpLastLevel / (double)$xpFirstLevel) / ($maxLevel - 1);
+        $A = (double)$xpFirstLevel / (exp($B) - 1.0);
+
+        $data = [];
+        for ($level = 1; $level <= $maxLevel; $level++) {
+            $oldXp = round($A * exp($B * ($level - 1)));
+            $newXp = round($A * exp($B * $level));
+            $data[] = [
+                'level'      => $level,
+                'experience' => ($newXp - $oldXp)
+            ];
+        }
+        dd($data);
+        ExpLevel::truncate();
+        ExpLevel::insert($data);
     }
 }
