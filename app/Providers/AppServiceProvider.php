@@ -1,10 +1,10 @@
 <?php namespace App\Providers;
 
-use app\src\ExperienceManager;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\ServiceProvider;
-use Webtv\StreamingUser;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
+use Webtv\ExperienceManager;
+use Webtv\StreamingUser;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,11 +22,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->singleton('StreamingUser', function ($app) {
-            return new StreamingUser($_ENV['STREAMING_USERS_CACHE']);
+            return new StreamingUser(env('STREAMING_USERS_CACHE'));
         });
         $this->app->singleton('ExperienceManager', function ($app) {
-            return new ExperienceManager($_ENV['EXP_REQUEST_TIME']);
+            return new ExperienceManager(env('EXP_REQUEST_INTERVAL'));
         });
+
+        $expTest = $this->app->make('ExperienceManager');
+        $expTest->generateExperienceSystem();
 
         $StreamingUser = $this->app->make('StreamingUser');
         $StreamingUser->update();

@@ -51,7 +51,7 @@ class StreamingUser
 
     public function __construct()
     {
-        $this->expirationTime = $_ENV['STREAMING_USERS_CACHE'];
+        $this->expirationTime = env('STREAMING_USERS_CACHE');
         $this->users = null;
     }
 

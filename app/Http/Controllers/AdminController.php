@@ -58,8 +58,8 @@ class AdminController extends BaseController
             } else {
                 $roles = Request::input('roles');
             }
-            if ($user_id === $input_id && !in_array($_ENV['ROLE_ADMIN'], $roles, false)) {
-                $roles[] = $_ENV['ROLE_ADMIN'];
+            if ($user_id === $input_id && !in_array(env('ROLE_ADMIN'), $roles, false)) {
+                $roles[] = env('ROLE_ADMIN');
                 $error = true;
             }
 
