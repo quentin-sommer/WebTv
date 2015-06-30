@@ -76,10 +76,11 @@ class UgoTableSeeder extends Seeder
 
         $event = new Event();
         $event->title = 'Hugo';
-        $event->start = '2015-06-26T12:30:00';
-        $event->end = '2015-06-26T15:30:00';
+        $event->start = '2015-06-26T12:30:00+02:00';
+        $event->end = '2015-06-26T15:30:00+02:00';
         $event->allDay = 'false';
         $event->color = '#FF0000';
+        $event->timezone = '+02:00';
         $event->save();
         $this->command->info('Test event created');
     }

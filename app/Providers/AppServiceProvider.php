@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $expTest = $this->app->make('ExperienceManager');
         $expTest->generateExperienceSystem();
 
+
         $StreamingUser = $this->app->make('StreamingUser');
         $StreamingUser->update();
         $users = $StreamingUser->getAll();

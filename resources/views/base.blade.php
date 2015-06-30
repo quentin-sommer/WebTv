@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="{{ url('assets/bootstrap-3.3.4/css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ url('assets/bootstrap-toggle/css/bootstrap-toggle.min.css') }}"/>
     @yield('head')
+    <style>
+        .col-centered {
+            float: none;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
 @if(Auth::check())
@@ -17,7 +23,9 @@
 @else
     <p><a href="{{route('getLogin')}}">connect</a></p>
 @endif
-@yield('content')
+<div class="container">
+    @yield('content')
+</div>
 <footer>
     @yield('footer')
 </footer>

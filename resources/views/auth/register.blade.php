@@ -1,6 +1,7 @@
 @extends('single')
 @section('title','Inscription')
 @section('content')
+    <div class="col-md-6 col-centered">
             <form action="{{route('postRegister')}}" method="post">
                 <legend>Inscription</legend>
                 <div class="form-group @if($errors->has('login')) has-error @endif">
@@ -37,6 +38,7 @@
 
                 <button type="submit" class="btn btn-primary pull-right">Créer un compte</button>
             </form>
+    </div>
 @stop
 @section('footer')
 @stop

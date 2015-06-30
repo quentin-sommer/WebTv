@@ -1,6 +1,7 @@
 @extends('single')
 @section('title','Profile')
 @section('content')
+    <div class="col-md-6 col-centered">
         <form action="{{route('postProfile')}}" method="post">
             <legend>Editer les informations</legend>
             <div class="form-group @if($errors->has('email')) has-error @endif">
@@ -49,4 +50,5 @@
 
             <button type="submit" class="btn btn-primary pull-right">Sauvegarder</button>
         </form>
+    </div>
 @stop

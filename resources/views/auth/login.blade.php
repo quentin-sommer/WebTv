@@ -1,6 +1,7 @@
 @extends('single')
 @section('title','Login')
 @section('content')
+    <div class="col-md-6 col-centered">
             <form action="{{route('postLogin')}}" method="post">
                 <legend>Connexion</legend>
 
@@ -29,6 +30,7 @@
                 <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                 <button type="submit" class="btn btn-primary pull-right">Se connecter</button>
             </form>
+    </div>
 @stop
 @section('footer')
 @stop

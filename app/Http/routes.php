@@ -103,9 +103,9 @@ $app->group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers', 'middle
         'as'   => 'postDeleteUser',
         'uses' => 'AdminController@postDeleteUser'
     ]);
-    $app->post('calendar', [
-        'as'   => 'postCalendar',
-        'uses' => 'CalendarController@postCalendar'
+    $app->post('calendar/addEvent', [
+        'as'   => 'calendarAddEvent',
+        'uses' => 'CalendarController@addEvent'
     ]);
     $app->post('calendar/edit', [
         'as'   => 'calendarEdit',

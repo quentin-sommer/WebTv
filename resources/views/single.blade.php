@@ -18,20 +18,12 @@
 @else
     <p><a href="{{route('getLogin')}}">connect</a></p>
 @endif
-
+@include('partials.errorDisplay')
 <div class="container">
-    <div class="col-md-6 col-centered">
-        @if(Session::has('error'))
-            <div class="alert alert-danger" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only">Erreur:</span>
-                {{Session::get('error')}}
-            </div>
-        @endif
+    <div class="col-md-12">
         @yield('content')
     </div>
 </div>
-
 <footer>
     @yield('footer')
 </footer>

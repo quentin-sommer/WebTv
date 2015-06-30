@@ -1,13 +1,9 @@
-@extends('base')
+@extends('single')
 @section('title','Admin - Users')
 @section('head')
 @stop
 @section('content')
     <style>
-        .col-centered {
-            float: none;
-            margin: 0 auto;
-        }
         form {
             display: inline;
         }
@@ -18,15 +14,7 @@
             <li>{{$streamingUser->login}}</li>
         @endforeach
     </ul>
-    <div class="container">
         <div class="col-md-12 col-centered">
-            @if(Session::has('error'))
-                <div class="alert alert-danger" role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Erreur:</span>
-                    {{ Session::get('error') }}
-                </div>
-            @endif
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead>
@@ -96,7 +84,6 @@
                 {!!$users->render()!!}
             </div>
         </div>
-    </div>
 @stop
 @section('footer')
 @stop

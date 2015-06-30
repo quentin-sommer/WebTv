@@ -42,10 +42,12 @@ class UserController extends BaseController
         if (Auth::attempt($credentials, $request->input('remember'))) {
             if ($path = session('path')) {
                 return redirect($path);
-            } else {
+            }
+            else {
                 return redirect(route('getProfile'));
             }
-        } else {
+        }
+        else {
             return redirect()->back()
                 ->with('error', 'Nom d\'utilisateur ou mot de passe incorrect')
                 ->withInput($request->except('password'));
@@ -90,7 +92,7 @@ class UserController extends BaseController
 
     public function getProfile()
     {
-        return view('user.profile', [
+         return view('user.profile', [
             'user'     => Auth::user(),
             'streamer' => Auth::user()->isStreamer()
         ]);

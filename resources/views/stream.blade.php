@@ -1,8 +1,6 @@
 @extends('single')
 @section('title',$streamingUser->twitch_channel)
 @section('content')
-    <div class="container">
-       <!-- <div class="col-md-12 col-centered"> -->
             <div class="col-md-9">
                 <object bgcolor="#000000"
                         data="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf"
@@ -31,6 +29,4 @@
                     width="400">
             </iframe>
             </div>
-        </div>
-   <!-- </div> -->
 @stop

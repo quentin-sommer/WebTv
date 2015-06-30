@@ -1,4 +1,4 @@
-@extends('single')
+@extends('base')
 @section('title','Accueil')
 @section('head')
     @parent
@@ -177,47 +177,6 @@
                         <div class="container">
                             <section>
                                 <div class="content-inner">
-
-                                    <div style="background-color: red">
-                                        <iframe frameborder="0"
-                                                scrolling="no"
-                                                src="http://www.twitch.tv/imaqtpie/embed"
-                                                height="380px"
-                                                width="620px">
-                                        </iframe>
-                                    </div>
-                                    <!--<div style="z-index: 20;">
-                                    <object bgcolor="#000000"
-                                            data="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf"
-                                            height="378"
-                                            type="application/x-shockwave-flash"
-                                            width="615">
-                                        <param name="allowFullScreen" value="true" />
-                                        <param name="allowScriptAccess" value="always" />
-                                        <param name="allowNetworking" value="all" />
-                                        <param name="movie" value="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf" />
-                                        <param name="flashvars" value="hostname=www.twitch.tv&channel=fureurwebtv&auto_play=false&start_volume=25" />
-                                    </object>
-                                    </div>
-                                    <div style="height: 800px; width: 800px">
-                                        <object bgcolor="#000000"
-                                                data="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf"
-                                                height="100%"
-                                                type="application/x-shockwave-flash"
-                                                width="100%"
-                                                >
-                                            <param name="allowFullScreen"
-                                                   value="true"/>
-                                            <param name="allowNetworking"
-                                                   value="all"/>
-                                            <param name="allowScriptAccess"
-                                                   value="always"/>
-                                            <param name="movie"
-                                                   value="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf"/>
-                                            <param name="flashvars"
-                                                   value="channel=riotgames&auto_play=false&start_volume=25"/>
-                                        </object>
-                                    </div>-->
                                 </div>
                             </section>
 

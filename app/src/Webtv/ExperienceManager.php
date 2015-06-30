@@ -37,8 +37,10 @@ class ExperienceManager
             'level_up'      => ''/*boolean */
         ];
     }
-
-    private function requestIsValid($data)
+    public function test()
+    {
+    }
+    private function requestIsValid(Array $data)
     {
         if ($data['token'] !== $this->user->experience_token) {
             return false;
@@ -96,7 +98,6 @@ class ExperienceManager
                 'experience' => ($newXp - $oldXp)
             ];
         }
-        dd($data);
         ExpLevel::truncate();
         ExpLevel::insert($data);
     }
