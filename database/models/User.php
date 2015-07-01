@@ -14,9 +14,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     protected $streamingUser;
 
-    public function __construct()
+    public function __construct(StreamingUserService $sus)
     {
-        $this->streamingUser = app('StreamingUser');
+        $this->streamingUser = $sus;
     }
 
     protected $guarded = ['remember_token', 'created_at', 'updated_at'];

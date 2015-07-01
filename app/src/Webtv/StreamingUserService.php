@@ -5,7 +5,7 @@ namespace Webtv;
 use Illuminate\Support\Facades\Cache;
 use Models\User as User;
 
-class StreamingUser
+class StreamingUserService
 {
     protected $expirationTime;
     protected $users;

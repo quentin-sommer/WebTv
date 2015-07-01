@@ -21,7 +21,7 @@ class AdminController extends BaseController
 
     public function __construct()
     {
-        $this->streamingUser = App::make('StreamingUser');
+        $this->streamingUser = App::make('StreamingUserService');
     }
 
     public function getDashboard()

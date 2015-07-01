@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Webtv\ExperienceManager;
-use Webtv\StreamingUser;
+use Webtv\StreamingUserService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->singleton('StreamingUser', function ($app) {
-            return new StreamingUser();
+        $this->app->singleton('StreamingUserService', function ($app) {
+            return new StreamingUserService();
         });
         $this->app->singleton('ExperienceManager', function ($app) {
             return new ExperienceManager();
@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $expTest->generateExperienceSystem();
 
 
-        $StreamingUser = $this->app->make('StreamingUser');
+        $StreamingUser = $this->app->make('StreamingUserService');
         $StreamingUser->update();
         $users = $StreamingUser->getAll();
 

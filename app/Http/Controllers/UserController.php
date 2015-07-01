@@ -11,9 +11,9 @@ class UserController extends BaseController
 {
     protected $streamingUser;
 
-    public function __construct()
+    public function __construct(StreamingUserService $sus)
     {
-        $this->streamingUser = app('StreamingUser');
+        $this->streamingUser = $sus;
     }
 
     public function getLogin()
