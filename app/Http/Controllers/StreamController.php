@@ -2,11 +2,12 @@
 
 namespace app\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Webtv\ExperienceManager;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\JsonResponse;
+use Webtv\StreamingUserService;
 
 class StreamController extends BaseController
 {
@@ -31,19 +32,40 @@ class StreamController extends BaseController
 
     public function startWatching(ExperienceManager $experienceManager)
     {
-       $experienceManager->startWatching();
-    }
-
-    public function updateExperience(ExperienceManager $experienceManager)
-    {
         $validator = Validator::make(Request::all(), [
-            'token' => 'required'
+            'streamer' => 'required'
         ]);
 
         if ($validator->fails()) {
             return new JsonResponse($validator->errors(), 422);
         }
+        if ($this->streamingUser->has(Request::input('streamer'))) {
+            $data = $experienceManager->startWatching();
+            $status = 200;
+        }
+        else {
+            // Error : no streaming in progress,
+            $status = 400;
+        }
 
-        $res = $experienceManager->processExpRequest(Request::all());
+        return new JsonResponse($data, $status);
+    }
+
+    public function updateExperience(ExperienceManager $experienceManager)
+    {
+        $validator = Validator::make(Request::all(), [
+            'token'    => 'required',
+            'streamer' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return new JsonResponse($validator->errors(), 422);
+        }
+        if ($this->streamingUser->has(Request::input('streamer'))) {
+            $res = $experienceManager->processExpRequest(Request::all());
+        }
+        else {
+            // Error : no streaming in progress,
+        }
     }
 }

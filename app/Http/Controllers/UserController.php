@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash as Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Models\User as User;
+use Webtv\StreamingUserService;
 
 class UserController extends BaseController
 {
@@ -92,7 +93,7 @@ class UserController extends BaseController
 
     public function getProfile()
     {
-         return view('user.profile', [
+        return view('user.profile', [
             'user'     => Auth::user(),
             'streamer' => Auth::user()->isStreamer()
         ]);

@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Webtv\StreamingUserService;
-use Illuminate\Support\Facades\Hash;
 
 class MainController extends BaseController
 {

@@ -8,14 +8,17 @@
 
 namespace app\Http\Controllers;
 
+use Webtv\StreamingUserService;
+
 class ExperienceController
 {
 
     protected $experienceManager;
-
-    public function __construct()
+    protected $streamingUser;
+    public function __construct(StreamingUserService $sus)
     {
         $this->experienceManager = app('ExperienceManager');
+        $this->streamingUser = $sus;
     }
 
     public function startWatching()

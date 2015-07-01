@@ -76,14 +76,14 @@ class ExperienceManager
 
         $this->user->save();
 
-        dd([
+        return [
             'token'         => $token,
             'nextXpRequest' => $this->mnBetweenReq,
             'level'         => $level,
             'exp'           => $experience,
             'progression'   => $progression,
             'level_up'      => ($levelUp ? true : false)
-        ]);
+        ];
     }
 
     private function updateExperience($data)
@@ -140,6 +140,7 @@ class ExperienceManager
 
     private function requestIsValid(Array $data)
     {
+
         if ($data['token'] !== $this->user->experience_token) {
             return self::INVALID;
         }

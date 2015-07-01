@@ -7,16 +7,14 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
+use Webtv\StreamingUserService;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
 
-    protected $streamingUser;
-
-    public function __construct(StreamingUserService $sus)
+    public function __construct()
     {
-        $this->streamingUser = $sus;
     }
 
     protected $guarded = ['remember_token', 'created_at', 'updated_at'];
@@ -83,14 +81,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $this->streaming = 1;
         $this->save();
-        $this->streamingUser->update();
     }
 
     public function stopStreaming()
     {
         $this->streaming = 0;
         $this->save();
-        $this->streamingUser->update();
     }
 
     public function hasRole($id)
