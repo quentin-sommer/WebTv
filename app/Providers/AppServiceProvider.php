@@ -22,10 +22,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->singleton('StreamingUser', function ($app) {
-            return new StreamingUser(env('STREAMING_USERS_CACHE'));
+            return new StreamingUser();
         });
         $this->app->singleton('ExperienceManager', function ($app) {
-            return new ExperienceManager(env('EXP_REQUEST_INTERVAL'));
+            return new ExperienceManager();
         });
 
         $expTest = $this->app->make('ExperienceManager');
