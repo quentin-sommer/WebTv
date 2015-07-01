@@ -42,17 +42,14 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'guest'], fu
         'as'   => 'getLogin',
         'uses' => 'UserController@getLogin'
     ]);
-
     $app->post('login', [
         'as'   => 'postLogin',
         'uses' => 'UserController@postLogin'
     ]);
-
     $app->get('register', [
         'as'   => 'getRegister',
         'uses' => 'UserController@getRegister'
     ]);
-
     $app->post('register', [
         'as'   => 'postRegister',
         'uses' => 'UserController@postRegister'
@@ -67,15 +64,21 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fun
         'as'   => 'getProfile',
         'uses' => 'UserController@getProfile'
     ]);
-
     $app->post('profile', [
         'as'   => 'postProfile',
         'uses' => 'UserController@postProfile'
     ]);
-
     $app->get('logout', [
         'as'   => 'logout',
         'uses' => 'UserController@logout'
+    ]);
+    $app->get('stream/experience/startWatching', [
+        'as'   => 'startWatching',
+        'uses' => 'StreamController@startWatching'
+    ]);
+    $app->get('stream/experience/update', [
+        'as'   => 'processExpRequest',
+        'uses' => 'StreamController@updateExperience'
     ]);
 });
 /*
