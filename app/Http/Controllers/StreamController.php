@@ -51,7 +51,7 @@ class StreamController extends BaseController
         return new JsonResponse($data, $status);
     }
 
-    public function updateExperience(ExperienceManager $experienceManager)
+    public function updateWatching(ExperienceManager $experienceManager)
     {
         $validator = Validator::make(Request::all(), [
             'token'    => 'required',
@@ -67,5 +67,11 @@ class StreamController extends BaseController
         else {
             // Error : no streaming in progress,
         }
+
+        if (is_null($res)) {
+            return new JsonResponse(null, 400);
+        }
+
+        return new JsonResponse($res, 200);
     }
 }

@@ -122,8 +122,8 @@ class ExperienceManager
         switch ($this->requestIsValid($data)) {
             case(self::OK) :
 
-                return $this->updateExperience($data);
                 // Update user experience, send new token and user info
+                return $this->updateExperience($data);
                 break;
             case(self::NEED_RESYNC) :
 

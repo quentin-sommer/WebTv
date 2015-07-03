@@ -72,13 +72,13 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fun
         'as'   => 'logout',
         'uses' => 'UserController@logout'
     ]);
-    $app->get('stream/experience/startWatching', [
+    $app->post('stream/experience/startWatching', [
         'as'   => 'startWatching',
         'uses' => 'StreamController@startWatching'
     ]);
-    $app->get('stream/experience/update', [
-        'as'   => 'processExpRequest',
-        'uses' => 'StreamController@updateExperience'
+    $app->post('stream/experience/update', [
+        'as'   => 'updateWatching',
+        'uses' => 'StreamController@updateWatching'
     ]);
 });
 /*
