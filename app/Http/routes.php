@@ -20,6 +20,14 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($group) use ($app
         'as'   => 'getIndex',
         'uses' => 'MainController@getMain'
     ]);
+    $app->get('streams', [
+        'as'   => 'streams',
+        'uses' => 'StreamController@getAll'
+    ]);
+    $app->post('stream/search', [
+        'as'   => 'postStreamSearch',
+        'uses' => 'StreamController@postSearch'
+    ]);
     $app->get('stream/{streamerName}', [
         'as'   => 'getStream',
         'uses' => 'StreamController@getStream'

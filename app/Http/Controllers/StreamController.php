@@ -30,6 +30,39 @@ class StreamController extends BaseController
         // redirect to offline page
     }
 
+    public function postSearch()
+    {
+        $validator = Validator::make(Request::all(), [
+            'query' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
+        dump(Request::input('query'));
+        if(Request::input('all') !== null) {
+            dump($this->streamingUser->searchAll(Request::input('query'))->toArray());
+        }
+        else {
+            dump($this->streamingUser->searchStreaming(Request::input('query'))->toArray());
+        }
+        dd(Request::input('all'));
+    }
+
+    public function getAll()
+    {
+
+    }
+
+    /****************************************
+     * Experience system related functions
+     ***************************************/
+
+    /**
+     * @param ExperienceManager $experienceManager
+     * @return JsonResponse
+     */
     public function startWatching(ExperienceManager $experienceManager)
     {
         $validator = Validator::make(Request::all(), [
@@ -51,6 +84,10 @@ class StreamController extends BaseController
         return new JsonResponse($data, $status);
     }
 
+    /**
+     * @param ExperienceManager $experienceManager
+     * @return JsonResponse
+     */
     public function updateWatching(ExperienceManager $experienceManager)
     {
         $validator = Validator::make(Request::all(), [
@@ -74,4 +111,7 @@ class StreamController extends BaseController
 
         return new JsonResponse($res, 200);
     }
+    /****************************************
+     * END Experience system related functions
+     ***************************************/
 }

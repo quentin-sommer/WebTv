@@ -60,6 +60,10 @@ class ExperienceManager
         $this->user = Auth::user();
     }
 
+    /**
+     * @param null $levelUp set by updateExperience()
+     * @return array
+     */
     public function startWatching($levelUp = null)
     {
         $token = str_random(40);
@@ -169,11 +173,6 @@ class ExperienceManager
         return self::INVALID;
     }
 
-    public function levelUp()
-    {
-
-    }
-
     public function generateExperienceSystem()
     {
         $xpFirstLevel = 100;
@@ -191,7 +190,7 @@ class ExperienceManager
                 'experience' => ($newXp - $oldXp)
             ];
         }
-        ExpLevel::truncate();
-        ExpLevel::insert($data);
+
+        return $data;
     }
 }

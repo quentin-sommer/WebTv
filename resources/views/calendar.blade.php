@@ -7,8 +7,8 @@
 @stop
 @section('content')
     <div class="col-md-6 col-centered">
-        @include('partials.newCalendarEvent')
     <div id="calendar"></div>
+        @include('partials.newCalendarEvent')
     </div>
 @stop
 @section('endBody')
