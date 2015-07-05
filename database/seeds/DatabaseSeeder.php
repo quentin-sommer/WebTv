@@ -5,8 +5,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Models\Event;
+use Models\ExpLevel;
 use Models\Role;
 use Models\User;
+use Webtv\ExperienceManager;
 
 class DatabaseSeeder extends Seeder
 {
@@ -48,16 +50,25 @@ class UgoTableSeeder extends Seeder
         $uQ->twitch_channel = 'quentin';
         $uQ->save();
 
-        for ($i = 0; $i < 25; $i++) {
+        $data = [];
+        for ($i = 0; $i < 110; $i++) {
+
             $username = $faker->unique()->username;
-            $u = new User();
+
+            $data[] = [
+                'login'    => $username,
+                'email'    => $faker->unique()->freeEmail,
+                'password' => Hash::make($username)
+            ];
+            /*$u = new User();
             $u->login = $username;
             $u->email = $faker->unique()->freeEmail;
             $u->password = Hash::make($username);
             $u->streaming = 0;
             $u->twitch_channel = $i;
-            $u->save();
+            $u->save();*/
         }
+        User::insert($data);
 
         $this->command->info('Users created');
 
@@ -70,8 +81,25 @@ class UgoTableSeeder extends Seeder
         $streamer->save();
 
         $this->command->info('Roles created');
-        $uQ->roles()->attach($admin->role_id);
-        $uQ->roles()->attach($streamer->role_id);
+        $uQ->becomeAdmin();
+        $uQ->becomeStreamer();
+
+        for ($i = 2; $i < 100; $i++) {
+            $u = User::find($i);
+            $u->becomeStreamer();
+            $u->twitch_channel = $u->login;
+
+            $rand = rand(0, 2);
+            $this->command->info($rand);
+            if ($rand == 0) {
+                $u->streaming = 1;
+            }
+            else {
+                $u->streaming = 0;
+            }
+            $u->save();
+        }
+
         $this->command->info('Roles attached');
 
         $event = new Event();
@@ -83,5 +111,12 @@ class UgoTableSeeder extends Seeder
         $event->timezone = '+02:00';
         $event->save();
         $this->command->info('Test event created');
+
+
+        $expManager = new ExperienceManager();
+        $data = $expManager->generateExperienceSystem();
+        ExpLevel::insert($data);
+        $this->command->info('Experience system initialized');
+
     }
 }
