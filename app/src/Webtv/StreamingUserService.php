@@ -11,26 +11,10 @@ class StreamingUserService
     protected $expirationTime;
     protected $users;
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getAll()
+    public function __construct()
     {
-        if ($this->users === null) {
-            $this->users = $this->retrieveData();
-        }
-
-        return $this->users;
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    private function retrieveData()
-    {
-        return Cache::remember('streamers', $this->expirationTime, function () {
-            return User::streamers()->where('streaming', '=', '1')->get();
-        });
+        $this->expirationTime = env('STREAMING_USERS_CACHE');
+        $this->users = null;
     }
 
     /**
@@ -54,6 +38,28 @@ class StreamingUserService
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getAll()
+    {
+        if ($this->users === null) {
+            $this->users = $this->retrieveData();
+        }
+
+        return $this->users;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function retrieveData()
+    {
+        return Cache::remember('streamers', $this->expirationTime, function () {
+            return User::streamers()->where('streaming', '=', '1')->get();
+        });
+    }
+
+    /**
      * @param $query string
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -73,6 +79,7 @@ class StreamingUserService
 
         return new Collection();
     }
+
     /**
      * @param $query string
      * @return \Illuminate\Database\Eloquent\Collection
@@ -102,12 +109,6 @@ class StreamingUserService
         Cache::forget('streamers');
         $this->users = null;
         $this->retrieveData();
-    }
-
-    public function __construct()
-    {
-        $this->expirationTime = env('STREAMING_USERS_CACHE');
-        $this->users = null;
     }
 
 }
