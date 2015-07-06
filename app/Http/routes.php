@@ -20,6 +20,14 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($group) use ($app
         'as'   => 'getIndex',
         'uses' => 'MainController@getMain'
     ]);
+    $app->get('streams', [
+        'as'   => 'streams',
+        'uses' => 'StreamController@getAll'
+    ]);
+    $app->post('stream/search', [
+        'as'   => 'postStreamSearch',
+        'uses' => 'StreamController@postSearch'
+    ]);
     $app->get('stream/{streamerName}', [
         'as'   => 'getStream',
         'uses' => 'StreamController@getStream'
@@ -42,17 +50,14 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'guest'], fu
         'as'   => 'getLogin',
         'uses' => 'UserController@getLogin'
     ]);
-
     $app->post('login', [
         'as'   => 'postLogin',
         'uses' => 'UserController@postLogin'
     ]);
-
     $app->get('register', [
         'as'   => 'getRegister',
         'uses' => 'UserController@getRegister'
     ]);
-
     $app->post('register', [
         'as'   => 'postRegister',
         'uses' => 'UserController@postRegister'
@@ -67,15 +72,25 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fun
         'as'   => 'getProfile',
         'uses' => 'UserController@getProfile'
     ]);
-
     $app->post('profile', [
         'as'   => 'postProfile',
         'uses' => 'UserController@postProfile'
     ]);
-
     $app->get('logout', [
         'as'   => 'logout',
         'uses' => 'UserController@logout'
+    ]);
+    $app->post('stream/experience/startWatching', [
+        'as'   => 'startWatching',
+        'uses' => 'StreamController@startWatching'
+    ]);
+    $app->post('stream/experience/update', [
+        'as'   => 'updateWatching',
+        'uses' => 'StreamController@updateWatching'
+    ]);
+    $app->get('avatar/delete', [
+       'as'=>'deleteAvatar',
+       'uses'=>'UserController@deleteAvatar'
     ]);
 });
 /*
@@ -103,9 +118,9 @@ $app->group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers', 'middle
         'as'   => 'postDeleteUser',
         'uses' => 'AdminController@postDeleteUser'
     ]);
-    $app->post('calendar', [
-        'as'   => 'postCalendar',
-        'uses' => 'CalendarController@postCalendar'
+    $app->post('calendar/addEvent', [
+        'as'   => 'calendarAddEvent',
+        'uses' => 'CalendarController@addEvent'
     ]);
     $app->post('calendar/edit', [
         'as'   => 'calendarEdit',

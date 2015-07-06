@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\View;
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 Dotenv::load(__DIR__ . '/../');
@@ -22,6 +20,9 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
+
+
+class_alias('Webtv\Facade\Avatar', 'Avatar');
 
 $app->withEloquent();
 
@@ -67,11 +68,10 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
-    'auth' => 'App\Http\Middleware\AuthMiddleware',
+    'auth'  => 'App\Http\Middleware\AuthMiddleware',
     'admin' => 'App\Http\Middleware\AdminMiddleware',
     'guest' => 'App\Http\Middleware\GuestMiddleware',
 ]);
-
 
 /*
 |--------------------------------------------------------------------------

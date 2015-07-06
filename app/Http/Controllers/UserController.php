@@ -6,14 +6,16 @@ use Illuminate\Support\Facades\Hash as Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Models\User as User;
+use Webtv\Facade\Avatar;
+use Webtv\StreamingUserService;
 
 class UserController extends BaseController
 {
     protected $streamingUser;
 
-    public function __construct()
+    public function __construct(StreamingUserService $sus)
     {
-        $this->streamingUser = app('StreamingUser');
+        $this->streamingUser = $sus;
     }
 
     public function getLogin()
@@ -29,7 +31,7 @@ class UserController extends BaseController
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
+            return redirect(route('getLogin'))
                 ->withErrors($validator->errors())
                 ->withInput();
         }
@@ -42,10 +44,12 @@ class UserController extends BaseController
         if (Auth::attempt($credentials, $request->input('remember'))) {
             if ($path = session('path')) {
                 return redirect($path);
-            } else {
+            }
+            else {
                 return redirect(route('getProfile'));
             }
-        } else {
+        }
+        else {
             return redirect()->back()
                 ->with('error', 'Nom d\'utilisateur ou mot de passe incorrect')
                 ->withInput($request->except('password'));
@@ -99,9 +103,10 @@ class UserController extends BaseController
     public function postProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password' => 'sometimes|min:6|max:25|confirmed',
-            'email'    => 'required|max:100|email',
-            'twitch'   => 'sometimes|twitch',
+            'password'   => 'sometimes|min:6|max:25|confirmed',
+            'email'      => 'required|max:100|email',
+            'twitch'     => 'sometimes|twitch',
+            'profilePic' => 'sometimes|image'
         ]);
 
         if ($validator->fails()) {
@@ -111,6 +116,14 @@ class UserController extends BaseController
         }
 
         $user = Auth::user();
+
+        if ($request->hasFile('profilePic')) {
+            if ($request->file('profilePic')->isValid()) {
+
+                $path = $request->file('profilePic')->getRealPath();
+                $user->avatar = Avatar::processAvatar($path);
+            }
+        }
 
         if ($request->has('password')) {
             $user->password = Hash::make($request->input('password'));
@@ -125,5 +138,15 @@ class UserController extends BaseController
         $user->save();
 
         return redirect(route('getProfile'));
+    }
+
+    public function deleteAvatar()
+    {
+        $user = Auth::user();
+        if (Avatar::isNotDefault($user->avatar)) {
+            $user->avatar = Avatar::getDefaultAvatar();
+        }
+        $user->save();
+        return redirect()->back();
     }
 }

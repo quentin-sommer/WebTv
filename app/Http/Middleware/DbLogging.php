@@ -25,7 +25,7 @@ class DbLogging
 
     private function logDb()
     {
-        if ((boolean)$_ENV['APP_DEBUG'] === true) {
+        if (env('APP_DEBUG') === true) {
             DB::listen(function ($sql, $bindings, $time) {
                 $monolog = new Logger('log');
                 $monolog->pushHandler(new StreamHandler($this->dbLogStoragePath), Logger::INFO);

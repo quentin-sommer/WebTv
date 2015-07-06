@@ -8,20 +8,20 @@
 
 namespace app\Http\Controllers;
 
-use App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request as Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Models\Role as Role;
 use Models\User as User;
+use Webtv\StreamingUserService;
 
 class AdminController extends BaseController
 {
     private $streamingUser;
 
-    public function __construct()
+    public function __construct(StreamingUserService $sus)
     {
-        $this->streamingUser = App::make('StreamingUser');
+        $this->streamingUser = $sus;
     }
 
     public function getDashboard()
@@ -55,11 +55,12 @@ class AdminController extends BaseController
             $input_id = (int)Request::input('user_id');
             if (Request::input('roles') === null) {
                 $roles = [];
-            } else {
+            }
+            else {
                 $roles = Request::input('roles');
             }
-            if ($user_id === $input_id && !in_array($_ENV['ROLE_ADMIN'], $roles, false)) {
-                $roles[] = $_ENV['ROLE_ADMIN'];
+            if ($user_id === $input_id && !in_array(env('ROLE_ADMIN'), $roles, false)) {
+                $roles[] = env('ROLE_ADMIN');
                 $error = true;
             }
 

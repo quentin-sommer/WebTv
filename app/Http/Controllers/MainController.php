@@ -1,16 +1,16 @@
 <?php namespace App\Http\Controllers;
 
-use Laravel\Lumen\Routing\Controller as BaseController;
-use Webtv\StreamingUser;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Lumen\Routing\Controller as BaseController;
+use Webtv\StreamingUserService;
 
 class MainController extends BaseController
 {
     protected $streamingUser;
 
-    public function __construct()
+    public function __construct(StreamingUserService $sus)
     {
-        $this->streamingUser = app('StreamingUser');
+        $this->streamingUser = $sus;
     }
 
     public function getMain()

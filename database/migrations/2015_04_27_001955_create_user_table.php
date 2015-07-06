@@ -15,10 +15,12 @@ class CreateUserTable extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->increments('user_id');
-            $table->string('login', 255)->unique();
+            $table->string('login', 30)->unique();
+            $table->string('pseudo', 30)->unique();
             $table->string('email', 255)->unique();
-            $table->string('twitch_channel', 255)->unique();
+            $table->string('twitch_channel', 255)->default(null);
             $table->string('description', 255);
+            $table->string('avatar', 255)->default('default.jpg');
             $table->integer('level', false, true)->default(1);
             $table->dateTime('last_seen_watching')->default(null);
             $table->string('experience_token', 100)->default(null);

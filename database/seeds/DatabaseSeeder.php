@@ -5,8 +5,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Models\Event;
+use Models\ExpLevel;
 use Models\Role;
 use Models\User;
+use Webtv\ExperienceManager;
 
 class DatabaseSeeder extends Seeder
 {
@@ -42,22 +44,26 @@ class UgoTableSeeder extends Seeder
 
         $uQ = new User();
         $uQ->login = 'quentin';
+        $uQ->pseudo = 'QsAnakrose';
         $uQ->password = Hash::make('quentin');
         $uQ->email = 'quentin@mail.com';
         $uQ->streaming = 1;
         $uQ->twitch_channel = 'quentin';
         $uQ->save();
 
-        for ($i = 0; $i < 25; $i++) {
+        $data = [];
+        for ($i = 0; $i < 110; $i++) {
+
             $username = $faker->unique()->username;
-            $u = new User();
-            $u->login = $username;
-            $u->email = $faker->unique()->freeEmail;
-            $u->password = Hash::make($username);
-            $u->streaming = 0;
-            $u->twitch_channel = $i;
-            $u->save();
+
+            $data[] = [
+                'login'    => $username,
+                'pseudo'   => $username,
+                'email'    => $faker->unique()->freeEmail,
+                'password' => Hash::make($username)
+            ];
         }
+        User::insert($data);
 
         $this->command->info('Users created');
 
@@ -70,17 +76,47 @@ class UgoTableSeeder extends Seeder
         $streamer->save();
 
         $this->command->info('Roles created');
-        $uQ->roles()->attach($admin->role_id);
-        $uQ->roles()->attach($streamer->role_id);
+        $uQ->becomeAdmin();
+        $uQ->becomeStreamer();
+
+        for ($i = 2; $i < 100; $i++) {
+            $u = User::find($i);
+            $u->becomeStreamer();
+            $u->twitch_channel = $u->login;
+
+            $rand = rand(0, 2);
+            if ($rand == 0) {
+                $u->streaming = 1;
+            }
+            else {
+                $u->streaming = 0;
+            }
+            /*
+            $avatarManager = new AvatarManager();
+            $intervManager = $avatarManager->getImgManager();
+            $width = $avatarManager->getAvatarWidth();
+            $color = substr(md5(rand()), 0, 6);
+            $intervManager->canvas($width, $width, $color);
+            */
+            $u->save();
+        }
+
         $this->command->info('Roles attached');
 
         $event = new Event();
         $event->title = 'Hugo';
-        $event->start = '2015-06-26T12:30:00';
-        $event->end = '2015-06-26T15:30:00';
+        $event->start = '2015-06-26T12:30:00+02:00';
+        $event->end = '2015-06-26T15:30:00+02:00';
         $event->allDay = 'false';
         $event->color = '#FF0000';
+        $event->timezone = '+02:00';
         $event->save();
         $this->command->info('Test event created');
+
+        $expManager = new ExperienceManager();
+        $data = $expManager->generateExperienceSystem();
+        ExpLevel::insert($data);
+        $this->command->info('Experience system initialized');
+
     }
 }

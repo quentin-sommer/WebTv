@@ -18,13 +18,36 @@ class CalendarController extends BaseController
 {
     public function getCalendar()
     {
-
         return view('calendar');
     }
 
-    public function postCalendar()
+    public function addEvent()
     {
-        return 'postCalendar';
+
+        $validator = Validator::make(Request::all(), [
+            'title'    => 'required',
+            'start'    => 'required|date_format:Y-m-d H:i:s',
+            'end'      => 'required|date_format:Y-m-d H:i:s',
+            'color'    => 'required',
+            'timezone' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
+        $event = new Event();
+        $event->title = Request::input('title');
+        $event->start = Request::input('start');
+        $event->end = Request::input('end');
+        $event->color = Request::input('color');
+        $event->timezone = Request::input('timezone');
+        // TODO : dynamically inject allDay
+        $event->allDay = false;
+        $event->save();
+
+        return redirect(route('getCalendar'));
     }
 
     public function getCalEvents()
@@ -33,11 +56,12 @@ class CalendarController extends BaseController
             return [
                 'id'    => $item->event_id,
                 'title' => $item->title,
-                'start' => $item->start,
-                'end'   => $item->end,
+                'start' => str_replace(' ', 'T', $item->start) . $item->timezone,
+                'end'   => str_replace(' ', 'T', $item->end) . $item->timezone,
                 'color' => $item->color
             ];
         });
+
         return response()->json($formatData);
     }
 

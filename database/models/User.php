@@ -8,24 +8,12 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
 
-/** @noinspection ClassOverridesFieldOfSuperClassInspection */
-
-/** @noinspection ClassOverridesFieldOfSuperClassInspection */
-
-/** @noinspection ClassOverridesFieldOfSuperClassInspection */
-
-/** @noinspection ClassOverridesFieldOfSuperClassInspection */
-
-/** @noinspection ClassOverridesFieldOfSuperClassInspection */
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
 
-    protected $streamingUser;
-
     public function __construct()
     {
-        $this->streamingUser = app('StreamingUser');
     }
 
     protected $guarded = ['remember_token', 'created_at', 'updated_at'];
@@ -59,28 +47,28 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function isAdmin()
     {
-        return $this->hasRole($_ENV['ROLE_ADMIN']);
+        return $this->hasRole(env('ROLE_ADMIN'));
     }
 
     public function isStreamer()
     {
-        return $this->hasRole($_ENV['ROLE_STREAMER']);
+        return $this->hasRole(env('ROLE_STREAMER'));
     }
 
     public function becomeStreamer()
     {
-        $this->attachRole($_ENV['ROLE_STREAMER']);
+        $this->attachRole(env('ROLE_STREAMER'));
     }
 
     public function becomeAdmin()
     {
-        $this->attachRole($_ENV['ROLE_ADMIN']);
+        $this->attachRole(env('ROLE_ADMIN'));
     }
 
     public function scopeStreamers($query)
     {
         return $query->join('role_user', 'user.user_id', '=', 'role_user.user_id')
-            ->where('role_user.role_id', $_ENV['ROLE_STREAMER']);
+            ->where('role_user.role_id', env('ROLE_STREAMER'));
     }
 
     public function isStreaming()
@@ -92,14 +80,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $this->streaming = 1;
         $this->save();
-        $this->streamingUser->update();
     }
 
     public function stopStreaming()
     {
         $this->streaming = 0;
         $this->save();
-        $this->streamingUser->update();
     }
 
     public function hasRole($id)
