@@ -88,6 +88,10 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fun
         'as'   => 'updateWatching',
         'uses' => 'StreamController@updateWatching'
     ]);
+    $app->get('avatar/delete', [
+       'as'=>'deleteAvatar',
+       'uses'=>'UserController@deleteAvatar'
+    ]);
 });
 /*
  * Admin only

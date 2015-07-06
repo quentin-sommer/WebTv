@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="#">WebTv</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <nav>
@@ -31,10 +31,10 @@
                            placeholder="Chercher un stream">
                 </div>
                 <div class="form-group">
-                    <input data-toggle="toggle" name="all"
+                   <!-- <input data-toggle="toggle" name="all"
                            value="true"
                            type="checkbox"
-                           id="streaming"/>
+                           id="streaming"/>-->
                 </div>
                 <input type="hidden" name="_token" value="{{csrf_token()}}"/>
                 <button type="submit" class="btn btn-default">Rechercher</button>

@@ -3,7 +3,10 @@
 @section('content')
     <div class="col-md-6 col-centered">
         <div>
-            <img src="{{$user->avatar}}" alt="bug"/>
+            <img src="{{Avatar::getUrl($user->avatar)}}" alt="image de profil"/>
+            @if(Avatar::isNotDefault($user->avatar))
+                <a href="{{route('deleteAvatar')}}">Supprimer</a>
+            @endif
         </div>
         <form action="{{route('postProfile')}}" method="post" enctype="multipart/form-data">
             <legend>Editer les informations</legend>

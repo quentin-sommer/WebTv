@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Intervention\Image\ImageManager;
+use Webtv\AvatarManager;
 use Webtv\ExperienceManager;
 use Webtv\StreamingUserService;
 
@@ -26,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton('ExperienceManager', function ($app) {
             return new ExperienceManager();
+        });
+        $this->app->bind('ImageManager', function ($app) {
+            return new ImageManager(['driver' => env('IMG_MANAGER_DRIVER')]);
+        });
+        $this->app->bind('AvatarManager', function ($app) {
+            return new AvatarManager();
         });
 
         $expTest = $this->app->make('ExperienceManager');

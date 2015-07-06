@@ -44,6 +44,7 @@ class UgoTableSeeder extends Seeder
 
         $uQ = new User();
         $uQ->login = 'quentin';
+        $uQ->pseudo = 'QsAnakrose';
         $uQ->password = Hash::make('quentin');
         $uQ->email = 'quentin@mail.com';
         $uQ->streaming = 1;
@@ -57,16 +58,10 @@ class UgoTableSeeder extends Seeder
 
             $data[] = [
                 'login'    => $username,
+                'pseudo'   => $username,
                 'email'    => $faker->unique()->freeEmail,
                 'password' => Hash::make($username)
             ];
-            /*$u = new User();
-            $u->login = $username;
-            $u->email = $faker->unique()->freeEmail;
-            $u->password = Hash::make($username);
-            $u->streaming = 0;
-            $u->twitch_channel = $i;
-            $u->save();*/
         }
         User::insert($data);
 
@@ -90,13 +85,19 @@ class UgoTableSeeder extends Seeder
             $u->twitch_channel = $u->login;
 
             $rand = rand(0, 2);
-            $this->command->info($rand);
             if ($rand == 0) {
                 $u->streaming = 1;
             }
             else {
                 $u->streaming = 0;
             }
+            /*
+            $avatarManager = new AvatarManager();
+            $intervManager = $avatarManager->getImgManager();
+            $width = $avatarManager->getAvatarWidth();
+            $color = substr(md5(rand()), 0, 6);
+            $intervManager->canvas($width, $width, $color);
+            */
             $u->save();
         }
 
@@ -111,7 +112,6 @@ class UgoTableSeeder extends Seeder
         $event->timezone = '+02:00';
         $event->save();
         $this->command->info('Test event created');
-
 
         $expManager = new ExperienceManager();
         $data = $expManager->generateExperienceSystem();
