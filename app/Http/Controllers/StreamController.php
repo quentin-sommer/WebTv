@@ -41,7 +41,7 @@ class StreamController extends BaseController
                 ->withInput();
         }
         dump(Request::input('query'));
-        if(Request::input('all') !== null) {
+        if (Request::input('all') !== null) {
             dump($this->streamingUser->searchAll(Request::input('query'))->toArray());
         }
         else {
@@ -52,7 +52,11 @@ class StreamController extends BaseController
 
     public function getAll()
     {
+        $data = $this->streamingUser->getAll();
 
+        return view('stream.all', [
+            'streams' => $data
+        ]);
     }
 
     /****************************************

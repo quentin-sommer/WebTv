@@ -7,7 +7,7 @@
 
                 <div class="form-group @if($errors->has('login')) has-error @endif">
                     <label for="login">Login</label>
-                    <input type="text" class="form-control" placeholder="login" name="login" id="login"
+                    <input autocomplete="off" type="text" class="form-control" placeholder="login" name="login" id="login"
                            value="{{old('login')}}"/>
                     @if ($errors->has('login'))
                         <p class="help-block">{{$errors->first('login')}}</p>
@@ -16,7 +16,7 @@
 
                 <div class="form-group @if($errors->has('password')) has-error @endif">
                     <label for="password">Mot de passe</label>
-                    <input type="password" class="form-control" placeholder="mot de passe" name="password" id="password"
+                    <input autocomplete="off" type="password" class="form-control" placeholder="mot de passe" name="password" id="password"
                            value="{{old('password')}}"/>
                     @if ($errors->has('password'))
                         <p class="help-block">{{$errors->first('password')}}</p>

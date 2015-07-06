@@ -18,11 +18,6 @@
     </style>
 </head>
 <body>
-@if(Auth::check())
-    <p>{{Auth::user()->login}} is connected</p>
-@else
-    <p><a href="{{route('getLogin')}}">connect</a></p>
-@endif
 <div class="container">
     @yield('content')
 </div>
@@ -36,11 +31,6 @@
 @yield('endBody')
 <script>var isAdBlockActive = true;</script>
 <script type="text/javascript" src="{{url('assets/js/ads.js')}}"></script>
-<script>
-    if (isAdBlockActive) {
-        // block the stream
-        console.log("The visitor is blocking ads");
-    }
-</script>
+<script type="text/javascript" src="{{url('assets/js/app.js')}}"></script>
 </body>
 </html>
