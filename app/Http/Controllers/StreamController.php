@@ -22,32 +22,35 @@ class StreamController extends BaseController
     {
         $user = $this->streamingUser->has($streamerName);
         if ($user !== null) {
-            return view('stream', [
+            return view('stream.watcher', [
                 'streamingUser' => $user
             ]);
         }
-        echo 'not streaming';
+
+        return redirect(route('streams'));
         // redirect to offline page
     }
 
-    public function postSearch()
+    public function streamSearch()
     {
-        $validator = Validator::make(Request::all(), [
-            'query' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator->errors())
-                ->withInput();
-        }
-        dump(Request::input('query'));
-        if (Request::input('all') !== null) {
-            dump($this->streamingUser->searchAll(Request::input('query'))->toArray());
+        if (Request::has('query')) {
+            $query = Request::input('query');
         }
         else {
-            dump($this->streamingUser->searchStreaming(Request::input('query'))->toArray());
+            $query = '';
         }
-        dd(Request::input('all'));
+        if (Request::input('all') !== null) {
+            $data = $this->streamingUser->searchAll($query);
+        }
+        else {
+            $data = $this->streamingUser->searchStreaming($query);
+        }
+
+        return view('stream.all', [
+            'streams' => $data
+        ])->with([
+            'search' => $query
+        ]);
     }
 
     public function getAll()

@@ -2,14 +2,22 @@
 @section('title','Profile')
 @section('content')
     <div class="col-md-6 col-centered">
+        <form action="{{route('postProfile')}}" method="post" enctype="multipart/form-data">
+            <legend>Editer les informations</legend>
         <div>
             <img src="{{Avatar::getUrl($user->avatar)}}" alt="image de profil"/>
             @if(Avatar::isNotDefault($user->avatar))
                 <a href="{{route('deleteAvatar')}}">Supprimer</a>
             @endif
         </div>
-        <form action="{{route('postProfile')}}" method="post" enctype="multipart/form-data">
-            <legend>Editer les informations</legend>
+
+            <div class="form-group @if($errors->has('profilePic')) has-error @endif">
+                <label for="profilePic">Changer l'image de profil</label>
+                <input type="file" placeholder="Image de profil" name="profilePic" id="profilePic"/>
+                @if ($errors->has('profilePic'))
+                    <p class="help-block">{{$errors->first('profilePic')}}</p>
+                @endif
+            </div>
             <div class="form-group @if($errors->has('email')) has-error @endif">
                 <label for="email">E-mail</label>
                 <input autocomplete="off" type="text" class="form-control" placeholder="e-mail" name="email" id="email"
@@ -38,13 +46,6 @@
                     </label>
                 </div>
             @endif
-            <div class="form-group @if($errors->has('profilePic')) has-error @endif">
-                <label for="profilePic">Changer l'image de profil</label>
-                <input type="file" placeholder="Image de profil" name="profilePic" id="profilePic"/>
-                @if ($errors->has('profilePic'))
-                    <p class="help-block">{{$errors->first('profilePic')}}</p>
-                @endif
-            </div>
             <div class="form-group @if($errors->has('password')) has-error @endif">
                 <label for="password">Changer le mot de passe</label>
                 <input autocomplete="off" type="password" class="form-control" placeholder="mot de passe" name="password" id="password"

@@ -24,9 +24,9 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($group) use ($app
         'as'   => 'streams',
         'uses' => 'StreamController@getAll'
     ]);
-    $app->post('stream/search', [
-        'as'   => 'postStreamSearch',
-        'uses' => 'StreamController@postSearch'
+    $app->get('stream/search', [
+        'as'   => 'streamSearch',
+        'uses' => 'StreamController@streamSearch'
     ]);
     $app->get('stream/{streamerName}', [
         'as'   => 'getStream',

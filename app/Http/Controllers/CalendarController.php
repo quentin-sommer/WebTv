@@ -43,7 +43,6 @@ class CalendarController extends BaseController
         $event->end = Request::input('end');
         $event->color = Request::input('color');
         $event->timezone = Request::input('timezone');
-        // TODO : dynamically inject allDay
         $event->allDay = false;
         $event->save();
 
