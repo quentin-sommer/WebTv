@@ -32,6 +32,7 @@
             </iframe>-->
             </div>
 @stop
+
 @section('endBody')
     <script type="text/javascript">
         $(function() {

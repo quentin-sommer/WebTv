@@ -66,7 +66,7 @@ class StreamingUserService
     public function searchAll($query)
     {
         $res = User::streamers()->get()->filter(function (User $streamer) use ($query) {
-            $res = strpos($streamer->twitch_channel, $query);
+            $res = $this->startsWith($streamer->twitch_channel,$query);
             if ($res !== false) {
                 return true;
             }
@@ -87,7 +87,7 @@ class StreamingUserService
     public function searchStreaming($query)
     {
         $res = $this->getAll()->filter(function (User $streamer) use ($query) {
-            $res = strpos($streamer->twitch_channel, $query);
+            $res = $this->startsWith($streamer->twitch_channel, $query);
             if ($res !== false) {
                 return true;
             }
@@ -109,6 +109,14 @@ class StreamingUserService
         Cache::forget('streamers');
         $this->users = null;
         $this->retrieveData();
+    }
+
+    private function startsWith($str, $query)
+    {
+        $str = strtolower($str);
+        $query = strtolower($query);
+        // search backwards starting from haystack length characters from the end
+        return $query === "" || strrpos($str, $query, -strlen($str)) !== false;
     }
 
 }

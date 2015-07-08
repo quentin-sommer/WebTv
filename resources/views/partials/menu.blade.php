@@ -25,10 +25,10 @@
                     @endif
                 </ul>
             </nav>
-            <form class="navbar-form" method="post" action="{{route('postStreamSearch')}}">
+            <form class="navbar-form" method="get" action="{{route('streamSearch')}}">
                 <div class="form-group">
-                    <input name="query" required="" autocomplete="off" type="text" class="form-control"
-                           placeholder="Chercher un stream">
+                    <input name="query" autocomplete="off" type="text" class="form-control"
+                           placeholder="Chercher un stream" value="{{$search or ''}}">
                 </div>
                 <div class="form-group">
                    <!-- <input data-toggle="toggle" name="all"
