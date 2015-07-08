@@ -36,12 +36,6 @@
                 @endif
                 <a>À propos<span class="transition"></span></a>
                 <a data-page="0" class="active">Accueil<span class="transition"></span></a>
-                @foreach($streamingUsers as $streamingUser)
-                    <a data-page="1">
-                        {{$streamingUser->login}}
-                        <span class="transition"></span>
-                    </a>
-                @endforeach
                 <a data-page="3">Contact<span class="transition"></span></a>
             </div>
         </div>
