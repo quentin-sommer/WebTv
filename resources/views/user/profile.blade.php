@@ -39,7 +39,7 @@
                     <label for="streaming">
                         <input data-toggle="toggle" name="streaming"
                                value="1"
-                               @if($user->isStreaming())checked="checked" @endif
+                               @if($user->isStreaming()) checked="checked" @endif
                                type="checkbox"
                                id="streaming"/>
                         En train de streamer
