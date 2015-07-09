@@ -22,6 +22,7 @@
                         <li><a href="{{route('logout')}}">Se déconnecter</a></li>
                     @else
                         <li><a href="{{route('getLogin')}}">Se connecter</a></li>
+                        <li><a href="{{route('getRegister')}}">Inscription</a></li>
                     @endif
                 </ul>
             </nav>

@@ -64,7 +64,8 @@ class UserController extends BaseController
     public function postRegister(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'login'    => 'required|min:3|max:25|unique:user,login',
+            'login'    => 'required|min:4|max:25|unique:user,login',
+            'pseudo'   => 'required|min:4|max:25|unique:user,pseudo',
             'password' => 'required|min:6|max:20|confirmed',
             'email'    => 'required|max:100|email|unique:user,email'
         ]);
@@ -77,6 +78,7 @@ class UserController extends BaseController
 
         $u = new User();
         $u->login = $request->input('login');
+        $u->pseudo = $request->input('pseudo');
         $u->email = $request->input('email');
         $u->password = Hash::make($request->input('password'));
         $u->streaming = 0;
@@ -103,10 +105,11 @@ class UserController extends BaseController
     public function postProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password'   => 'sometimes|min:6|max:25|confirmed',
-            'email'      => 'required|max:100|email',
-            'twitch'     => 'sometimes|twitch',
-            'profilePic' => 'sometimes|image'
+            'password'    => 'sometimes|min:6|max:25|confirmed',
+            'email'       => 'required|max:100|email',
+            'twitch'      => 'sometimes|twitch',
+            'profilePic'  => 'sometimes|image',
+            'description' => 'max:255'
         ]);
 
         if ($validator->fails()) {
@@ -135,6 +138,7 @@ class UserController extends BaseController
         }
 
         $user->email = $request->input('email');
+        $user->description = $request->input('description');
         $user->save();
 
         return redirect(route('getProfile'));
@@ -147,6 +151,7 @@ class UserController extends BaseController
             $user->avatar = Avatar::getDefaultAvatar();
         }
         $user->save();
+
         return redirect()->back();
     }
 }

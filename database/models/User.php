@@ -17,9 +17,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $primaryKey = 'user_id';
     protected $fillable = [
         'login',
+        'pseudo',
         'email',
         'twitch_channel',
         'description',
+        'avatar',
         'level',
         'experience',
         'password',
