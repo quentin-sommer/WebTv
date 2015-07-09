@@ -82,7 +82,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function isStreaming()
     {
-        if ((int)$this->streaming == 1) {
+        if ((int)$this->streaming === 1) {
             return true;
         }
 
