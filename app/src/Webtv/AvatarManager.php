@@ -8,9 +8,21 @@ class AvatarManager
 {
 
     protected $storagePath = 'uploads/avatars';
+    /**
+     * @var \Intervention\Image\ImageManager
+     */
     protected $imgManager;
+    /**
+     * @var string
+     */
     protected $encoding;
+    /**
+     * @var int
+     */
     protected $avatarWidth;
+    /**
+     * @var string
+     */
     protected $defaultAvatar;
 
     public function __construct()
@@ -18,7 +30,6 @@ class AvatarManager
         $this->defaultAvatar = 'default.jpg';
         $this->encoding = 'jpg';
         $this->avatarWidth = env('AVATAR_WIDTH');
-
         $this->imgManager = app('ImageManager');
     }
 
@@ -53,6 +64,7 @@ class AvatarManager
     {
         return $this->avatarWidth;
     }
+
 
     public function processAvatar($path)
     {
