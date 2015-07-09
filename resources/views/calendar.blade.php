@@ -10,7 +10,7 @@
     <div id="calendar">
 
     </div>
-        @if(Auth::check)
+        @if(Auth::check())
         @if(Auth::user()->isAdmin())
             @include('partials.newCalendarEvent')
         @endif
