@@ -8,12 +8,6 @@
             display: inline;
         }
     </style>
-    <p>Streaming users: </p>
-    <ul>
-        @foreach($streamingUsers as $streamingUser)
-            <li>{{$streamingUser->login}}</li>
-        @endforeach
-    </ul>
         <div class="col-md-12 col-centered">
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
