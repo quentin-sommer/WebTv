@@ -35,6 +35,7 @@
 
 @section('endBody')
     <script type="text/javascript">
+        var resyncAttemps = 0;
         $(function() {
             start();
         });
@@ -60,7 +61,7 @@
             var token = data.token;
             var timerInMn = data.nextXpRequest;
             var timerInMiliSec = timerInMn * 60000;
-            $('#lvl').html(data.level);
+            $('#lvl').html(data.level +'. Level up: '+data.levelUp);
             $('#progression').html(data.progression + '%');
 
             window.setTimeout(function() {
@@ -81,6 +82,14 @@
                     start();
                 },
                 error: function (data, status) {
+                    console.log('Error need resync');
+                    if(resyncAttemps < 5) {
+                        resyncAttemps ++;
+                        start();
+                    }
+                    else {
+                        return;
+                    }
                 }
             });
         }

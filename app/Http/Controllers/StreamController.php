@@ -27,8 +27,8 @@ class StreamController extends BaseController
             ]);
         }
 
+        //TODO : maybe notifiy 'stream offline'
         return redirect(route('streams'));
-        // redirect to offline page
     }
 
     public function streamSearch()
@@ -107,7 +107,15 @@ class StreamController extends BaseController
         }
         if ($this->streamingUser->has(Request::input('streamer'))) {
             $data = $experienceManager->processExpRequest(Request::all());
-            $status = 200;
+            switch ($data) {
+                case ExperienceManager::NEED_RESYNC:
+                    $status = 400;
+                    break;
+                default:
+                    $status = 200;
+                    break;
+            }
+            // TODO : check data returned to see if it's ok or need resync
         }
         else {
             // Error : no streaming in progress
