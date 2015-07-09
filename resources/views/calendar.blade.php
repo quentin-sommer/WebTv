@@ -7,9 +7,13 @@
 @stop
 @section('content')
     <div class="col-md-6 col-centered">
-    <div id="calendar"></div>
+    <div id="calendar">
+
+    </div>
+        @if(Auth::check)
         @if(Auth::user()->isAdmin())
             @include('partials.newCalendarEvent')
+        @endif
         @endif
     </div>
 @stop
