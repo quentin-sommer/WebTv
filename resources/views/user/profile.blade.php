@@ -35,8 +35,6 @@
                         <p class="help-block">{{$errors->first('twitch')}}</p>
                     @endif
                 </div>
-            {{dump($user->isStreaming())}}
-            {{dump($user->streaming)}}
                 <div class="form-group">
                     <label for="streaming">
                         <input data-toggle="toggle" name="streaming"
