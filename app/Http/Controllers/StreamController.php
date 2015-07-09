@@ -84,7 +84,7 @@ class StreamController extends BaseController
             $status = 200;
         }
         else {
-            // Error : no streaming in progress,
+            // Error : no streaming in progress
             $status = 400;
         }
 
@@ -106,17 +106,15 @@ class StreamController extends BaseController
             return new JsonResponse($validator->errors(), 422);
         }
         if ($this->streamingUser->has(Request::input('streamer'))) {
-            $res = $experienceManager->processExpRequest(Request::all());
+            $data = $experienceManager->processExpRequest(Request::all());
+            $status = 200;
         }
         else {
-            // Error : no streaming in progress,
+            // Error : no streaming in progress
+            $status = 400;
         }
 
-        if (is_null($res)) {
-            return new JsonResponse(null, 400);
-        }
-
-        return new JsonResponse($res, 200);
+        return new JsonResponse($data, $status);
     }
     /****************************************
      * END Experience system related functions
