@@ -29,11 +29,6 @@
         </div>
         <div id="nav" class="vis elem">
             <div id="menu" class="elem-anim">
-                @if(Auth::check())
-                    <a href="{{ route('logout') }}">Se déconnecter</a>
-                @else
-                    <a href="{{ route('getLogin') }}">Se connecter</a>
-                @endif
                 <a>À propos<span class="transition"></span></a>
                 <a data-page="0" class="active">Accueil<span class="transition"></span></a>
                 <a data-page="3">Contact<span class="transition"></span></a>
@@ -43,11 +38,18 @@
         <!--================= Subscribe  ================-->
         <div class="subcribe-form-holder elem">
             <div class="subcribe-form elem-anim">
-                <form id="subscribe">
-                    <input class="enteremail" name="email" id="subscribe-email" placeholder="Email" spellcheck="false"
-                           type="text">
-                    <button type="submit" id="subscribe-button" class="subscribe-button">Subscribe</button>
-                    <label for="subscribe-email" class="subscribe-message"></label>
+                <form  method="post" action="{{route('postLogin')}}">
+                    <style>
+                        input {
+                            background-color: grey;
+                            border: 0;
+                            box-shadow: none;
+                        }
+                    </style>
+                    <input class="" name="login" placeholder="Login" spellcheck="false" type="text">
+                    <input type="text" name="password" placeholder="password" spellcheck="false"/>
+                    <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                    <button type="submit">Login</button>
                 </form>
             </div>
         </div>
@@ -261,7 +263,7 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
-        // var vstring = '5qbNOkXIioM'; // YouTube Video ID here
+        // var vstring = '5qbNOkXIioM';
         function onYouTubePlayerAPIReady() {
             player = new YT.Player('player', {
                 playerVars: {'autoplay': 1, 'loop': 1, 'playlist': vstring, 'controls': 0, 'showinfo': 0},
