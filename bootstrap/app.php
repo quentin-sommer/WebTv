@@ -85,7 +85,9 @@ $app->routeMiddleware([
 */
 
 $app->register('App\Providers\AppServiceProvider');
+// DEBUG
 
+$app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
