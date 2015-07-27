@@ -89,8 +89,8 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fun
         'uses' => 'StreamController@updateWatching'
     ]);
     $app->get('avatar/delete', [
-       'as'=>'deleteAvatar',
-       'uses'=>'UserController@deleteAvatar'
+        'as'   => 'deleteAvatar',
+        'uses' => 'UserController@deleteAvatar'
     ]);
 });
 /*
@@ -113,6 +113,10 @@ $app->group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers', 'middle
     $app->post('users', [
         'as'   => 'postUserSettings',
         'uses' => 'AdminController@postUserSettings'
+    ]);
+    $app->get('users/search', [
+        'as'   => 'getSearchUserSettings',
+        'uses' => 'AdminController@getSearchUserSettings'
     ]);
     $app->post('users/delete/{id}', [
         'as'   => 'postDeleteUser',

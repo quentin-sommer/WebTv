@@ -29,6 +29,26 @@ class AdminController extends BaseController
         echo 'getDashboard';
     }
 
+    public function getSearchUserSettings()
+    {
+        if (!Request::has('login')) {
+            return redirect(route('getUserSettings'));
+
+        }
+        $id = Request::input('login');
+        $data = [
+            'users'       => User::with('roles')
+                                ->where('login', 'like', $id . '%')
+                                ->orWhere('email', 'like', $id . '%')
+                                ->paginate(20)
+                                ->setPath(route('getSearchUserSettings')),
+            'roles'       => Role::all(),
+            'user_search' => $id
+        ];
+
+        return view('admin.users')->with($data);
+    }
+
     public function postDashboard()
     {
         echo 'postDashboard';
