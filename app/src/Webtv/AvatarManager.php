@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\App;
 class AvatarManager
 {
 
-    protected $storagePath = 'uploads/avatars';
+    protected $storagePath;
     /**
      * @var \Intervention\Image\ImageManager
      */
@@ -27,10 +27,11 @@ class AvatarManager
 
     public function __construct()
     {
-        $this->defaultAvatar = 'default.jpg';
+        $this->storagePath = 'uploads/avatars';
+        $this->imgManager = app('ImageManager');
         $this->encoding = 'jpg';
         $this->avatarWidth = env('AVATAR_WIDTH');
-        $this->imgManager = app('ImageManager');
+        $this->defaultAvatar = 'default.jpg';
     }
 
     /**
@@ -73,7 +74,7 @@ class AvatarManager
         $manager->fit($this->avatarWidth);
         $name = $this->getFileName();
 
-        $manager->save(self::getUploadPath($name));
+        $manager->save($this->getUploadPath($name));
 
         return $name;
     }
