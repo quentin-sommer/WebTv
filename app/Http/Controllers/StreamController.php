@@ -39,6 +39,9 @@ class StreamController extends BaseController
         else {
             $query = '';
         }
+        if($query === '') {
+            return redirect(route('streams'));
+        }
         if (Request::input('all') !== null) {
             $data = $this->streamingUser->searchAll($query);
         }

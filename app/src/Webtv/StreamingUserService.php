@@ -12,15 +12,10 @@ class StreamingUserService
      * @var int
      */
     protected $expirationTime;
-    /**
-     * @var null|\Illuminate\Database\Eloquent\Collection
-     */
-    protected $users;
 
     public function __construct()
     {
         $this->expirationTime = env('STREAMING_USERS_CACHE');
-        $this->users = null;
     }
 
     /**
@@ -48,11 +43,7 @@ class StreamingUserService
      */
     public function getAll()
     {
-        if ($this->users === null) {
-            $this->users = $this->retrieveData();
-        }
-
-        return $this->users;
+        return $this->retrieveData();
     }
 
     /**
@@ -95,9 +86,12 @@ class StreamingUserService
     private function startsWith($str, $query)
     {
         $str = strtolower($str);
+
+        // testing this function
+        return starts_with($str, $query);
+
         $query = strtolower($query);
 
-        // search backwards starting from haystack length characters from the end
         return $query === "" || strrpos($str, $query, -strlen($str)) !== false;
     }
 
@@ -128,8 +122,6 @@ class StreamingUserService
     public function update()
     {
         Cache::forget('streamers');
-        $this->users = null;
-        $this->retrieveData();
     }
 
 }
