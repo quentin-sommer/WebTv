@@ -10,37 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-/*
- * public
- */
-$app->group(['namespace' => 'App\Http\Controllers'], function ($group) use ($app) {
-
-    $app->get('/', [
-        'as'   => 'getIndex',
-        'uses' => 'MainController@getMain'
-    ]);
-    $app->get('streams', [
-        'as'   => 'streams',
-        'uses' => 'StreamController@getAll'
-    ]);
-    $app->get('stream/search', [
-        'as'   => 'streamSearch',
-        'uses' => 'StreamController@streamSearch'
-    ]);
-    $app->get('stream/{streamerName}', [
-        'as'   => 'getStream',
-        'uses' => 'StreamController@getStream'
-    ]);
-    $app->get('calendar', [
-        'as'   => 'getCalendar',
-        'uses' => 'CalendarController@getCalendar'
-    ]);
-    $app->get('calendar/events', [
-        'as'   => 'getCalEvents',
-        'uses' => 'CalendarController@getCalEvents'
-    ]);
-});
 /*
  * Guest only
  */
@@ -68,11 +37,11 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'guest'], fu
  */
 $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function ($app) {
 
-    $app->get('profile', [
+    $app->get('profile/edit', [
         'as'   => 'getProfile',
         'uses' => 'UserController@getProfile'
     ]);
-    $app->post('profile', [
+    $app->post('profile/edit', [
         'as'   => 'postProfile',
         'uses' => 'UserController@postProfile'
     ]);
@@ -129,5 +98,39 @@ $app->group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers', 'middle
     $app->post('calendar/edit', [
         'as'   => 'calendarEdit',
         'uses' => 'CalendarController@editCalendar'
+    ]);
+});
+/*
+ * public
+ */
+$app->group(['namespace' => 'App\Http\Controllers'], function ($group) use ($app) {
+
+    $app->get('/', [
+        'as'   => 'getIndex',
+        'uses' => 'MainController@getMain'
+    ]);
+    $app->get('streams', [
+        'as'   => 'streams',
+        'uses' => 'StreamController@getAll'
+    ]);
+    $app->get('stream/search', [
+        'as'   => 'streamSearch',
+        'uses' => 'StreamController@streamSearch'
+    ]);
+    $app->get('stream/{streamerName}', [
+        'as'   => 'getStream',
+        'uses' => 'StreamController@getStream'
+    ]);
+    $app->get('calendar', [
+        'as'   => 'getCalendar',
+        'uses' => 'CalendarController@getCalendar'
+    ]);
+    $app->get('calendar/events', [
+        'as'   => 'getCalEvents',
+        'uses' => 'CalendarController@getCalEvents'
+    ]);
+    $app->get('profile/{user}', [
+        'as'   => 'showProfile',
+        'uses' => 'UserController@showProfile'
     ]);
 });

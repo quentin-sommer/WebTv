@@ -6,7 +6,6 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>WebTv - @yield('title')</title>
     <link rel="icon" href="{{ url('assets/images/favicon.ico') }}"/>
-    <link rel="stylesheet" href="{{ url('assets/bootstrap-3.3.4/css/bootstrap-theme.min.css') }}"/>
     <link rel="stylesheet" href="{{ url('assets/bootstrap-3.3.4/css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ url('assets/bootstrap-toggle/css/bootstrap-toggle.min.css') }}"/>
     <link rel="stylesheet" href="{{url('assets/css/app.css')}}"/>

@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request as Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash as Hash;
 use Illuminate\Support\Facades\Validator;
@@ -94,9 +95,21 @@ class UserController extends BaseController
         return redirect(route('getLogin'));
     }
 
+    public function showProfile($user)
+    {
+        $u = User::where('pseudo','=',$user)->first();
+        if(is_null($u)) {
+            App::abort(404);
+        }
+        return view('user.showProfile', [
+            'user'     => $u,
+            'streamer' => Auth::user()->isStreamer()
+        ]);
+    }
+
     public function getProfile()
     {
-        return view('user.profile', [
+        return view('user.editProfile', [
             'user'     => Auth::user(),
             'streamer' => Auth::user()->isStreamer()
         ]);
