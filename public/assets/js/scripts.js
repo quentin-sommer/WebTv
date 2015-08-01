@@ -1,6 +1,6 @@
 $(window).load(function () {
     $('#main').animate({opacity: 1}, 500, function () {
-        $(".loader-holder").fadeOut(500)
+        $(".loader-holder").fadeOut(500);
     });
 });
 //  functions ------------------
@@ -19,7 +19,7 @@ function initGroovi() {
             depth: 2100
         },
         initialSlide: 1,
-        grabCursor: true,
+        grabCursor: false,
         onSlideChangeStart: function (c) {
             var $current = $("#menu a").eq(b.activeIndex);
             switch ($current.attr('data-page')) {
