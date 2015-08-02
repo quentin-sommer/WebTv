@@ -79,7 +79,7 @@ class UgoTableSeeder extends Seeder
         $uQ->becomeAdmin();
         $uQ->becomeStreamer();
 
-        for ($i = 2; $i < 100; $i++) {
+        for ($i = 2; $i < 13; $i++) {
             $u = User::find($i);
             $u->becomeStreamer();
             $u->twitch_channel = $u->login;
