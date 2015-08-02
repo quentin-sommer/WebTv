@@ -3,8 +3,10 @@
 namespace Webtv;
 
 use Carbon\Carbon;
+use Illuminate\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
 use Models\ExpLevel;
+use Models\User;
 
 class ExperienceManager
 {
@@ -172,7 +174,20 @@ class ExperienceManager
             'level'         => $level,
             'exp'           => $experience,
             'progression'   => $progression,
-            'levelUp'      => ($levelUp ? true : false)
+            'levelUp'       => ($levelUp ? true : false)
+        ];
+    }
+
+    public static function getExpInfo($user)
+    {
+        $expForLevel = ExpLevel::where('level', $user->level)->first()->experience;
+        $experience = $user->experience;
+
+        $progression = round($experience * 100 / $expForLevel, 1);
+
+        return [
+            'level'       => $user->level,
+            'progression' => $progression,
         ];
     }
 

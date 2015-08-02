@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash as Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Models\User as User;
+use Webtv\ExperienceManager;
 use Webtv\Facade\Avatar;
 use Webtv\StreamingUserService;
 
@@ -97,13 +98,25 @@ class UserController extends BaseController
 
     public function showProfile($user)
     {
-        $u = User::where('pseudo','=',$user)->first();
-        if(is_null($u)) {
+        $u = User::where('pseudo', '=', $user)->first();
+        if (is_null($u)) {
             App::abort(404);
         }
+        if (Auth::user() == $u) {
+            $editable = true;
+        }
+        else {
+            $editable = false;
+        }
+
+        $expData = ExperienceManager::getExpInfo($u);
+
         return view('user.showProfile', [
-            'user'     => $u,
-            'streamer' => Auth::user()->isStreamer()
+            'user'        => $u,
+            'streamer'    => $u->isStreamer(),
+            'editable'    => $editable,
+            'level'       => $expData['level'],
+            'progression' => $expData['progression']
         ]);
     }
 

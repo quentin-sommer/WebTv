@@ -5,7 +5,7 @@
         <form action="{{route('postProfile')}}" method="post" enctype="multipart/form-data">
             <legend>Editer les informations</legend>
             <div class="form-group text-center">
-                <img class="img-responsive" style="margin: auto; display: block" src="{{Avatar::getUrl($user->avatar)}}" alt="image de profil"/>
+                <img class="profilePic img-responsive" src="{{Avatar::getUrl($user->avatar)}}" alt="image de profil"/>
                 @if(Avatar::isNotDefault($user->avatar))
                     <a class="btn btn-danger" href="{{route('deleteAvatar')}}">Supprimer</a>
                 @endif
