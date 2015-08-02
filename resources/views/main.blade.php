@@ -40,17 +40,13 @@
         <!--Navigation end-->
         <!--================= Subscribe  ================-->
         <div class="subcribe-form-holder elem">
-            <div class="subcribe-form elem-anim">
-                <form id="subscribe">
-                    <input class="enteremail" name="email" id="subscribe-email" placeholder="Email" spellcheck="false" type="text">
-                    <button type="submit" id="subscribe-button" class="subscribe-button">Subscribe</button>
-                    <label for="subscribe-email" class="subscribe-message"></label>
-                </form>
-                <form action="{{route('postLogin')}}" method="post">
-                    <input class="" name="login" placeholder="Login" spellcheck="false" type="text">
-                    <input type="text" name="password" placeholder="password" spellcheck="false"/>
+            < class="subcribe-form elem-anim">
+                <form id="subscribe" action="{{route('postLogin')}}" method="post">
+                    <input class="enteremail" name="login" placeholder="Login" type="text">
+                    <input class="enteremail" type="password" name="password" placeholder="Mot de passe"/>
                     <input type="hidden" name="_token" value="{{csrf_token()}}"/>
-                    <button type="submit">Login</button>
+                        <button class="btn btn-default" type="submit">Login</button>
+                        <a class="btn btn-default" href="{{route('getRegister')}}">Inscription</a>
                 </form>
             </div>
         </div>
@@ -149,7 +145,21 @@
                         <div class="container">
                             <section>
                                 <div class="content-inner">
-                                    Afficher tous les streams
+                                    <div class="section-decor">
+
+                                    </div>
+                                    <div class="">
+                                    <ul class="streams">
+                                        @foreach($streams as $streamer)
+                                            <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                                                <p>{{$streamer->twitch_channel}}</p>
+                                                <a href="{{route('getStream',['streamerName'=>$streamer->twitch_channel])}}">
+                                                    <img class="streamImg" src="{{Avatar::getUrl($streamer->avatar)}}" alt="image de profil"/>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    </div>
                                 </div>
                             </section>
 

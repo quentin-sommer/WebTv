@@ -2,3 +2,26 @@
     float: none;
     margin: 0 auto;
 }
+
+.userAdminForm {
+    display: inline;
+}
+
+.streams li {
+    list-style: none;
+}
+
+.streams li p {
+    text-align: center;
+}
+
+.streamImg {
+    width: 100%;
+}
+
+.singlePage {
+    padding-top: 70px;
+}
+.profilePic {
+    margin: auto;
+}

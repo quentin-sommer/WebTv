@@ -9,14 +9,9 @@
     <link rel="stylesheet" href="{{ url('assets/bootstrap-3.3.4/css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ url('assets/bootstrap-toggle/css/bootstrap-toggle.min.css') }}"/>
     <link rel="stylesheet" href="{{url('assets/css/app.css')}}"/>
-    <style>
-        body {
-            padding-top: 70px;
-        }
-    </style>
     @yield('head')
 </head>
-<body>
+<body class="singlePage">
 @include('partials.menu')
 @include('partials.errorDisplay')
 <div class="container">

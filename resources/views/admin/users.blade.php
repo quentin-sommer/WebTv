@@ -3,11 +3,6 @@
 @section('head')
 @stop
 @section('content')
-    <style>
-        td form {
-            display: inline;
-        }
-    </style>
         <div class="col-md-12 col-centered">
             <form class="form-inline" action="{{route('getSearchUserSettings')}}" method="get">
                 <div class="form-group">
@@ -50,7 +45,7 @@
                                 {{$user->twitch_channel}}
                             </td>
                             <td>
-                                <form id="{{$user->user_id}}" method="post" action="{{route('postUserSettings')}}">
+                                <form class="userAdminForm" id="{{$user->user_id}}" method="post" action="{{route('postUserSettings')}}">
                                     <input name="user_id" value="{{$user->user_id}}" type="hidden"/>
                                     <input name="login" value="{{$user->login}}" type="hidden"/>
                                     <input name="email" value="{{$user->email}}" type="hidden"/>

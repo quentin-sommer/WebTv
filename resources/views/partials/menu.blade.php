@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">WebTv</a>
+            <a class="navbar-brand" href="{{route('getIndex')}}">WebTv</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <nav>
@@ -18,7 +18,7 @@
                     <li><a href="{{route('getCalendar')}}">Calendrier</a></li>
                     <li><a href="{{route('getIndex')}}">About</a></li>
                     @if(Auth::check())
-                        <li><a href="{{route('getProfile')}}">Profil</a></li>
+                        <li><a href="{{route('showProfile',['user'=>Auth::user()->pseudo])}}">Profil</a></li>
                         <li><a href="{{route('logout')}}">Se déconnecter</a></li>
                     @else
                         <li><a href="{{route('getLogin')}}">Se connecter</a></li>

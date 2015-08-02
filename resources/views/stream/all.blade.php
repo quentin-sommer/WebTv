@@ -1,18 +1,6 @@
 @extends('single')
 @section('title','Tous les streams')
 @section('content')
-    <style>
-
-        .streams li {
-            list-style: none;
-        }
-        .streams li p {
-            text-align: center;
-        }
-        .streamImg {
-            width: 100%;
-        }
-    </style>
     <ul class="streams">
     @foreach($streams as $streamer)
         <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6">

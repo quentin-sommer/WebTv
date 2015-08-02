@@ -156,34 +156,6 @@ function initGroovi() {
         $("iframe , #player").height($(".media-container").height());
     }
 }
-//=============== subscribe form  ==============
-// Example MailChimp url: http://xxx.xxx.list-manage.com/subscribe/post?u=xxx&id=xxx
-
-$('#subscribe').ajaxChimp({
-    language: 'eng',
-    url: 'http://kwst.us9.list-manage1.com/subscribe/post?u=992ebe1f14864e841317ca145&id=163340d9c8'
-});
-
-// Mailchimp translation
-//
-// Defaults:
-//'submit': 'Submitting...',
-//  0: 'We have sent you a confirmation email',
-//  1: 'Please enter a value',
-//  2: 'An email address must contain a single @',
-//  3: 'The domain portion of the email address is invalid (the portion after the @: )',
-//  4: 'The username portion of the email address is invalid (the portion before the @: )',
-//  5: 'This email address looks fake or invalid. Please enter a real email address'
-
-$.ajaxChimp.translations.eng = {
-    'submit': 'Submitting...',
-    0: '<i class="fa fa-check"></i> We will be in touch soon!',
-    1: '<i class="fa fa-warning"></i> You must enter a valid e-mail address.',
-    2: '<i class="fa fa-warning"></i> E-mail address is not valid.',
-    3: '<i class="fa fa-warning"></i> E-mail address is not valid.',
-    4: '<i class="fa fa-warning"></i> E-mail address is not valid.',
-    5: '<i class="fa fa-warning"></i> E-mail address is not valid.'
-}
 var playing = true;
 $('#audio-control').on("click", function () {
     if (playing == false) {
