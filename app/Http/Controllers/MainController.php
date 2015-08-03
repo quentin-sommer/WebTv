@@ -15,8 +15,11 @@ class MainController extends BaseController
 
     public function getMain()
     {
+        $data = $this->streamingUser->getAll();
 
-        return view('main');
+        return view('main', [
+            'streams' => $data
+        ]);
     }
 
     public function getLol()

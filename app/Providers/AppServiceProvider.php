@@ -1,5 +1,6 @@
 <?php namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -30,20 +31,13 @@ class AppServiceProvider extends ServiceProvider
             return new ExperienceManager();
         });
         $this->app->bind('ImageManager', function ($app) {
-            return new ImageManager(['driver' => env('IMG_MANAGER_DRIVER')]);
+            return new ImageManager([
+                'driver' => env('IMG_MANAGER_DRIVER')
+            ]);
         });
         $this->app->bind('AvatarManager', function ($app) {
             return new AvatarManager();
         });
-
-        $expTest = $this->app->make('ExperienceManager');
-        $expTest->generateExperienceSystem();
-
-        $StreamingUser = $this->app->make('StreamingUserService');
-        $StreamingUser->update();
-        $users = $StreamingUser->getAll();
-
-        View::share('streamingUsers', $users);
 
         Validator::extend('twitch', function ($attribute, $value, $parameters) {
             return !filter_var($value, FILTER_VALIDATE_URL);

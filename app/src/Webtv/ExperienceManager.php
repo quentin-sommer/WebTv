@@ -3,8 +3,10 @@
 namespace Webtv;
 
 use Carbon\Carbon;
+use Illuminate\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
 use Models\ExpLevel;
+use Models\User;
 
 class ExperienceManager
 {
@@ -53,6 +55,10 @@ class ExperienceManager
         $this->user = Auth::user();
     }
 
+    /**
+     * @param $data
+     * @return array|null
+     */
     public function processExpRequest($data)
     {
         switch ($this->requestIsValid($data)) {
@@ -64,16 +70,20 @@ class ExperienceManager
             case(self::NEED_RESYNC) :
 
                 // Tell user to resync
-                return null;
+                return self::NEED_RESYNC;
                 break;
             case(self::INVALID) :
 
                 // Tell user to resync
-                return null;
+                return self::NEED_RESYNC;
                 break;
         }
     }
 
+    /**
+     * @param array $data
+     * @return int
+     */
     private function requestIsValid(Array $data)
     {
 
@@ -105,7 +115,10 @@ class ExperienceManager
         return self::INVALID;
     }
 
-    private function updateExperience($data)
+    /**
+     * @return array
+     */
+    private function updateExperience()
     {
         $oldExp = $this->user->experience;
         $oldLevel = $this->user->level;
@@ -116,13 +129,12 @@ class ExperienceManager
         if ($levelUp) {
             $newLevel = $this->user->level + 1;
 
-            if ($newLevel < $this->maxLevel) {
+            if ($newLevel <= $this->maxLevel) {
                 // Attribute new level and reset xp progression
                 $newExp = $sumExp - $oldExp;
                 $this->user->level = $newLevel;
             }
             else {
-                //TODO : test max level case
                 // CASE MAX LEVEL
                 $newExp = ExpLevel::where('level', $this->maxLevel)
                     ->first()->experience;
@@ -162,10 +174,26 @@ class ExperienceManager
             'level'         => $level,
             'exp'           => $experience,
             'progression'   => $progression,
-            'level_up'      => ($levelUp ? true : false)
+            'levelUp'       => ($levelUp ? true : false)
         ];
     }
 
+    public static function getExpInfo($user)
+    {
+        $expForLevel = ExpLevel::where('level', $user->level)->first()->experience;
+        $experience = $user->experience;
+
+        $progression = round($experience * 100 / $expForLevel, 1);
+
+        return [
+            'level'       => $user->level,
+            'progression' => $progression,
+        ];
+    }
+
+    /**
+     * @return array ready to insert data
+     */
     public function generateExperienceSystem()
     {
         $xpFirstLevel = 100;

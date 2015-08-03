@@ -3,12 +3,14 @@
 @section('head')
     @parent
     <link rel="stylesheet" href="{{ url('assets/css/font-awesome.min.css')}}"/>
-    <link rel="stylesheet" href="{{ url('assets/css/reset.css') }}"/>
+
     <link rel="stylesheet" href="{{ url('assets/css/plugins.css') }}"/>
     <link rel="stylesheet" href="{{ url('assets/css/style.css') }}"/>
+
+    <link rel="stylesheet" href="{{url('assets/fullcalendar/fullcalendar.css')}}"/>
 @stop
 @section('content')
-    <!--Loader-->
+        <!--Loader-->
     <div class="loader-holder">
         <div class="loader">
             <div id="movingBallG">
@@ -23,40 +25,32 @@
         <div id="fall-holder"></div>
         <!--================= menu ================-->
         <div class="nav-button">
-            <span class="nos"></span>
+            <span  class="nos"></span>
             <span class="ncs"></span>
             <span class="nbs"></span>
         </div>
         <div id="nav" class="vis elem">
             <div id="menu" class="elem-anim">
-                @if(Auth::check())
-                    <a href="{{ route('logout') }}">Se déconnecter</a>
-                @else
-                    <a href="{{ route('getLogin') }}">Se connecter</a>
-                @endif
-                <a>À propos<span class="transition"></span></a>
-                <a data-page="0" class="active">Accueil<span class="transition"></span></a>
-                @foreach($streamingUsers as $streamingUser)
-                    <a data-page="1">
-                        {{$streamingUser->login}}
-                        <span class="transition"></span>
-                    </a>
-                @endforeach
-                <a data-page="3">Contact<span class="transition"></span></a>
+                <a>Calendrier<span class="transition"></span></a>
+                <a class="active">Accueil <span class="transition"></span></a>
+                <a>Streams <span class="transition"></span></a>
+                <a>A propos <span class="transition"></span></a>
             </div>
         </div>
         <!--Navigation end-->
         <!--================= Subscribe  ================-->
         <div class="subcribe-form-holder elem">
-            <div class="subcribe-form elem-anim">
-                <form id="subscribe">
-                    <input class="enteremail" name="email" id="subscribe-email" placeholder="Email" spellcheck="false"
-                           type="text">
-                    <button type="submit" id="subscribe-button" class="subscribe-button">Subscribe</button>
-                    <label for="subscribe-email" class="subscribe-message"></label>
+            < class="subcribe-form elem-anim">
+                <form id="subscribe" action="{{route('postLogin')}}" method="post">
+                    <input class="enteremail" name="login" placeholder="Login" type="text">
+                    <input class="enteremail" type="password" name="password" placeholder="Mot de passe"/>
+                    <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                        <button class="btn btn-default" type="submit">Login</button>
+                        <a class="btn btn-default" href="{{route('getRegister')}}">Inscription</a>
                 </form>
             </div>
         </div>
+
         <!--Subscribe end-->
         <!--================= Social links  ================-->
         <div class="social-links elem">
@@ -67,18 +61,8 @@
                     </a>
                 </li>
                 <li><a href="#" target="_blank" class="transition">
-                        <i class="fa fa-dribbble"></i>
-                        <span class="tooltip">Dribbble</span>
-                    </a>
-                </li>
-                <li><a href="#" target="_blank" class="transition">
                         <i class="fa fa-twitter"></i>
                         <span class="tooltip">Twitter</span>
-                    </a>
-                </li>
-                <li><a href="#" target="_blank" class="transition">
-                        <i class="fa fa-tumblr"></i>
-                        <span class="tooltip">Tumblr</span>
                     </a>
                 </li>
             </ul>
@@ -92,7 +76,7 @@
             <!--start content-->
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <!--============= about section =============-->
+                    <!--============= Calendar section =============-->
                     <div class="swiper-slide slide-bg" style="background:url({{url('assets/images/bg/1.jpg')}})">
                         <div class="overlay hmoov"></div>
                         <div class="container">
@@ -100,32 +84,15 @@
                                 <div class="content-inner">
                                     <div class="section-decor"></div>
                                     <div class="content-holder">
-                                        <div class="about">
-                                            <h3>A Propos</h3>
-                                            <h4> Ut enim ad minim veniam, quis nostrud exercitation ullamco sit
-                                                voluptatem.</h4>
-
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                veniam,
-                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                                esse
-                                                cillum dolore eu fugiat. Ultricies nisi voluptatem, illo inventore
-                                                veritatis
-                                                et quasi architecto beatae vitae dicta sunt explicabo nemo enim ipsam
-                                                voluptatem. Sed ut perspiciatis unde omnis iste natus error sit
-                                                voluptatem
-                                                accusantium doloremque laudantium, totam rem aperiam.</p>
-
-                                            <div class="btn go-contact">Our contacts</div>
+                                        <div id="calendar">
                                         </div>
+                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
                             </section>
                         </div>
                     </div>
-                    <!--about end-->
+                    <!--Calendar  end-->
                     <!--================= Home section ================-->
                     <div class="swiper-slide slide-bg" style="background:url({{url('assets/images/bg/1.jpg')}})">
                         <div class="media-container">
@@ -173,88 +140,60 @@
                     </div>
                     <!--home end-->
                     <!-- Stream Section -->
-                    <div class="swiper-slide slide-bg">
+                    <div class="swiper-slide slide-bg" style="background:url({{url('assets/images/bg/1.jpg')}})">
+                        <div class="overlay hmoov"></div>
                         <div class="container">
                             <section>
                                 <div class="content-inner">
+                                    <div class="section-decor">
+
+                                    </div>
+                                    <div class="">
+                                    <ul class="streams">
+                                        @foreach($streams as $streamer)
+                                            <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                                                @include('partials.streams')
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    </div>
                                 </div>
                             </section>
 
                         </div>
                     </div>
                     <!-- Stream end -->
-                    <!--============= Contact section =============-->
+                    <!--============= about section =============-->
                     <div class="swiper-slide slide-bg" style="background:url({{url('assets/images/bg/1.jpg')}})">
                         <div class="overlay hmoov"></div>
                         <div class="container">
                             <section>
                                 <div class="content-inner">
-                                    <div class="section-decor"></div>
+                                    <div class="section-decor">
+
+                                    </div>
                                     <div class="content-holder">
-                                        <div class="contact">
-                                            <div class="hide-con-info transition">
-                                                <h3>Contacts</h3>
+                                        <div class="about">
+                                            <h3>A Propos</h3>
+                                            <h4>Sous titre a propos</h4>
 
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                    eiusmod
-                                                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
 
-                                                <div class="contact-info-holder">
-                                                    <ul class="contact-info">
-                                                        <li>
-                                                            <a href="#" target="_blank"><i class="fa fa-phone"></i> +1
-                                                                (000)
-                                                                123456</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" target="_blank"><i class="fa fa-envelope-o"></i>
-                                                                yourmail@yuormail.com </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" target="_blank"><i class="fa fa-globe"></i>
-                                                                Heritage
-                                                                Park Minneapolis </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="btn show-form">Write us</div>
-                                            </div>
-                                            <div class="contact-form-holder transition">
-                                                <h3>Get in Touch</h3>
 
-                                                <div class="close-form"><span class="rcd"></span><span
-                                                            class="lcd"></span>
-                                                </div>
-                                                <div id="contact-form">
-                                                    <div id="message"></div>
-                                                    <form method="post" action="php/contact.php" name="contactform"
-                                                          id="contactform">
-                                                        <input name="name" type="text" id="name" onClick="this.select()"
-                                                               value="Name">
-                                                        <input name="email" type="text" id="email"
-                                                               onClick="this.select()"
-                                                               value="E-mail">
-                                                        <textarea name="comments" id="comments" onClick="this.select()">Message</textarea>
-                                                        <button type="submit" id="submit"><i
-                                                                    class="fa fa-envelope-o   button__icon"></i><span>Send Message</span>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
                                         </div>
+                                        <div class="btn go-contact">Our contacts</div>
                                     </div>
                                 </div>
                             </section>
                         </div>
                     </div>
-                    <!--Contact  end-->
+                    <!--about end-->
                 </div>
             </div>
         </div>
         <!--Wrapper  end -->
     </div>
-    <!--Main  end -->
-@stop
+    <!--Main  end --> @stop
 @section('footer')
 @stop
 @section('endBody')
@@ -267,7 +206,7 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
-        // var vstring = '5qbNOkXIioM'; // YouTube Video ID here
+        // var vstring = '5qbNOkXIioM';
         function onYouTubePlayerAPIReady() {
             player = new YT.Player('player', {
                 playerVars: {'autoplay': 1, 'loop': 1, 'playlist': vstring, 'controls': 0, 'showinfo': 0},
@@ -284,5 +223,76 @@
             event.target.playVideo();
             event.target.setPlaybackQuality('hd720');
         }
+    </script>
+    <script type="text/javascript" src="{{url('assets/moment/moment-with-locales.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/fullcalendar/fullcalendar.min.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/fullcalendar/lang/fr.js')}}"></script>
+    <script type="text/javascript" src="{{url('assets/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#calendar').fullCalendar({
+                lang: 'fr',
+                defaultView: 'agendaWeek',
+                aspectRatio: 1,
+                allDayDefault: false,
+                allDaySlot: false,
+                timezone: 'local',
+                @if(Auth::check())
+                    @if(Auth::user()->isAdmin())
+                    editable: true,
+                @endif
+                @else
+                editable: false,
+                @endif
+                events:'{{route('getCalEvents')}}',
+                eventDrop: updateCal,
+                eventResize: updateCal,
+                eventRender: function(event, el) {
+                    // render the timezone offset below the event title
+                    if (event.start.hasZone()) {
+                        el.find('.fc-title').after(
+                                $('<div class="tzo"/>').text(event.start.format('Z'))
+                        );
+                    }
+                }
+            });
+            function updateCal(event, delta, revertFunc) {
+                var data = {
+                    id : event.id,
+                    allDay: /*event.allDay*/ false,
+                    start: event.start.format('YYYY-MM-DD HH:mm:ss'),
+                    end: event.end.format('YYYY-MM-DD HH:mm:ss'),
+                    title: event.title,
+                    color: event.color,
+                    _token: '{{csrf_token()}}'
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '{{route('calendarEdit')}}',
+                    data: data,
+                    success: function () {
+                        console.log('success');
+                    },
+                    error: function () {
+                        alert('Erreur technique, annulation...');
+                        revertFunc();
+                    }
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#startPicker').datetimepicker({
+                format:'YYYY-MM-DD HH:mm:ss'
+            });
+            $('#endPicker').datetimepicker({
+                format:'YYYY-MM-DD HH:mm:ss'
+            });
+
+            $("#startPicker").on("dp.change", function (e) {
+                $('#timezoneInput').val(e.date.format('Z'));
+            });
+        });
     </script>
 @stop

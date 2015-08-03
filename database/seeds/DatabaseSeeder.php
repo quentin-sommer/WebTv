@@ -9,6 +9,7 @@ use Models\ExpLevel;
 use Models\Role;
 use Models\User;
 use Webtv\ExperienceManager;
+use Webtv\StreamingUserService;
 
 class DatabaseSeeder extends Seeder
 {
@@ -79,11 +80,11 @@ class UgoTableSeeder extends Seeder
         $uQ->becomeAdmin();
         $uQ->becomeStreamer();
 
-        for ($i = 2; $i < 100; $i++) {
+        for ($i = 2; $i < 13; $i++) {
             $u = User::find($i);
             $u->becomeStreamer();
             $u->twitch_channel = $u->login;
-
+            $u->description = $u->login . 'lorem ipsum dolor. Lol.';
             $rand = rand(0, 2);
             if ($rand == 0) {
                 $u->streaming = 1;
@@ -100,6 +101,8 @@ class UgoTableSeeder extends Seeder
             */
             $u->save();
         }
+        $su = new StreamingUserService();
+        $su->update();
 
         $this->command->info('Roles attached');
 

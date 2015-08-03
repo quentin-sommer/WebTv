@@ -1,4 +1,37 @@
+.thumbAvatar {
+    max-width: 5rem;
+    margin-right: 1rem;
+}
+.thumbnail .streamerCaption {
+    text-align: center;
+    padding: 0;
+}
+
 .col-centered {
     float: none;
     margin: 0 auto;
+}
+
+.userAdminForm {
+    display: inline;
+}
+
+.streams li {
+    list-style: none;
+}
+
+.streams li p {
+    text-align: center;
+}
+
+.streamImg {
+    width: 100%;
+}
+
+.singlePage {
+    padding-top: 70px;
+}
+
+.profilePic {
+    margin: auto;
 }

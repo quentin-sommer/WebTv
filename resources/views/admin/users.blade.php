@@ -3,18 +3,21 @@
 @section('head')
 @stop
 @section('content')
-    <style>
-        form {
-            display: inline;
-        }
-    </style>
-    <p>Streaming users: </p>
-    <ul>
-        @foreach($streamingUsers as $streamingUser)
-            <li>{{$streamingUser->login}}</li>
-        @endforeach
-    </ul>
         <div class="col-md-12 col-centered">
+            <form class="form-inline" action="{{route('getSearchUserSettings')}}" method="get">
+                <div class="form-group">
+                    <label for="login">Nom ou email</label>
+                    <input type="text" class="form-control" name="login" id="login" placeholder="login/email" value="{{$user_search or ''}}">
+                </div>
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                <button class="btn btn-primary" type="submit">
+                    Filtrer
+                </button>
+            </form>
+
+            @if(count($users) === 0)
+                <h2>Aucun Utilisateur</h2>
+            @else
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
                     <thead>
@@ -67,12 +70,12 @@
                                 </form>
                             </td>
                             <td>
-                                <button form="{{$user->user_id}}" type="submit" class="btn">
+                                <button form="{{$user->user_id}}" type="submit" class="btn btn-success">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button>
-                                <form action="{{route('postDeleteUser',['id' => $user->user_id ])}}" method="post">
+                                <form class="userAdminForm" action="{{route('postDeleteUser',['id' => $user->user_id ])}}" method="post">
                                     <input type="hidden" name="_token" value="{!! csrf_token() !!}">
-                                    <button class="btn" type="submit">
+                                    <button class="btn btn-danger" type="submit">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
                                 </form>
@@ -83,6 +86,7 @@
                 </table>
                 {!!$users->render()!!}
             </div>
+            @endif
         </div>
 @stop
 @section('footer')

@@ -23,12 +23,12 @@ class StreamController extends BaseController
         $user = $this->streamingUser->has($streamerName);
         if ($user !== null) {
             return view('stream.watcher', [
-                'streamingUser' => $user
+                'streamer' => $user
             ]);
         }
 
+        //TODO : maybe notifiy 'stream offline'
         return redirect(route('streams'));
-        // redirect to offline page
     }
 
     public function streamSearch()
@@ -38,6 +38,9 @@ class StreamController extends BaseController
         }
         else {
             $query = '';
+        }
+        if($query === '') {
+            return redirect(route('streams'));
         }
         if (Request::input('all') !== null) {
             $data = $this->streamingUser->searchAll($query);
@@ -84,7 +87,7 @@ class StreamController extends BaseController
             $status = 200;
         }
         else {
-            // Error : no streaming in progress,
+            // Error : no streaming in progress
             $status = 400;
         }
 
@@ -106,17 +109,23 @@ class StreamController extends BaseController
             return new JsonResponse($validator->errors(), 422);
         }
         if ($this->streamingUser->has(Request::input('streamer'))) {
-            $res = $experienceManager->processExpRequest(Request::all());
+            $data = $experienceManager->processExpRequest(Request::all());
+            switch ($data) {
+                case ExperienceManager::NEED_RESYNC:
+                    $status = 400;
+                    break;
+                default:
+                    $status = 200;
+                    break;
+            }
+            // TODO : check data returned to see if it's ok or need resync
         }
         else {
-            // Error : no streaming in progress,
+            // Error : no streaming in progress
+            $status = 400;
         }
 
-        if (is_null($res)) {
-            return new JsonResponse(null, 400);
-        }
-
-        return new JsonResponse($res, 200);
+        return new JsonResponse($data, $status);
     }
     /****************************************
      * END Experience system related functions

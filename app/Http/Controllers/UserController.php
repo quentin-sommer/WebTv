@@ -1,11 +1,13 @@
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Http\Request as Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash as Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Models\User as User;
+use Webtv\ExperienceManager;
 use Webtv\Facade\Avatar;
 use Webtv\StreamingUserService;
 
@@ -42,7 +44,9 @@ class UserController extends BaseController
         ];
 
         if (Auth::attempt($credentials, $request->input('remember'))) {
-            if ($path = session('path')) {
+            if ($request->session()->has('path')) {
+                $path = $request->session()->pull('path');
+
                 return redirect($path);
             }
             else {
@@ -64,7 +68,8 @@ class UserController extends BaseController
     public function postRegister(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'login'    => 'required|min:3|max:25|unique:user,login',
+            'login'    => 'required|min:4|max:25|unique:user,login',
+            'pseudo'   => 'required|min:4|max:25|unique:user,pseudo',
             'password' => 'required|min:6|max:20|confirmed',
             'email'    => 'required|max:100|email|unique:user,email'
         ]);
@@ -77,6 +82,7 @@ class UserController extends BaseController
 
         $u = new User();
         $u->login = $request->input('login');
+        $u->pseudo = $request->input('pseudo');
         $u->email = $request->input('email');
         $u->password = Hash::make($request->input('password'));
         $u->streaming = 0;
@@ -92,9 +98,33 @@ class UserController extends BaseController
         return redirect(route('getLogin'));
     }
 
+    public function showProfile($user)
+    {
+        $u = User::where('pseudo', '=', $user)->first();
+        if (is_null($u)) {
+            App::abort(404);
+        }
+        if (Auth::user() == $u) {
+            $editable = true;
+        }
+        else {
+            $editable = false;
+        }
+
+        $expData = ExperienceManager::getExpInfo($u);
+
+        return view('user.showProfile', [
+            'user'        => $u,
+            'streamer'    => $u->isStreamer(),
+            'editable'    => $editable,
+            'level'       => $expData['level'],
+            'progression' => $expData['progression']
+        ]);
+    }
+
     public function getProfile()
     {
-        return view('user.profile', [
+        return view('user.editProfile', [
             'user'     => Auth::user(),
             'streamer' => Auth::user()->isStreamer()
         ]);
@@ -103,10 +133,11 @@ class UserController extends BaseController
     public function postProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password'   => 'sometimes|min:6|max:25|confirmed',
-            'email'      => 'required|max:100|email',
-            'twitch'     => 'sometimes|twitch',
-            'profilePic' => 'sometimes|image'
+            'password'    => 'sometimes|min:6|max:25|confirmed',
+            'email'       => 'required|max:100|email',
+            'twitch'      => 'sometimes|twitch',
+            'profilePic'  => 'sometimes|image',
+            'description' => 'max:255'
         ]);
 
         if ($validator->fails()) {
@@ -135,6 +166,7 @@ class UserController extends BaseController
         }
 
         $user->email = $request->input('email');
+        $user->description = $request->input('description');
         $user->save();
 
         return redirect(route('getProfile'));
@@ -147,6 +179,7 @@ class UserController extends BaseController
             $user->avatar = Avatar::getDefaultAvatar();
         }
         $user->save();
+
         return redirect()->back();
     }
 }

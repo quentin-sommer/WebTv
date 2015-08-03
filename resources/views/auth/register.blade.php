@@ -12,6 +12,14 @@
                         <p class="help-block">{{$errors->first('login')}}</p>
                     @endif
                 </div>
+                <div class="form-group @if($errors->has('pseudo')) has-error @endif">
+                    <label for="pseudo">Pseudo</label>
+                    <input autocomplete="off" type="text" class="form-control" placeholder="pseudo" name="pseudo" id="pseudo"
+                           value="{{old('pseudo')}}"/>
+                    @if ($errors->has('pseudo'))
+                        <p class="help-block">{{$errors->first('pseudo')}}</p>
+                    @endif
+                </div>
                 <div class="form-group @if($errors->has('email')) has-error @endif">
                     <label for="email">E-mail</label>
                     <input type="text" class="form-control" placeholder="e-mail" name="email" id="email"

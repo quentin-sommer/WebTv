@@ -12,42 +12,45 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 {
     use Authenticatable, CanResetPassword;
 
-    public function __construct()
-    {
-    }
-
     protected $guarded = ['remember_token', 'created_at', 'updated_at'];
-
     protected $table = 'user';
-
     protected $primaryKey = 'user_id';
-
     protected $fillable = [
         'login',
+        'pseudo',
         'email',
         'twitch_channel',
         'description',
+        'avatar',
         'level',
         'experience',
         'password',
         'streaming'
     ];
-
     protected $hidden = ['password', 'remember_token'];
-
-    public function roles()
-    {
-        return $this->belongsToMany('\Models\Role');
-    }
 
     public function getRoles()
     {
         return $this->roles()->get();
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany('\Models\Role');
+    }
+
     public function isAdmin()
     {
         return $this->hasRole(env('ROLE_ADMIN'));
+    }
+
+    public function hasRole($id)
+    {
+        return count($this->roles()->get()->filter(function ($item) use ($id) {
+            if ((int)$item->role_id === (int)$id) {
+                return true;
+            }
+        })) > 0;
     }
 
     public function isStreamer()
@@ -58,6 +61,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function becomeStreamer()
     {
         $this->attachRole(env('ROLE_STREAMER'));
+    }
+
+    private function attachRole($id)
+    {
+        if ($this->roles()->get()->find($id, false)) {
+            return;
+        }
+        $this->roles()->attach($id);
     }
 
     public function becomeAdmin()
@@ -73,7 +84,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function isStreaming()
     {
-        return $this->streaming === 1;
+        if ((int)$this->streaming === 1) {
+            return true;
+        }
+
+        return false;
     }
 
     public function startStreaming()
@@ -86,22 +101,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $this->streaming = 0;
         $this->save();
-    }
-
-    public function hasRole($id)
-    {
-        return count($this->roles()->get()->filter(function ($item) use ($id) {
-            if ((int)$item->role_id === (int)$id) {
-                return true;
-            }
-        })) > 0;
-    }
-
-    private function attachRole($id)
-    {
-        if ($this->roles()->get()->find($id, false)) {
-            return;
-        }
-        $this->roles()->attach($id);
     }
 }
