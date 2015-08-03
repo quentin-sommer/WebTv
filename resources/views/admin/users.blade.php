@@ -45,7 +45,7 @@
                                 {{$user->twitch_channel}}
                             </td>
                             <td>
-                                <form class="userAdminForm" id="{{$user->user_id}}" method="post" action="{{route('postUserSettings')}}">
+                                <form id="{{$user->user_id}}" method="post" action="{{route('postUserSettings')}}">
                                     <input name="user_id" value="{{$user->user_id}}" type="hidden"/>
                                     <input name="login" value="{{$user->login}}" type="hidden"/>
                                     <input name="email" value="{{$user->email}}" type="hidden"/>
@@ -73,7 +73,7 @@
                                 <button form="{{$user->user_id}}" type="submit" class="btn btn-success">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button>
-                                <form action="{{route('postDeleteUser',['id' => $user->user_id ])}}" method="post">
+                                <form class="userAdminForm" action="{{route('postDeleteUser',['id' => $user->user_id ])}}" method="post">
                                     <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                                     <button class="btn btn-danger" type="submit">
                                         <span class="glyphicon glyphicon-remove"></span>
