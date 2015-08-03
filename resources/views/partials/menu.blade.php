@@ -24,7 +24,7 @@
                         <li><a href="{{route('getLogin')}}">Se connecter</a></li>
                         <li><a href="{{route('getRegister')}}">Inscription</a></li>
                     @endif
-                    <li>
+                    <li class="hidden-sm hidden-xs">
                         <form class="navbar-form" method="get" action="{{route('streamSearch')}}">
                             <div class="form-group">
                                 <input name="query" autocomplete="off" type="text" class="form-control"
