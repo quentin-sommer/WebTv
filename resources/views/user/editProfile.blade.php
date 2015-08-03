@@ -2,7 +2,7 @@
 @section('title','Profile')
 @section('content')
     <div class="col-md-6 col-centered">
-        <form action="{{route('postProfile')}}" method="post" enctype="multipart/form-data">
+        <form autocomplete="off" action="{{route('postProfile')}}" method="post" enctype="multipart/form-data">
             <legend>Editer les informations</legend>
             <div class="form-group text-center">
                 <img class="profilePic img-responsive" src="{{Avatar::getUrl($user->avatar)}}" alt="image de profil"/>
