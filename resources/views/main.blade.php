@@ -152,10 +152,7 @@
                                     <ul class="streams">
                                         @foreach($streams as $streamer)
                                             <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-                                                <p>{{$streamer->twitch_channel}}</p>
-                                                <a href="{{route('getStream',['streamerName'=>$streamer->twitch_channel])}}">
-                                                    <img class="streamImg" src="{{Avatar::getUrl($streamer->avatar)}}" alt="image de profil"/>
-                                                </a>
+                                                @include('partials.streams')
                                             </li>
                                         @endforeach
                                     </ul>

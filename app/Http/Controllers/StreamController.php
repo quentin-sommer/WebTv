@@ -23,7 +23,7 @@ class StreamController extends BaseController
         $user = $this->streamingUser->has($streamerName);
         if ($user !== null) {
             return view('stream.watcher', [
-                'streamingUser' => $user
+                'streamer' => $user
             ]);
         }
 

@@ -14,7 +14,7 @@
 <body class="singlePage">
 @include('partials.menu')
 @include('partials.errorDisplay')
-<div class="container">
+<div class="container-fluid">
         @yield('content')
 </div>
 <footer>
