@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Http\Request as Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash as Hash;
@@ -44,7 +44,9 @@ class UserController extends BaseController
         ];
 
         if (Auth::attempt($credentials, $request->input('remember'))) {
-            if ($path = session('path')) {
+            if ($request->session()->has('path')) {
+                $path = $request->session()->pull('path');
+
                 return redirect($path);
             }
             else {
