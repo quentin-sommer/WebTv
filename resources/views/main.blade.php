@@ -206,7 +206,7 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
-        // var vstring = '5qbNOkXIioM';
+        var vstring = 'lJJ9TcGxhNY';
         function onYouTubePlayerAPIReady() {
             player = new YT.Player('player', {
                 playerVars: {'autoplay': 1, 'loop': 1, 'playlist': vstring, 'controls': 0, 'showinfo': 0},
@@ -246,15 +246,7 @@
                 @endif
                 events:'{{route('getCalEvents')}}',
                 eventDrop: updateCal,
-                eventResize: updateCal,
-                eventRender: function(event, el) {
-                    // render the timezone offset below the event title
-                    if (event.start.hasZone()) {
-                        el.find('.fc-title').after(
-                                $('<div class="tzo"/>').text(event.start.format('Z'))
-                        );
-                    }
-                }
+                eventResize: updateCal
             });
             function updateCal(event, delta, revertFunc) {
                 var data = {

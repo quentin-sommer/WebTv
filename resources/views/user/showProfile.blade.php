@@ -8,7 +8,14 @@
         @if($streamer)<p>(Streamer: {{$user->twitch_channel}})</p>@endif
         <p>Niveau : {{$level}}</p>
         @if($editable)
-        <p>Progression : {{$progression}}%</p>
+            <div class="progress">
+                <div style="width: {{$progression}}%;" id="progression" class="progress-bar" role="progressbar"
+                     aria-valuenow="{{$progression}}"
+                     aria-valuemin="0"
+                     aria-valuemax="100">
+                </div>
+                {{$progression}}%
+            </div>
         @endif
         <h2>Description</h2>
         <blockquote>

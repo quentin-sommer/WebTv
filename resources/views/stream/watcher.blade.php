@@ -26,6 +26,7 @@
                     <param name="flashvars"
                            value="channel={{$streamer->twitch_channel}}&auto_play=true&start_volume=25" />
                 </object>
+                @if(Auth::check())
                 <p>Niveau : <span id="lvl"></span></p>
                 <div class="progress">
                     <div id="progression" class="progress-bar" role="progressbar"
@@ -34,6 +35,18 @@
                          aria-valuemax="100">
                     </div>
                 </div>
+                @else
+                    <p><a href="{{route('getLogin')}}">Connectez vous</a> ou <a href="{{route('getRegister')}}">créez un compte</a> pour gagner de l'experience</p>
+                    <p>Niveau : <span id="lvl">1</span></p>
+                    <div class="progress progress-bar-striped">
+                        <div style="width: 0%;" id="progression" class="progress-bar" role="progressbar"
+                             aria-valuenow="0"
+                             aria-valuemin="0"
+                             aria-valuemax="100">
+                        </div>
+                        0%
+                    </div>
+                @endif
             </div>
             <div class="col-lg-4 col-md-3 col-sm-12">
             <iframe frameborder="0"
