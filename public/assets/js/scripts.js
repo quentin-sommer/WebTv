@@ -7,7 +7,7 @@ $(window).load(function () {
 function initGroovi() {
     //  Your date ------------------
     $(".countdown").downCount({
-        date: "09/12/2016",
+        date: "09/05/2015",
         offset: 0
     });
     //  Swiper ------------------

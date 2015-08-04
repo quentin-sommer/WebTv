@@ -134,7 +134,7 @@
                                 </ul>
                             </div>
                             <div class="hero-text">
-                                <h2>Our website is coming soon </h2>
+                                <h2>Beta coming soon </h2>
                             </div>
                         </div>
                     </div>
