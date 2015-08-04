@@ -40,7 +40,7 @@
         <!--Navigation end-->
         <!--================= Subscribe  ================-->
         <div class="subcribe-form-holder elem">
-            < class="subcribe-form elem-anim">
+            <div class="subcribe-form elem-anim">
                 <form id="subscribe" action="{{route('postLogin')}}" method="post">
                     <input class="enteremail" name="login" placeholder="Login" type="text">
                     <input class="enteremail" type="password" name="password" placeholder="Mot de passe"/>

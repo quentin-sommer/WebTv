@@ -12,9 +12,7 @@
     @yield('head')
 </head>
 <body>
-<div class="container">
     @yield('content')
-</div>
 <footer>
     @yield('footer')
 </footer>
