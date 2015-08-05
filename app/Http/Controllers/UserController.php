@@ -91,8 +91,14 @@ class UserController extends BaseController
         return redirect(route('getLogin'));
     }
 
-    public function logout()
+    public function logout(StreamingUserService $sus)
     {
+        $user = Auth::user();
+        if ($user->isStreamer()) {
+            $user->stopStreaming();
+            $sus->update();
+        }
+
         Auth::logout();
 
         return redirect(route('getLogin'));
@@ -162,12 +168,18 @@ class UserController extends BaseController
         if ($request->has('twitch')) {
             $user->twitch_channel = $request->input('twitch');
             $user->streaming = $request->input('streaming');
-            $this->streamingUser->update();
+            $update = true;
+        }
+        else {
+            $update = false;
         }
 
         $user->email = $request->input('email');
         $user->description = $request->input('description');
         $user->save();
+        if ($update) {
+            $this->streamingUser->update();
+        }
 
         return redirect(route('getProfile'));
     }
