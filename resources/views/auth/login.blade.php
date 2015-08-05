@@ -1,4 +1,4 @@
-@extends('single')
+@extends('singleBase')
 @section('title','Login')
 @section('content')
     <div class="col-md-6 col-centered">

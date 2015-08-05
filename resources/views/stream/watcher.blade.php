@@ -1,4 +1,4 @@
-@extends('singleFluid')
+@extends('singleFluidBase')
 @section('title',$streamer->twitch_channel)
 @section('content')
     <div class="col-lg-12"  style="background-color: green;">

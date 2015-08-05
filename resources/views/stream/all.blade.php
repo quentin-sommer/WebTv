@@ -1,4 +1,4 @@
-@extends('single')
+@extends('singleBase')
 @section('title','Tous les streams')
 @section('content')
     <ul class="streams">

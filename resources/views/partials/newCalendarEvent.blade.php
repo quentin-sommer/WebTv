@@ -1,3 +1,7 @@
+@section('head')
+    @parent
+    <link rel="stylesheet" href="{{url('assets/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
+@stop
 <div>
     <form action="{{route('calendarAddEvent')}}" method="post">
         <legend>Ajouter un évènement</legend>
@@ -11,6 +15,18 @@
                    value="{{old('title')}}"/>
             @if ($errors->has('title'))
                 <p class="help-block">{{$errors->first('title')}}</p>
+            @endif
+        </div>
+
+        <div class="form-group @if($errors->has('color')) has-error @endif">
+            <label for="color">Couleur</label>
+
+            <div class="input-group colorPicker">
+                <input type="text" class="form-control" placeholder="Couleur" name="color" id="color" required=""/>
+                <span class="input-group-addon"><i class=" glyphicon glyphicon-text-background"></i></span>
+            </div>
+            @if ($errors->has('color'))
+                <p class="help-block">{{$errors->first('color')}}</p>
             @endif
         </div>
 
@@ -44,18 +60,22 @@
             @endif
         </div>
 
-        <div class="form-group @if($errors->has('color')) has-error @endif">
-            <label for="color">Couleur</label>
-            <input type="text" class="form-control" placeholder="Couleur" name="color" id="color"
-                   value="#FF0000"/>
-            @if ($errors->has('color'))
-                <p class="help-block">{{$errors->first('color')}}</p>
-            @endif
-        </div>
-
         <input type="hidden" id="timezoneInput" name="timezone"/>
         <input type="hidden" name="_token" value="{!!csrf_token()!!}"/>
         <button type="submit" class="btn btn-primary pull-right">Ajouter l'évènement</button>
     </form>
 </div>
 <div class="clearfix"></div>
+@section('endBody')
+    @parent
+    <script src="{{url('assets/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
+    <script>
+        $(function () {
+            var $cp = $('#color');
+            $cp.colorpicker({
+                format: 'hex',
+                color: '#ff6060'
+            });
+        })
+    </script>
+@stop

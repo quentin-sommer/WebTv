@@ -1,7 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+
+body, h1,h2,h3,h4,h5,h6 {
+    font-family: 'Roboto', sans-serif;
+}
+
 .thumbAvatar {
     max-width: 5rem;
     margin-right: 1rem;
 }
+
 .thumbnail .streamerCaption {
     text-align: center;
     padding: 0;
@@ -34,4 +41,7 @@
 
 .profilePic {
     margin: auto;
+}
+option[val="#1A2530"] {
+    background-color: #1A2530;
 }

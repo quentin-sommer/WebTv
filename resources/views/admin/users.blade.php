@@ -1,4 +1,4 @@
-@extends('single')
+@extends('singleBase')
 @section('title','Admin - Users')
 @section('head')
 @stop
