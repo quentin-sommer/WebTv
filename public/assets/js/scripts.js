@@ -23,15 +23,10 @@ function initGroovi() {
         onSlideChangeStart: function (c) {
             var $current = $("#menu a").eq(b.activeIndex);
             switch ($current.attr('data-page')) {
-                // home, video playing, stream paused
+                // home, video playing
                 case '0':
                     player.playVideo();
                     break;
-                // stream playing, video stopped.
-                case '1':
-                    player.pauseVideo();
-                    break;
-                // static page, no strem and no vid
                 default:
                     player.pauseVideo();
                     break;

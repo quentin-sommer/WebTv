@@ -32,7 +32,7 @@
         <div id="nav" class="vis elem">
             <div id="menu" class="elem-anim">
                 <a>Calendrier<span class="transition"></span></a>
-                <a class="active">Accueil <span class="transition"></span></a>
+                <a data-page="0" class="active">Accueil <span class="transition"></span></a>
                 <a>Streams <span class="transition"></span></a>
                 <a>A propos <span class="transition"></span></a>
             </div>
