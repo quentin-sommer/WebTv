@@ -801,7 +801,7 @@ ul.countdown li p {
 }
 
 .btn {
-    float: left;
+    float: right;
     margin-top: 20px;
     color: #fff;
     padding: 6px 20px;
@@ -874,6 +874,7 @@ ul.countdown li p {
     color: #fff !important;
     background: rgba(255, 255, 255, 0.2);
     margin-bottom: 5px;
+    width:100%;
 }
 
 #subscribe input.enteremail::-webkit-input-placeholder {

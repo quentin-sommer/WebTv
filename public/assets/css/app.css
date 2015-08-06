@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
 
-body, h1,h2,h3,h4,h5,h6 {
+body, h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -36,12 +36,26 @@ body, h1,h2,h3,h4,h5,h6 {
 }
 
 .singlePage {
-    padding-top: 70px;
+    padding-top: 60px;
 }
 
 .profilePic {
     margin: auto;
 }
-option[val="#1A2530"] {
-    background-color: #1A2530;
+
+.streamHeader {
+    position: absolute;
+    bottom: 0;
+    background-color: #272B30;
+    padding: 2rem;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.twitchStream {
+    padding-right: 0;
+}
+
+.twitchChat {
+    padding-left: 0;
 }

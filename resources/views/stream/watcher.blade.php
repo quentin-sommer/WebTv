@@ -1,14 +1,19 @@
 @extends('singleFluidBase')
 @section('title',$streamer->twitch_channel)
 @section('content')
-    <div class="col-lg-12"  style="background-color: green;">
-        Bandeau du stream
+    <div class="col-lg-12">
+        <img class="img-responsive" src="http://placehold.it/{{env('STREAM_BANNER_WIDTH')}}x380" alt="">
+
+        <h1 class="streamHeader">
+                <img class="thumbAvatar img-rounded" src="{{Avatar::getUrl($streamer->avatar)}}" alt="Image du stream">
+
+            <a href="{{route('showProfile', ['user' => $streamer->pseudo])}}">
+                {{$streamer->pseudo}}
+            </a>
+            <small>({{$streamer->twitch_channel}})</small>
+        </h1>
     </div>
-    <h1 class="col-lg-12">
-        <img class="thumbAvatar img-rounded" src="{{Avatar::getUrl($streamer->avatar)}}" alt="Image du stream">
-        {{$streamer->pseudo}} <small>({{$streamer->twitch_channel}})</small>
-    </h1>
-            <div class="col-lg-8 col-md-9 col-sm-12">
+            <div class="col-lg-8 col-md-9 col-sm-12 twitchStream">
                 <object bgcolor="#000000"
                         data="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf"
                         height="680"
@@ -48,7 +53,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col-lg-4 col-md-3 col-sm-12">
+            <div class="col-lg-4 col-md-3 col-sm-12 twitchChat">
             <iframe frameborder="0"
                     scrolling="no"
                    id="chat_embed"
