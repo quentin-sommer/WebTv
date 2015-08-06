@@ -1,12 +1,11 @@
 <?php namespace App\Providers;
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Intervention\Image\ImageManager;
 use Webtv\AvatarManager;
 use Webtv\ExperienceManager;
+use Webtv\StreamBannerManager;
 use Webtv\StreamingUserService;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,6 +36,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind('AvatarManager', function ($app) {
             return new AvatarManager();
+        });
+        $this->app->bind('StreamBannerManager', function ($app) {
+           return new StreamBannerManager();
         });
 
         Validator::extend('twitch', function ($attribute, $value, $parameters) {
