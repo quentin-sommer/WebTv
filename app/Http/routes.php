@@ -61,6 +61,10 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fun
         'as'   => 'deleteAvatar',
         'uses' => 'UserController@deleteAvatar'
     ]);
+    $app->get('stream/deleteBanner', [
+        'as'   => 'deleteStreamBanner',
+        'uses' => 'UserController@deleteStreamBanner'
+    ]);
 });
 /*
  * Admin only

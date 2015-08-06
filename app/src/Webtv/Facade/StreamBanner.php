@@ -1,6 +1,6 @@
 <?php
 
-namespace Webtv\StreamBanner;
+namespace Webtv\Facade;
 
 use Illuminate\Support\Facades\Facade;
 

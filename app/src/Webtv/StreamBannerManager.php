@@ -8,6 +8,8 @@
 
 namespace Webtv;
 
+use Illuminate\Support\Facades\App;
+
 class StreamBannerManager
 {
 
@@ -80,6 +82,7 @@ class StreamBannerManager
     {
         $manager = $this->imgManager->make($path);
         $manager->orientate();
+
         $manager->fit($this->width, $this->height);
         $name = $this->getFileName();
 

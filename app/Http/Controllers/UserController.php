@@ -9,6 +9,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use Models\User as User;
 use Webtv\ExperienceManager;
 use Webtv\Facade\Avatar;
+use Webtv\Facade\StreamBanner;
 use Webtv\StreamingUserService;
 
 class UserController extends BaseController
@@ -139,11 +140,12 @@ class UserController extends BaseController
     public function postProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password'    => 'sometimes|min:6|max:25|confirmed',
-            'email'       => 'required|max:100|email',
-            'twitch'      => 'sometimes|twitch',
-            'profilePic'  => 'sometimes|image',
-            'description' => 'max:255'
+            'password'     => 'sometimes|min:6|max:25|confirmed',
+            'email'        => 'required|max:100|email',
+            'twitch'       => 'sometimes|twitch',
+            'profilePic'   => 'sometimes|image',
+            'description'  => 'max:255',
+            'streamBanner' => 'sometimes|image'
         ]);
 
         if ($validator->fails()) {
@@ -165,13 +167,22 @@ class UserController extends BaseController
         if ($request->has('password')) {
             $user->password = Hash::make($request->input('password'));
         }
-        if ($request->has('twitch')) {
-            $user->twitch_channel = $request->input('twitch');
-            $user->streaming = $request->input('streaming');
-            $update = true;
-        }
-        else {
-            $update = false;
+        if ($user->isStreamer()) {
+            if ($request->has('twitch')) {
+                $user->twitch_channel = $request->input('twitch');
+                $user->streaming = $request->input('streaming');
+                $update = true;
+            }
+            else {
+                $update = false;
+            }
+            if ($request->hasFile('streamBanner')) {
+                if ($request->file('streamBanner')->isValid()) {
+
+                    $path = $request->file('streamBanner')->getRealPath();
+                    $user->stream_banner = StreamBanner::processBanner($path);
+                }
+            }
         }
 
         $user->email = $request->input('email');
@@ -188,7 +199,18 @@ class UserController extends BaseController
     {
         $user = Auth::user();
         if (Avatar::isNotDefault($user->avatar)) {
-            $user->avatar = Avatar::getDefaultAvatar();
+            $user->avatar = Avatar::getDefault();
+        }
+        $user->save();
+
+        return redirect()->back();
+    }
+
+    public function deleteStreamBanner()
+    {
+        $user = Auth::user();
+        if (StreamBanner::isNotDefault($user->stream_banner)) {
+            $user->stream_banner = Avatar::getDefault();
         }
         $user->save();
 

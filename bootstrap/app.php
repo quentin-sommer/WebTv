@@ -21,8 +21,8 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
-
 class_alias('Webtv\Facade\Avatar', 'Avatar');
+class_alias('Webtv\Facade\StreamBanner', 'StreamBanner');
 
 $app->withEloquent();
 
@@ -87,7 +87,7 @@ $app->routeMiddleware([
 $app->register('App\Providers\AppServiceProvider');
 // DEBUG
 
-//$app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
+$app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

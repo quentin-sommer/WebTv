@@ -2,7 +2,7 @@
 @section('title',$streamer->twitch_channel)
 @section('content')
     <div class="col-lg-12">
-        <img class="img-responsive" src="http://placehold.it/{{env('STREAM_BANNER_WIDTH')}}x380" alt="">
+        <img class="img-responsive" src="{{StreamBanner::getUrl($streamer->stream_banner)}}" alt="">
 
         <h1 class="streamHeader">
                 <img class="thumbAvatar img-rounded" src="{{Avatar::getUrl($streamer->avatar)}}" alt="Image du stream">

@@ -35,26 +35,7 @@
                     <p class="help-block">{{$errors->first('email')}}</p>
                 @endif
             </div>
-            @if($streamer)
-                <div class="form-group @if($errors->has('twitch')) has-error @endif">
-                    <label class="control-label" for="twitch">Twitch channel</label>
-                    <input autocomplete="off" type="text" class="form-control" placeholder="Twitch channel" name="twitch" id="twitch"
-                           value="{{$user->twitch_channel}}"/>
-                    @if ($errors->has('twitch'))
-                        <p class="help-block">{{$errors->first('twitch')}}</p>
-                    @endif
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="streaming">
-                        <input data-toggle="toggle" name="streaming"
-                               value="1"
-                               @if($user->isStreaming()) checked="checked" @endif
-                               type="checkbox"
-                               id="streaming"/>
-                        En train de streamer
-                    </label>
-                </div>
-            @endif
+
             <div class="form-group @if($errors->has('password')) has-error @endif">
                 <label class="control-label" for="password">Changer le mot de passe</label>
                 <input autocomplete="off" type="password" class="form-control" placeholder="mot de passe" name="password" id="password"
@@ -76,6 +57,45 @@
                     <p class="help-block">{{$errors->first('description')}}</p>
                 @endif
             </div>
+
+            @if($streamer)
+                <h1>Réglages streamer</h1>
+                <div class="form-group @if($errors->has('twitch')) has-error @endif">
+                    <label class="control-label" for="twitch">Twitch channel</label>
+                    <input autocomplete="off" type="text" class="form-control" placeholder="Twitch channel" name="twitch" id="twitch"
+                           value="{{$user->twitch_channel}}"/>
+                    @if ($errors->has('twitch'))
+                        <p class="help-block">{{$errors->first('twitch')}}</p>
+                    @endif
+                </div>
+
+                <div class="form-group @if($errors->has('streamBanner')) has-error @endif">
+                    <label class="control-label" for="streamBanner">Changer le bandeau du stream</label>
+                    <input class="btn btn-default" type="file" placeholder="Bandeau du stream" name="streamBanner" id="streamBanner"/>
+                    @if ($errors->has('streamBanner'))
+                        <p class="help-block">{{$errors->first('streamBanner')}}</p>
+                    @endif
+                </div>
+
+                <div class="form-group text-center">
+                    <img class="profilePic img-responsive" src="{{StreamBanner::getUrl($user->stream_banner)}}" alt="image du stream"/>
+                    @if(StreamBanner::isNotDefault($user->stream_banner))
+                        <a class="btn btn-danger" href="{{route('deleteStreamBanner')}}">Supprimer</a>
+                    @endif
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="streaming">
+                        <input data-toggle="toggle" name="streaming"
+                               value="1"
+                               @if($user->isStreaming()) checked="checked" @endif
+                               type="checkbox"
+                               id="streaming"/>
+                        En train de streamer
+                    </label>
+                </div>
+            @endif
+
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <button type="submit" class="btn btn-primary pull-right">Sauvegarder</button>
