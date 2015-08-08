@@ -39,6 +39,7 @@
         </div>
         <!--Navigation end-->
         <!--================= Subscribe  ================-->
+        @if(Auth::guest())
         <div class="subcribe-form-holder elem">
             <div class="subcribe-form elem-anim">
                 <form id="subscribe" action="{{route('postLogin')}}" method="post">
@@ -50,6 +51,7 @@
                 </form>
             </div>
         </div>
+        @endif()
 
         <!--Subscribe end-->
         <!--================= Social links  ================-->
