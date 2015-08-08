@@ -68,6 +68,17 @@
     <script type="text/javascript">
         var resyncAttemps = 0;
         $(function() {
+            if(adsAreBlocked()) {
+                $('.twitchStream').replaceWith(
+                        '<div class="col-lg-12">' +
+                            '<div class="jumbotron adBlockOverlay">' +
+                                '<h1 class="adBlockOverlayMessage">AdBlock tue les streamers. <small>(Vraiment)</small></h1>'+
+                                '<p>L\'extension AdBlock bloque les publicités de twitch qui permettent aux streamers de vivre.</p>'+
+                            '</div>' +
+                        '</div>'
+                );
+                $('.twitchChat').remove();
+            }
             start();
         });
         function start() {

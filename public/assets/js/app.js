@@ -1,4 +1,7 @@
-if (isAdBlockActive) {
-    // block the stream
-    console.log("The visitor is blocking ads");
+function adsAreBlocked() {
+    if (isAdBlockActive) {
+        console.log("The visitor is blocking ads");
+        return true;
+    }
+    return false;
 }
