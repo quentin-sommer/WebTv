@@ -103,6 +103,10 @@ $app->group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers', 'middle
         'as'   => 'calendarEdit',
         'uses' => 'CalendarController@editCalendar'
     ]);
+    $app->get('streamers/refresh', [
+        'as'   => 'refreshStreamers',
+        'uses' => 'AdminController@refreshStreamers'
+    ]);
 });
 /*
  * public

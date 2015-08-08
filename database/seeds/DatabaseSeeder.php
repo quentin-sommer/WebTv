@@ -49,7 +49,7 @@ class UgoTableSeeder extends Seeder
         $uQ->password = Hash::make('quentin');
         $uQ->email = 'quentin@mail.com';
         $uQ->streaming = 1;
-        $uQ->twitch_channel = 'quentin';
+        $uQ->twitch_channel = 'riotgames';
         $uQ->save();
 
         $data = [];
@@ -83,7 +83,7 @@ class UgoTableSeeder extends Seeder
         for ($i = 2; $i < 13; $i++) {
             $u = User::find($i);
             $u->becomeStreamer();
-            $u->twitch_channel = $u->login;
+            $u->twitch_channel = $i;
             $u->description = $u->login . 'lorem ipsum dolor. Lol.';
             $rand = rand(0, 2);
             if ($rand == 0) {

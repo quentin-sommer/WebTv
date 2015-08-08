@@ -1,5 +1,6 @@
 <?php namespace App\Providers;
 
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Intervention\Image\ImageManager;
@@ -38,7 +39,10 @@ class AppServiceProvider extends ServiceProvider
             return new AvatarManager();
         });
         $this->app->bind('StreamBannerManager', function ($app) {
-           return new StreamBannerManager();
+            return new StreamBannerManager();
+        });
+        $this->app->bind('TwitchApiClient', function ($app) {
+            return new Client(['base_uri' => 'https://api.twitch.tv']);
         });
 
         Validator::extend('twitch', function ($attribute, $value, $parameters) {

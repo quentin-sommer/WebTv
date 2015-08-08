@@ -2,6 +2,7 @@
 
 namespace Webtv;
 
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 use Models\User as User;
@@ -43,7 +44,9 @@ class StreamingUserService
      */
     public function getAll()
     {
-        return $this->retrieveData();
+        return Cache::remember('streamers', $this->expirationTime, function () {
+            return $this->retrieveData();
+        });
     }
 
     /**
@@ -51,16 +54,40 @@ class StreamingUserService
      */
     private function retrieveData()
     {
-        return Cache::remember('streamers', $this->expirationTime, function () {
-            return User::streamers()->where('streaming', '=', '1')->orderBy('twitch_channel')->get();
-        });
+        return User::streamers()
+            ->where('streaming', '=', '1')
+            ->orderBy('twitch_channel')
+            ->get()
+            ->filter(function ($streamer) {
+                return $this->isStreamingOnTwitch($streamer->twitch_channel);
+            });
     }
+
+    private function isStreamingOnTwitch($streamerName)
+    {
+        $httpClient = app('TwitchApiClient');
+
+        try {
+            $res = $httpClient->get('/kraken/streams/' . $streamerName);
+            $data = json_decode($res->getBody()->getContents(), true);
+            if ($data['stream'] !== null) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        } catch (ClientException $e) {
+            return false;
+        }
+    }
+
 
     /**
      * @param $query string
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function searchAll($query)
+    public
+    function searchAll($query)
     {
         $res = $this->getAll()->filter(function (User $streamer) use ($query) {
             $res = $this->startsWith($streamer->twitch_channel, $query);
@@ -83,7 +110,8 @@ class StreamingUserService
      * @param $query string the needle
      * @return bool
      */
-    private function startsWith($str, $query)
+    private
+    function startsWith($str, $query)
     {
         $str = strtolower($str);
 
@@ -99,7 +127,8 @@ class StreamingUserService
      * @param $query string
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function searchStreaming($query)
+    public
+    function searchStreaming($query)
     {
         $res = $this->getAll()->filter(function (User $streamer) use ($query) {
             $res = $this->startsWith($streamer->twitch_channel, $query);
@@ -117,11 +146,18 @@ class StreamingUserService
     }
 
     /**
-     * Forces the streamers cache update
+     * Forces the streamers cache flush
      */
     public function update()
     {
         Cache::forget('streamers');
     }
 
+    /**
+     * Force the streamers cache upate
+     */
+    public function refreshStreamers()
+    {
+        Cache::put('streamers', $this->retrieveData(), $this->expirationTime);
+    }
 }
