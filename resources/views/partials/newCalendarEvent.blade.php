@@ -71,7 +71,7 @@
     <script src="{{url('assets/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
     <script>
         $(function () {
-            var $cp = $('#color');
+            var $cp = $('.colorPicker');
             $cp.colorpicker({
                 format: 'hex',
                 color: '#ff6060'

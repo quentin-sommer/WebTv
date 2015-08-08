@@ -74,6 +74,7 @@
                             '<div class="jumbotron adBlockOverlay">' +
                                 '<h1 class="adBlockOverlayMessage">AdBlock tue les streamers. <small>(Vraiment)</small></h1>'+
                                 '<p>L\'extension AdBlock bloque les publicités de twitch qui permettent aux streamers de vivre.</p>'+
+                                '<p>Pour visionner le stream nous vous invitons a désactiver votre bloqueur et <a href="{{Request::url()}}">rafraichir la page</a></p>'+
                             '</div>' +
                         '</div>'
                 );
