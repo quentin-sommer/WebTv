@@ -1,7 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+}
+
 .thumbAvatar {
     max-width: 5rem;
     margin-right: 1rem;
 }
+
 .thumbnail .streamerCaption {
     text-align: center;
     padding: 0;
@@ -14,6 +21,10 @@
 
 .userAdminForm {
     display: inline;
+}
+
+.streams {
+    padding: 0;
 }
 
 .streams li {
@@ -29,9 +40,89 @@
 }
 
 .singlePage {
-    padding-top: 70px;
+    padding-top: 60px;
 }
 
 .profilePic {
     margin: auto;
+    width: 300px;
+}
+
+.streamHeader {
+    bottom: 0;
+    background-color: #272B30;
+    padding: 2rem;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.levelDisplay {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #272B30;
+    padding: 2rem;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.levelDisplay .progress {
+    margin-bottom: 0;
+}
+
+.wrapper {
+    position: relative;
+    height: 100%;
+}
+
+.adBlockOverlay {
+    margin: auto;
+    width: 80%;
+    max-width: 800px;
+    height: 480px;
+    background-color: #272727;
+    margin-top: 2rem;
+}
+
+.adBlockOverlayMessage {
+    vertical-align: middle;
+}
+
+.errorBox {
+    max-width: 500px;
+    margin: auto auto 10px;
+}
+
+.adminHeader {
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 992px) {
+    .streamHeader {
+        position: absolute;
+        border-radius: 0 5px 5px 0;
+        border-top: 1px solid black;
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+        border-left: 0;
+    }
+
+    .levelDisplay {
+        position: absolute;
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        border-bottom: 1px solid black;
+        border-right: 0;
+        border-radius: 5px 0 0 5px;
+        max-width: 500px;
+    }
+
+    .twitchStream {
+        padding-right: 0;
+    }
+
+    .twitchChat {
+        padding-left: 0;
+    }
 }

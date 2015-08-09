@@ -38,10 +38,10 @@ class AdminController extends BaseController
         $id = Request::input('login');
         $data = [
             'users'       => User::with('roles')
-                                ->where('login', 'like', $id . '%')
-                                ->orWhere('email', 'like', $id . '%')
-                                ->paginate(20)
-                                ->setPath(route('getSearchUserSettings')),
+                ->where('login', 'like', $id . '%')
+                ->orWhere('email', 'like', $id . '%')
+                ->paginate(20)
+                ->setPath(route('getSearchUserSettings')),
             'roles'       => Role::all(),
             'user_search' => $id
         ];
@@ -117,5 +117,11 @@ class AdminController extends BaseController
     public function postCalendar()
     {
         echo 'postCalendar';
+    }
+
+    public function refreshStreamers()
+    {
+        $this->streamingUser->refreshStreamers();
+        return redirect()->back();
     }
 }

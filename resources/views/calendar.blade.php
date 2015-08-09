@@ -1,4 +1,4 @@
-@extends('single')
+@extends('singleBase')
 @section('title','Calendrier')
 @section('head')
     @parent

@@ -13,7 +13,7 @@
         <div id="navbar" class="collapse navbar-collapse">
             <nav>
                 <ul class="nav navbar-nav">
-                    <li><a href="{{route('getIndex')}}">Accueil</a></li>
+                    <!--<li><a href="{{route('getIndex')}}">Accueil</a></li>-->
                     <li><a href="{{route('streams')}}">Streams</a></li>
                     <li><a href="{{route('getCalendar')}}">Calendrier</a></li>
                     <li><a href="{{route('getIndex')}}">About</a></li>

@@ -37,9 +37,6 @@ class StreamController extends BaseController
             $query = Request::input('query');
         }
         else {
-            $query = '';
-        }
-        if($query === '') {
             return redirect(route('streams'));
         }
         if (Request::input('all') !== null) {

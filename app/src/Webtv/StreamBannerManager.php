@@ -1,10 +1,16 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Quentin
+ * Date: 06/08/2015
+ * Time: 18:29
+ */
 
 namespace Webtv;
 
 use Illuminate\Support\Facades\App;
 
-class AvatarManager
+class StreamBannerManager
 {
 
     protected $storagePath;
@@ -21,16 +27,21 @@ class AvatarManager
      */
     protected $width;
     /**
+     * @var int
+     */
+    protected $height;
+    /**
      * @var string
      */
     protected $default;
 
     public function __construct()
     {
-        $this->storagePath = 'uploads/avatars';
+        $this->storagePath = 'uploads/streamBanners';
         $this->imgManager = app('ImageManager');
         $this->encoding = 'jpg';
-        $this->width = env('AVATAR_WIDTH');
+        $this->width = env('STREAM_BANNER_WIDTH');
+        $this->height = env('STREAM_BANNER_HEIGHT');
         $this->default = 'default.jpg';
     }
 
@@ -67,11 +78,12 @@ class AvatarManager
     }
 
 
-    public function processAvatar($path)
+    public function processBanner($path)
     {
         $manager = $this->imgManager->make($path);
         $manager->orientate();
-        $manager->fit($this->width);
+
+        $manager->fit($this->width, $this->height);
         $name = $this->getFileName();
 
         $manager->save($this->getUploadPath($name));

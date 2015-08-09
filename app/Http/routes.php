@@ -61,6 +61,10 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fun
         'as'   => 'deleteAvatar',
         'uses' => 'UserController@deleteAvatar'
     ]);
+    $app->get('stream/deleteBanner', [
+        'as'   => 'deleteStreamBanner',
+        'uses' => 'UserController@deleteStreamBanner'
+    ]);
 });
 /*
  * Admin only
@@ -98,6 +102,10 @@ $app->group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers', 'middle
     $app->post('calendar/edit', [
         'as'   => 'calendarEdit',
         'uses' => 'CalendarController@editCalendar'
+    ]);
+    $app->get('streamers/refresh', [
+        'as'   => 'refreshStreamers',
+        'uses' => 'AdminController@refreshStreamers'
     ]);
 });
 /*

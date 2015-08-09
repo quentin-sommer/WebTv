@@ -21,6 +21,7 @@ class CreateUserTable extends Migration
             $table->string('twitch_channel', 255)->default(null);
             $table->string('description', 255);
             $table->string('avatar', 255)->default('default.jpg');
+            $table->string('stream_banner', 255)->default('default.jpg');
             $table->integer('level', false, true)->default(1);
             $table->dateTime('last_seen_watching')->default(null);
             $table->string('experience_token', 100)->default(null);

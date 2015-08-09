@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>WebTv - @yield('title')</title>
@@ -14,7 +14,7 @@
 <body class="singlePage">
 @include('partials.menu')
 @include('partials.errorDisplay')
-<div class="container-fluid">
+<div class="container">
         @yield('content')
 </div>
 <footer>

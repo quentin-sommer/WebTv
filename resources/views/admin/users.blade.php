@@ -1,20 +1,26 @@
-@extends('single')
+@extends('singleBase')
 @section('title','Admin - Users')
 @section('head')
 @stop
 @section('content')
         <div class="col-md-12 col-centered">
-            <form class="form-inline" action="{{route('getSearchUserSettings')}}" method="get">
-                <div class="form-group">
-                    <label for="login">Nom ou email</label>
-                    <input type="text" class="form-control" name="login" id="login" placeholder="login/email" value="{{$user_search or ''}}">
-                </div>
-                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                <button class="btn btn-primary" type="submit">
-                    Filtrer
-                </button>
-            </form>
-
+            <div class="col-md-6 adminHeader">
+                <form class="form-inline" action="{{route('getSearchUserSettings')}}" method="get">
+                    <div class="form-group">
+                        <label for="login">Nom ou email</label>
+                        <input type="text" class="form-control" name="login" id="login" placeholder="login/email" value="{{$user_search or ''}}">
+                    </div>
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <button class="btn btn-primary" type="submit">
+                        Filtrer
+                    </button>
+                </form>
+            </div>
+            <div class="cold-md-6 adminHeader">
+                <a class="btn btn-primary btn-warning" href="{{route('refreshStreamers')}}">
+                    Rafraichir les streamers
+                </a>
+            </div>
             @if(count($users) === 0)
                 <h2>Aucun Utilisateur</h2>
             @else

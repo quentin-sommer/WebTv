@@ -21,8 +21,8 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
-
 class_alias('Webtv\Facade\Avatar', 'Avatar');
+class_alias('Webtv\Facade\StreamBanner', 'StreamBanner');
 
 $app->withEloquent();
 

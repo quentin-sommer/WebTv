@@ -32,15 +32,16 @@
         <div id="nav" class="vis elem">
             <div id="menu" class="elem-anim">
                 <a>Calendrier<span class="transition"></span></a>
-                <a class="active">Accueil <span class="transition"></span></a>
+                <a data-page="0" class="active">Accueil <span class="transition"></span></a>
                 <a>Streams <span class="transition"></span></a>
                 <a>A propos <span class="transition"></span></a>
             </div>
         </div>
         <!--Navigation end-->
         <!--================= Subscribe  ================-->
+        @if(Auth::guest())
         <div class="subcribe-form-holder elem">
-            < class="subcribe-form elem-anim">
+            <div class="subcribe-form elem-anim">
                 <form id="subscribe" action="{{route('postLogin')}}" method="post">
                     <input class="enteremail" name="login" placeholder="Login" type="text">
                     <input class="enteremail" type="password" name="password" placeholder="Mot de passe"/>
@@ -50,6 +51,7 @@
                 </form>
             </div>
         </div>
+        @endif()
 
         <!--Subscribe end-->
         <!--================= Social links  ================-->
@@ -134,7 +136,7 @@
                                 </ul>
                             </div>
                             <div class="hero-text">
-                                <h2>Our website is coming soon </h2>
+                                <h2>Beta coming soon </h2>
                             </div>
                         </div>
                     </div>
@@ -151,7 +153,7 @@
                                     <div class="">
                                     <ul class="streams">
                                         @foreach($streams as $streamer)
-                                            <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                                            <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
                                                 @include('partials.streams')
                                             </li>
                                         @endforeach
@@ -206,7 +208,7 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
-        // var vstring = '5qbNOkXIioM';
+        var vstring = 'lJJ9TcGxhNY';
         function onYouTubePlayerAPIReady() {
             player = new YT.Player('player', {
                 playerVars: {'autoplay': 1, 'loop': 1, 'playlist': vstring, 'controls': 0, 'showinfo': 0},
@@ -246,15 +248,7 @@
                 @endif
                 events:'{{route('getCalEvents')}}',
                 eventDrop: updateCal,
-                eventResize: updateCal,
-                eventRender: function(event, el) {
-                    // render the timezone offset below the event title
-                    if (event.start.hasZone()) {
-                        el.find('.fc-title').after(
-                                $('<div class="tzo"/>').text(event.start.format('Z'))
-                        );
-                    }
-                }
+                eventResize: updateCal
             });
             function updateCal(event, delta, revertFunc) {
                 var data = {
