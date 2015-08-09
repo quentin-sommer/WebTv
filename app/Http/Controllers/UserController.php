@@ -102,7 +102,7 @@ class UserController extends BaseController
 
         Auth::logout();
 
-        return redirect(route('getLogin'));
+        return redirect()->back();
     }
 
     public function showProfile($user)
