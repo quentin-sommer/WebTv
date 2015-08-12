@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Webtv\ExperienceManager;
 use Webtv\StreamingUserService;
+use Illuminate\Support\Facades\Auth;
 
 class StreamController extends BaseController
 {
@@ -60,6 +61,30 @@ class StreamController extends BaseController
         return view('stream.all', [
             'streams' => $data
         ]);
+    }
+
+    public function startStreaming()
+    {
+        $user = Auth::user();
+        if ($user->isStreamer()) {
+            if (!$user->isStreaming()) {
+                $user->startStreaming();
+                $this->streamingUser->update();
+            }
+        }
+        return redirect()->back();
+    }
+
+    public function stopStreaming()
+    {
+        $user = Auth::user();
+        if ($user->isStreamer()) {
+            if ($user->isStreaming()) {
+                $user->stopStreaming();
+                $this->streamingUser->update();
+            }
+        }
+        return redirect()->back();
     }
 
     /****************************************

@@ -65,6 +65,14 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fun
         'as'   => 'deleteStreamBanner',
         'uses' => 'UserController@deleteStreamBanner'
     ]);
+    $app->get('stream/start', [
+        'as'   => 'startStreaming',
+        'uses' => 'StreamController@startStreaming'
+    ]);
+    $app->get('stream/stop', [
+        'as'   => 'stopStreaming',
+        'uses' => 'StreamController@stopStreaming'
+    ]);
 });
 /*
  * Admin only

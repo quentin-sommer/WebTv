@@ -40,6 +40,17 @@
                             <button type="submit" class="btn btn-default">Rechercher</button>
                         </form>
                     </li>
+                    @if(Auth::check() && Auth::user()->isStreamer())
+                        @if(Auth::user()->isStreaming())
+                            <li>
+                                <a href="{{route('stopStreaming')}}">Stop Streamer</a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{route('startStreaming')}}">Streamer</a>
+                            </li>
+                        @endif
+                    @endif
                 </ul>
             </nav>
 
