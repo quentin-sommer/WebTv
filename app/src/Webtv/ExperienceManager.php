@@ -65,7 +65,7 @@ class ExperienceManager
             case(self::OK) :
 
                 // Update user experience, send new token and user info
-                return $this->updateExperience($data);
+                return $this->updateExperience();
                 break;
             case(self::NEED_RESYNC) :
 
