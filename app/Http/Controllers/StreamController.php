@@ -3,12 +3,13 @@
 namespace app\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use Models\User;
 use Webtv\ExperienceManager;
 use Webtv\StreamingUserService;
-use Illuminate\Support\Facades\Auth;
 
 class StreamController extends BaseController
 {
@@ -27,8 +28,14 @@ class StreamController extends BaseController
                 'streamer' => $user
             ]);
         }
+        $user = null;
+        $user = User::streamers()->where('twitch_channel', '=', $streamerName)->get()->first();
+        if (count($user) > 0) {
+            return view('stream.offline', [
+                'streamer' => $user
+            ]);
+        }
 
-        //TODO : maybe notifiy 'stream offline'
         return redirect(route('streams'));
     }
 
@@ -41,7 +48,7 @@ class StreamController extends BaseController
             return redirect(route('streams'));
         }
         if (Request::input('all') !== null) {
-           // $data = $this->streamingUser->searchAll($query);
+            // $data = $this->streamingUser->searchAll($query);
             $data = $this->streamingUser->searchStreaming($query);
         }
         else {
@@ -73,6 +80,7 @@ class StreamController extends BaseController
                 $this->streamingUser->update();
             }
         }
+
         return redirect()->back();
     }
 
@@ -85,6 +93,7 @@ class StreamController extends BaseController
                 $this->streamingUser->update();
             }
         }
+
         return redirect()->back();
     }
 
