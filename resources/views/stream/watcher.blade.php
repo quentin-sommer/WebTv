@@ -69,15 +69,15 @@
 
 @section('endBody')
     <script type="text/javascript">
-        var resyncAttemps = 0;
+        var resyncAttempts = 0;
         $(function() {
             if(adsAreBlocked()) {
                 $('.twitchStream').replaceWith(
                         '<div class="col-lg-12">' +
-                            '<div class="jumbotron adBlockOverlay">' +
+                            '<div class="jumbotron jumbotronOverlay">' +
                                 '<h1 class="adBlockOverlayMessage">AdBlock tue les streamers. <small>(Vraiment)</small></h1>'+
                                 '<p>L\'extension AdBlock bloque les publicités de twitch qui permettent aux streamers de vivre.</p>'+
-                                '<p>Pour visionner le stream nous vous invitons a désactiver votre bloqueur et <a href="{{Request::url()}}">rafraichir la page</a></p>'+
+                                '<p>Pour visionner le stream nous vous invitons a désactiver votre bloqueur et <a href="{{Request::url()}}">rafraîchir la page</a></p>'+
                             '</div>' +
                         '</div>'
                 );
@@ -133,9 +133,8 @@
                     start();
                 },
                 error: function (data, status) {
-                    console.log('Error need resync');
-                    if(resyncAttemps < 5) {
-                        resyncAttemps ++;
+                    if(resyncAttempts < 5) {
+                        resyncAttempts ++;
                         start();
                     }
                     else {
