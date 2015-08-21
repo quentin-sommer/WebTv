@@ -107,6 +107,7 @@ class StreamController extends BaseController
      */
     public function startWatching(ExperienceManager $experienceManager)
     {
+
         $validator = Validator::make(Request::all(), [
             'streamer' => 'required'
         ]);
