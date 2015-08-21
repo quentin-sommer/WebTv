@@ -3,9 +3,11 @@
 namespace app\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use Models\User;
 use Webtv\ExperienceManager;
 use Webtv\StreamingUserService;
 
@@ -26,8 +28,14 @@ class StreamController extends BaseController
                 'streamer' => $user
             ]);
         }
+        $user = null;
+        $user = User::streamers()->where('twitch_channel', '=', $streamerName)->get()->first();
+        if (count($user) > 0) {
+            return view('stream.offline', [
+                'streamer' => $user
+            ]);
+        }
 
-        //TODO : maybe notifiy 'stream offline'
         return redirect(route('streams'));
     }
 
@@ -40,7 +48,8 @@ class StreamController extends BaseController
             return redirect(route('streams'));
         }
         if (Request::input('all') !== null) {
-            $data = $this->streamingUser->searchAll($query);
+            // $data = $this->streamingUser->searchAll($query);
+            $data = $this->streamingUser->searchStreaming($query);
         }
         else {
             $data = $this->streamingUser->searchStreaming($query);
@@ -62,6 +71,32 @@ class StreamController extends BaseController
         ]);
     }
 
+    public function startStreaming()
+    {
+        $user = Auth::user();
+        if ($user->isStreamer()) {
+            if (!$user->isStreaming()) {
+                $user->startStreaming();
+                $this->streamingUser->update();
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    public function stopStreaming()
+    {
+        $user = Auth::user();
+        if ($user->isStreamer()) {
+            if ($user->isStreaming()) {
+                $user->stopStreaming();
+                $this->streamingUser->update();
+            }
+        }
+
+        return redirect()->back();
+    }
+
     /****************************************
      * Experience system related functions
      ***************************************/
@@ -72,6 +107,7 @@ class StreamController extends BaseController
      */
     public function startWatching(ExperienceManager $experienceManager)
     {
+
         $validator = Validator::make(Request::all(), [
             'streamer' => 'required'
         ]);

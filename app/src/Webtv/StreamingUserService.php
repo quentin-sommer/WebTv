@@ -81,59 +81,39 @@ class StreamingUserService
         }
     }
 
-
-    /**
-     * @param $query string
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public
-    function searchAll($query)
-    {
-        $res = $this->getAll()->filter(function (User $streamer) use ($query) {
-            $res = $this->startsWith($streamer->twitch_channel, $query);
-            if ($res !== false) {
-                return true;
-            }
-
-            return false;
-        });
-        if (count($res) > 0) {
-            return $res;
-        }
-
-        return new Collection();
-    }
-
     /**
      * Emulates LIKE '%STR' behavior
      * @param $str   string the haystack
      * @param $query string the needle
      * @return bool
      */
-    private
-    function startsWith($str, $query)
+    private function startsWith($str, $query)
     {
         $str = strtolower($str);
+        $query = strtolower($query);
 
         // testing this function
         return starts_with($str, $query);
-
-        $query = strtolower($query);
-
-        return $query === "" || strrpos($str, $query, -strlen($str)) !== false;
     }
 
     /**
      * @param $query string
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public
-    function searchStreaming($query)
+    public function searchStreaming($query)
     {
         $res = $this->getAll()->filter(function (User $streamer) use ($query) {
             $res = $this->startsWith($streamer->twitch_channel, $query);
             if ($res !== false) {
+
                 return true;
+            }
+            else {
+                $res = $this->startsWith($streamer->pseudo, $query);
+
+                if ($res !== false) {
+                    return true;
+                }
             }
 
             return false;
