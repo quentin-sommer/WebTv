@@ -23,10 +23,10 @@ class StreamingUserService
      * @param $streamerName string
      * @return null|\Models\User
      */
-    public function has($streamerName)
+    public function isStreaming($streamerName)
     {
         $res = $this->getAll()->filter(function (User $streamer) use ($streamerName) {
-            if ($streamer->twitch_channel === $streamerName) {
+            if ($streamer->twitch_channel === $streamerName && $streamer->isStreaming()) {
                 return true;
             }
 
@@ -54,13 +54,17 @@ class StreamingUserService
      */
     private function retrieveData()
     {
-        return User::streamers()
-            ->where('streaming', '=', '1')
+        $streamers = User::streamers()
             ->orderBy('twitch_channel')
-            ->get()
-            ->filter(function ($streamer) {
-                return $this->isStreamingOnTwitch($streamer->twitch_channel);
-            });
+            ->get();
+        foreach ($streamers as $streamer) {
+            if (!$this->isStreamingOnTwitch($streamer->twitch_channel)) {
+                $streamer->stopStreaming();
+            }
+        }
+
+        return $streamers;
+
     }
 
     private function isStreamingOnTwitch($streamerName)
@@ -69,7 +73,13 @@ class StreamingUserService
 
         try {
             $res = $httpClient->get('/kraken/streams/' . $streamerName);
+
             $data = json_decode($res->getBody()->getContents(), true);
+            if (array_key_exists('error', $data)) {
+                if ($data['status'] == 422) {
+                    return false;
+                }
+            }
             if ($data['stream'] !== null) {
                 return true;
             }
@@ -82,34 +92,19 @@ class StreamingUserService
     }
 
     /**
-     * Emulates LIKE '%STR' behavior
-     * @param $str   string the haystack
-     * @param $query string the needle
-     * @return bool
-     */
-    private function startsWith($str, $query)
-    {
-        $str = strtolower($str);
-        $query = strtolower($query);
-
-        // testing this function
-        return starts_with($str, $query);
-    }
-
-    /**
      * @param $query string
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function searchStreaming($query)
     {
         $res = $this->getAll()->filter(function (User $streamer) use ($query) {
-            $res = $this->startsWith($streamer->twitch_channel, $query);
+            $res = starts_with($streamer->twitch_channel, $query);
             if ($res !== false) {
 
                 return true;
             }
             else {
-                $res = $this->startsWith($streamer->pseudo, $query);
+                $res = starts_with($streamer->pseudo, $query);
 
                 if ($res !== false) {
                     return true;

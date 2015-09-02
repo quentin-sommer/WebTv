@@ -22,7 +22,7 @@ class StreamController extends BaseController
 
     public function getStream($streamerName)
     {
-        $user = $this->streamingUser->has($streamerName);
+        $user = $this->streamingUser->isStreaming($streamerName);
         if ($user !== null) {
             return view('stream.watcher', [
                 'streamer' => $user
@@ -115,7 +115,7 @@ class StreamController extends BaseController
         if ($validator->fails()) {
             return new JsonResponse($validator->errors(), 422);
         }
-        if ($this->streamingUser->has(Request::input('streamer'))) {
+        if ($this->streamingUser->isStreaming(Request::input('streamer'))) {
             $data = $experienceManager->startWatching();
             $status = 200;
         }
@@ -141,7 +141,7 @@ class StreamController extends BaseController
         if ($validator->fails()) {
             return new JsonResponse($validator->errors(), 422);
         }
-        if ($this->streamingUser->has(Request::input('streamer'))) {
+        if ($this->streamingUser->isStreaming(Request::input('streamer'))) {
             $data = $experienceManager->processExpRequest(Request::all());
             switch ($data) {
                 case ExperienceManager::NEED_RESYNC:

@@ -150,7 +150,7 @@
                                     <div class="section-decor">
 
                                     </div>
-                                    <div class="">
+                                    <div>
                                     <ul class="streams">
                                         @foreach($streams as $streamer)
                                             <li class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
@@ -161,7 +161,6 @@
                                     </div>
                                 </div>
                             </section>
-
                         </div>
                     </div>
                     <!-- Stream end -->

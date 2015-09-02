@@ -8,7 +8,7 @@
     <link rel="icon" href="{{ url('assets/images/favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ url('assets/bootstrap-3.3.4/css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ url('assets/bootstrap-toggle/css/bootstrap-toggle.min.css') }}"/>
-    <link rel="stylesheet" href="{{url('assets/css/app.css')}}"/>
+    <link rel="stylesheet" href="{{ url('assets/css/app.css')}}"/>
     @yield('head')
 </head>
 <body class="singlePage">

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash as Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Models\User as User;
@@ -14,12 +15,6 @@ use Webtv\StreamingUserService;
 
 class UserController extends BaseController
 {
-    protected $streamingUser;
-
-    public function __construct(StreamingUserService $sus)
-    {
-        $this->streamingUser = $sus;
-    }
 
     public function getLogin()
     {
@@ -176,11 +171,20 @@ class UserController extends BaseController
             else {
                 $update = false;
             }
-            if ($request->hasFile('streamBanner')) {
-                if ($request->file('streamBanner')->isValid()) {
-
-                    $path = $request->file('streamBanner')->getRealPath();
+            if ($request->file('streamBanner', false) !== false) {
+                $img = $request->file('streamBanner');
+                if ($img->isValid()) {
+                    $path = $img->getRealPath();
                     $user->stream_banner = StreamBanner::processBanner($path);
+                }
+                else {
+                    if ($img->getClientSize() === 0) {
+                        $maxSizeInMo = round($img->getMaxFilesize() / 1000000, 2);
+                        Session::flash('error', 'Bannière trop lourde. Taille maximale: ' . $maxSizeInMo . 'mo.');
+                    }
+                    else {
+                        Session::flash('error', 'Fichier incorrect. Veuillez réessayer.');
+                    }
                 }
             }
         }
@@ -189,7 +193,7 @@ class UserController extends BaseController
         $user->description = $request->input('description');
         $user->save();
         if ($update) {
-            $this->streamingUser->update();
+            app('StreamingUserService')->update();
         }
 
         return redirect(route('getProfile'));

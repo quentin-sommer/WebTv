@@ -5,3 +5,8 @@ function adsAreBlocked() {
     }
     return false;
 }
+
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
