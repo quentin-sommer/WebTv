@@ -4,6 +4,11 @@ body, h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
 }
 
+/* twitch channel in stream caption */
+.small {
+    display: block;
+}
+
 .thumbAvatar {
     max-width: 5rem;
     margin-right: 1rem;
@@ -93,18 +98,18 @@ body, h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
 }
 
-.cropper {
-    margin: auto;
+.cropit {
+/ / margin : auto;
 }
 
-.profile-cropper {
-    height: 300px;
-    width: 300px;
+.profile-cropit {
+/ / height : 300 px;
+/ / width : 300 px;
 }
 
-.stream-cropper {
-    width: 1300px;
-    height: 380px;
+.stream-cropit {
+/ / width : 1300 px;
+/ / height : 380 px;
 }
 
 .streaming {
@@ -114,6 +119,52 @@ body, h1, h2, h3, h4, h5, h6 {
     border-radius: 50%;
     left: 30px;
     bottom: 30px;
+}
+
+.cropit-image-preview {
+    width: 300px;
+    height: 300px;
+    margin: auto;
+}
+
+/* Show load indicator when image is being loaded */
+.cropit-image-preview.cropit-image-loading .spinner {
+    opacity: 1;
+}
+
+/* Show move cursor when image has been loaded */
+.cropit-image-preview.cropit-image-loaded {
+    cursor: move;
+}
+
+/* Gray out zoom slider when the image cannot be zoomed */
+.cropit-image-zoom-input[disabled] {
+    opacity: .2;
+}
+
+/* The following styles are only relevant to when background image is enabled */
+
+/* Translucent background image */
+.cropit-image-background {
+    opacity: .1;
+}
+
+/* Style the background image differently when preview area is hovered */
+.cropit-image-background.cropit-preview-hovered {
+    opacity: .2;
+}
+
+/*
+ * If the slider or anything else is covered by the background image,
+ * use non-static position on it
+ */
+input.cropit-image-zoom-input {
+    position: relative;
+}
+
+/* Limit the background image by adding overflow: hidden */
+#image-cropper {
+    overflow: hidden;
 }
 
 @media (min-width: 992px) {
