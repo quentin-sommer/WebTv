@@ -200,6 +200,7 @@
 @section('endBody')
     <script type="text/javascript" src="{{url('assets/js/plugins.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/js/scripts.js')}}"></script>
+    <!--
     <script type="text/javascript">
         var tag = document.createElement('script');
         tag.src = "//www.youtube.com/player_api";
@@ -224,7 +225,7 @@
             event.target.playVideo();
             event.target.setPlaybackQuality('hd720');
         }
-    </script>
+    </script>-->
     <script type="text/javascript" src="{{url('assets/moment/moment-with-locales.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/fullcalendar/fullcalendar.min.js')}}"></script>
     <script type="text/javascript" src="{{url('assets/fullcalendar/lang/fr.js')}}"></script>
