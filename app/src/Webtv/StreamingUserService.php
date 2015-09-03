@@ -2,7 +2,6 @@
 
 namespace Webtv;
 
-use GuzzleHttp\Exception\ClientException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 use Models\User as User;
@@ -86,7 +85,7 @@ class StreamingUserService
             else {
                 return false;
             }
-        } catch (ClientException $e) {
+        } catch (\Exception $e) {
             return false;
         }
     }

@@ -102,15 +102,17 @@ class UserController extends BaseController
 
     public function showProfile($user)
     {
-        $u = User::where('pseudo', '=', $user)->first();
-        if (is_null($u)) {
-            App::abort(404);
-        }
-        if (Auth::user() == $u) {
+        if (Auth::user()->pseudo == $user) {
             $editable = true;
+            $u = Auth::user();
         }
         else {
             $editable = false;
+
+            $u = User::where('pseudo', '=', $user)->first();
+            if (is_null($u)) {
+                App::abort(404);
+            }
         }
 
         $expData = ExperienceManager::getExpInfo($u);
@@ -150,6 +152,8 @@ class UserController extends BaseController
         }
 
         $user = Auth::user();
+        $user->email = trim($request->input('email'));
+        $user->description = trim($request->input('description'));
 
         if ($request->hasFile('profilePic')) {
             if ($request->file('profilePic')->isValid()) {
@@ -162,9 +166,10 @@ class UserController extends BaseController
         if ($request->has('password')) {
             $user->password = Hash::make($request->input('password'));
         }
+
         if ($user->isStreamer()) {
             if ($request->has('twitch')) {
-                $user->twitch_channel = $request->input('twitch');
+                $user->twitch_channel = trim($request->input('twitch'));
                 $user->streaming = $request->input('streaming');
                 $update = true;
             }
@@ -189,8 +194,6 @@ class UserController extends BaseController
             }
         }
 
-        $user->email = $request->input('email');
-        $user->description = $request->input('description');
         $user->save();
         if ($update) {
             app('StreamingUserService')->update();

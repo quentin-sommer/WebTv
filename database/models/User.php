@@ -28,11 +28,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'streaming'
     ];
     protected $hidden = ['password', 'remember_token'];
-
-    public function getRoles()
-    {
-        return $this->roles()->get();
-    }
+    protected $with = ['roles'];
 
     public function roles()
     {
@@ -46,7 +42,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function hasRole($id)
     {
-        return count($this->roles()->get()->filter(function ($item) use ($id) {
+        return count($this->roles->filter(function ($item) use ($id) {
             if ((int)$item->role_id === (int)$id) {
                 return true;
             }
@@ -65,10 +61,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     private function attachRole($id)
     {
-        if ($this->roles()->get()->find($id, false)) {
+        if ($this->roles->find($id, false)) {
             return;
         }
-        $this->roles()->attach($id);
+        $this->roles->attach($id);
     }
 
     public function becomeAdmin()
