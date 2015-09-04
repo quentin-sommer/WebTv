@@ -37,8 +37,7 @@ class AdminController extends BaseController
         }
         $id = Request::input('login');
         $data = [
-            'users'       => User::with('roles')
-                ->where('login', 'like', $id . '%')
+            'users'       => User::where('login', 'like', $id . '%')
                 ->orWhere('email', 'like', $id . '%')
                 ->paginate(20)
                 ->setPath(route('getSearchUserSettings')),
@@ -56,19 +55,17 @@ class AdminController extends BaseController
 
     public function getUserSettings()
     {
-
         $data = [
             'users' => User::with('roles')->paginate(20)->setPath(route('getUserSettings')),
             'roles' => Role::all(),
         ];
 
         return view('admin.users')->with($data);
-
     }
 
     public function postUserSettings()
     {
-        $error = false;
+        $deleteSelfAdminErr = false;
 
         if (Request::has('user_id')) {
             $user_id = (int)Auth::user()->user_id;
@@ -81,7 +78,7 @@ class AdminController extends BaseController
             }
             if ($user_id === $input_id && !in_array(env('ROLE_ADMIN'), $roles, false)) {
                 $roles[] = env('ROLE_ADMIN');
-                $error = true;
+                $deleteSelfAdminErr = true;
             }
 
             $editUser = User::find(Request::input('user_id'));
@@ -91,7 +88,7 @@ class AdminController extends BaseController
             $this->streamingUser->update();
         }
 
-        if ($error) {
+        if ($deleteSelfAdminErr) {
             return redirect()->back()->with('error', 'Vous ne pouvez pas enlever le droit admin de votre compte!');
         }
 
@@ -122,6 +119,7 @@ class AdminController extends BaseController
     public function refreshStreamers()
     {
         $this->streamingUser->refreshStreamers();
+
         return redirect()->back();
     }
 }

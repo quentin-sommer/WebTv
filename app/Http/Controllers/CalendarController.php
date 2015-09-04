@@ -8,6 +8,7 @@
 
 namespace app\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Request as Request;
 use Illuminate\Support\Facades\Validator;
@@ -51,15 +52,20 @@ class CalendarController extends BaseController
 
     public function getCalEvents()
     {
-        $formatData = Event::all()->map(function ($item) {
-            return [
-                'id'    => $item->event_id,
-                'title' => $item->title,
-                'start' => str_replace(' ', 'T', $item->start) . $item->timezone,
-                'end'   => str_replace(' ', 'T', $item->end) . $item->timezone,
-                'color' => $item->color
-            ];
-        });
+        $start = Carbon::createFromFormat('Y-m-d', Request::input('start'));
+        $end = Carbon::createFromFormat('Y-m-d', Request::input('end'));
+
+        $formatData = Event::where('start', '>', $start->toDateString())
+            ->where('end', '<', $end->toDateString())->get()
+            ->map(function ($item) {
+                return [
+                    'id'    => $item->event_id,
+                    'title' => $item->title,
+                    'start' => str_replace(' ', 'T', $item->start) . $item->timezone,
+                    'end'   => str_replace(' ', 'T', $item->end) . $item->timezone,
+                    'color' => $item->color
+                ];
+            });
 
         return response()->json($formatData);
     }
