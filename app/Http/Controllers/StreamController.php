@@ -42,7 +42,7 @@ class StreamController extends BaseController
     public function streamSearch()
     {
         if (Request::has('query')) {
-            $query = Request::input('query');
+            $query = trim(Request::input('query'));
         }
         else {
             return redirect(route('streams'));

@@ -16,4 +16,8 @@
     <a href="{{route('getStream',['streamerName'=>$streamer->twitch_channel])}}">
         <img class="streamImg" src="{{Avatar::getUrl($streamer->avatar)}}" alt="image de profil"/>
     </a>
+
+    <div class="caption">
+        {{str_limit($streamer->description, 70)}}
+    </div>
 </div>

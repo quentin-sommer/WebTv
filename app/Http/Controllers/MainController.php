@@ -21,10 +21,4 @@ class MainController extends BaseController
             'streams' => $data
         ]);
     }
-
-    public function getLol()
-    {
-
-        return Hash::make('quentin');
-    }
 }

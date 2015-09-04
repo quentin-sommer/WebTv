@@ -1,7 +1,31 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
 
 body, h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+body {
+    background-image: url(../images/bg/shattered.png);
+    color: #fff;
+}
+
+body > .container, .container-fluid {
+    margin-top: 21px;
+}
+
+.menuSeparator {
+    float: left;
+    margin-bottom: 0px;
+    padding-top: 15px;
+}
+
+.firstMenuSeparator {
+    float: left;
+    margin-bottom: 0px;
+}
+
+#calendar {
+    margin-bottom: 20px;
 }
 
 /* twitch channel in stream caption */
@@ -12,6 +36,7 @@ h1 small {
 .thumbAvatar {
     max-width: 5rem;
     margin-right: 1rem;
+    margin-bottom: .5rem;
 }
 
 .thumbnail .streamerCaption {
@@ -118,7 +143,6 @@ h1 small {
     width: 25px;
     border-radius: 50%;
     left: 30px;
-    bottom: 30px;
 }
 
 .cropit-image-preview {
