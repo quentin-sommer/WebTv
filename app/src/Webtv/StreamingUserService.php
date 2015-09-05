@@ -68,6 +68,9 @@ class StreamingUserService
 
     private function isStreamingOnTwitch($streamerName)
     {
+        if ($streamerName == '' || $streamerName === null) {
+            return false;
+        }
         $httpClient = app('TwitchApiClient');
 
         try {

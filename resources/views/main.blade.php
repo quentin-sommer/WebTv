@@ -31,7 +31,6 @@
         </div>
         <div id="nav" class="vis elem">
             <div id="menu" class="elem-anim">
-                <p class="firstMenuSeparator">Menu :</p>
                 <a>Calendrier<span class="transition"></span></a>
                 <a data-page="0" class="active">Accueil <span class="transition"></span></a>
                 <a>Streams <span class="transition"></span></a>

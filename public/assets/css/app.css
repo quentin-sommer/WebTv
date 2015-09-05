@@ -18,10 +18,10 @@ body > .container, .container-fluid {
     padding-top: 15px;
 }
 
-.firstMenuSeparator {
+/*.firstMenuSeparator {
     float: left;
     margin-bottom: 0px;
-}
+}*/
 
 #calendar {
     margin-bottom: 20px;

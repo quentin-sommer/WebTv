@@ -77,7 +77,7 @@ class StreamController extends BaseController
         if ($user->isStreamer()) {
             if (!$user->isStreaming()) {
                 $user->startStreaming();
-                $this->streamingUser->update();
+                $this->streamingUser->refreshStreamers();
             }
         }
 
