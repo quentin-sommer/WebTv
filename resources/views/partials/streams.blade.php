@@ -17,7 +17,7 @@
         <img class="streamImg" src="{{Avatar::getUrl($streamer->avatar)}}" alt="image de profil"/>
     </a>
 
-    <div class="caption">
+    <!--<div class="caption">
         {{str_limit($streamer->description, 30)}}
-    </div>
+    </div>-->
 </div>
