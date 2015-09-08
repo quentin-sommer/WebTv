@@ -130,10 +130,6 @@ h1 small {
     width : 300px;
 }
 
-.stream-cropit {
-/ / width : 1300 px;
-/ / height : 380 px;
-}
 
 .streaming {
     position: absolute;
@@ -149,7 +145,7 @@ h1 small {
     margin: auto;
 }
 .cropit-image-preview.streamBanner {
-    width: 1920px;
+    width: 1800px;
     height: 380px;
     margin: auto;
 }

@@ -84,7 +84,7 @@ class UgoTableSeeder extends Seeder
             $u = User::find($i);
             $u->becomeStreamer();
             $u->twitch_channel = $i;
-            $u->description = $u->login . 'lorem ipsum dolor. Lol.';
+            $u->description = $u->login . 'lorem ipsum dolor. Lol. lorem ipsum dolor. Lol. lorem ipsum dolor. Lol. lorem ipsum dolor. Lol. lorem ipsum dolor. Lol. lorem ipsum dolor. Lol.';
             $rand = rand(0, 2);
             if ($rand == 0) {
                 $u->streaming = 1;
