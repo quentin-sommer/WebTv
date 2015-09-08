@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Validator;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Models\User as User;
 use Webtv\ExperienceManager;
-use Webtv\Facade\Avatar;
 use Webtv\Facade\StreamBanner;
 use Webtv\StreamingUserService;
 
@@ -141,7 +140,7 @@ class UserController extends BaseController
             'email'        => 'required|max:100|email',
             'twitch'       => 'sometimes|twitch',
             'profilePic'   => 'sometimes|image',
-            'description'  => 'max:255',
+            'description'  => 'max:2000',
             'streamBanner' => 'sometimes|image'
         ]);
 
@@ -154,14 +153,6 @@ class UserController extends BaseController
         $user = Auth::user();
         $user->email = trim($request->input('email'));
         $user->description = trim($request->input('description'));
-
-        if ($request->hasFile('profilePic')) {
-            if ($request->file('profilePic')->isValid()) {
-
-                $path = $request->file('profilePic')->getRealPath();
-                $user->avatar = Avatar::processAvatar($path);
-            }
-        }
 
         if ($request->has('password')) {
             $user->password = Hash::make($request->input('password'));
@@ -199,28 +190,6 @@ class UserController extends BaseController
             app('StreamingUserService')->update();
         }
 
-        return redirect(route('getProfile'));
-    }
-
-    public function deleteAvatar()
-    {
-        $user = Auth::user();
-        if (Avatar::isNotDefault($user->avatar)) {
-            $user->avatar = Avatar::getDefault();
-        }
-        $user->save();
-
-        return redirect()->back();
-    }
-
-    public function deleteStreamBanner()
-    {
-        $user = Auth::user();
-        if (StreamBanner::isNotDefault($user->stream_banner)) {
-            $user->stream_banner = Avatar::getDefault();
-        }
-        $user->save();
-
-        return redirect()->back();
+        return redirect(route('showProfile', ['user' => $user->pseudo]));
     }
 }

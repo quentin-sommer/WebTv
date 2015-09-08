@@ -19,7 +19,7 @@ class CreateUserTable extends Migration
             $table->string('pseudo', 30)->unique();
             $table->string('email', 255)->unique();
             $table->string('twitch_channel', 255)->default(null);
-            $table->string('description', 255);
+            $table->text('description');
             $table->string('avatar', 255)->default('default.jpg');
             $table->string('stream_banner', 255)->default('default.jpg');
             $table->integer('level', false, true)->default(1);

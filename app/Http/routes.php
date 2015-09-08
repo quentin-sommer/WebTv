@@ -59,11 +59,11 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fun
     ]);
     $app->get('avatar/delete', [
         'as'   => 'deleteAvatar',
-        'uses' => 'UserController@deleteAvatar'
+        'uses' => 'ImageController@deleteAvatar'
     ]);
     $app->get('stream/deleteBanner', [
         'as'   => 'deleteStreamBanner',
-        'uses' => 'UserController@deleteStreamBanner'
+        'uses' => 'ImageController@deleteStreamBanner'
     ]);
     $app->get('stream/start', [
         'as'   => 'startStreaming',
@@ -72,6 +72,14 @@ $app->group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fun
     $app->get('stream/stop', [
         'as'   => 'stopStreaming',
         'uses' => 'StreamController@stopStreaming'
+    ]);
+    $app->post('profile/avatar', [
+        'as'   => 'avatarUpload',
+        'uses' => 'ImageController@avatarUpload'
+    ]);
+    $app->post('profile/streamBanner', [
+        'as'   => 'streamBannerUpload',
+        'uses' => 'ImageController@streamBannerUpload'
     ]);
 });
 /*

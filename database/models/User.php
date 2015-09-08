@@ -25,7 +25,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'level',
         'experience',
         'password',
-        'streaming'
+        'streaming',
+        'stream_banner'
     ];
     protected $hidden = ['password', 'remember_token'];
     protected $with = ['roles'];
@@ -64,7 +65,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         if ($this->roles->find($id, false)) {
             return;
         }
-        $this->roles->attach($id);
+        $this->roles()->attach($id);
     }
 
     public function becomeAdmin()
