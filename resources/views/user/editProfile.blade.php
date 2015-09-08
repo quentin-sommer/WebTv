@@ -1,21 +1,17 @@
 @extends('singleBase')
 @section('title','Profile')
+@section('head')
+    <link rel="stylesheet" href="{{ url('assets/')}}"/>
+@stop
 @section('content')
     <div class="col-md-6 col-centered">
         <form autocomplete="off" action="{{route('postProfile')}}" method="post" enctype="multipart/form-data">
             <legend>Editer les informations</legend>
-            <div class="form-group text-center">
-                <img class="profilePic img-responsive" src="{{Avatar::getUrl($user->avatar)}}" alt="image de profil"/>
-                @if(Avatar::isNotDefault($user->avatar))
-                    <a class="btn btn-danger" href="{{route('deleteAvatar')}}">Supprimer</a>
-                @endif
-            </div>
-            <div class="form-group @if($errors->has('profilePic')) has-error @endif">
-                <label class="control-label" for="profilePic">Changer l'image de profil</label>
-                <input class="btn btn-default" type="file" placeholder="Image de profil" name="profilePic" id="profilePic"/>
-                @if ($errors->has('profilePic'))
-                    <p class="help-block">{{$errors->first('profilePic')}}</p>
-                @endif
+            <div class="form-group">
+                <img class="pic profilePic img-responsive" src="{{Avatar::getUrl($user->avatar)}}" alt="avatar">
+                <div class="controlButtons text-center">
+                    <a data-toggle="modal" data-target="#profilePicCropper" class="btn btn-primary" href="">Modifier</a>
+                </div>
             </div>
             <div class="form-group">
                 <label class="control-label">Login</label>
@@ -69,19 +65,12 @@
                     @endif
                 </div>
 
-                <div class="form-group @if($errors->has('streamBanner')) has-error @endif">
+                <div class="form-group">
                     <label class="control-label" for="streamBanner">Changer le bandeau du stream</label>
-                    <input class="btn btn-default" type="file" placeholder="Bandeau du stream" name="streamBanner" id="streamBanner"/>
-                    @if ($errors->has('streamBanner'))
-                        <p class="help-block">{{$errors->first('streamBanner')}}</p>
-                    @endif
-                </div>
-
-                <div class="form-group text-center">
-                    <img class="profilePic img-responsive" src="{{StreamBanner::getUrl($user->stream_banner)}}" alt="image du stream"/>
-                    @if(StreamBanner::isNotDefault($user->stream_banner))
-                        <a class="btn btn-danger" href="{{route('deleteStreamBanner')}}">Supprimer</a>
-                    @endif
+                        <img id="debug" class="img-responsive" src="{{StreamBanner::getUrl($user->stream_banner)}}" alt="image du stream"/>
+                        <div class="controlButtons text-center">
+                            <a data-toggle="modal" data-target="#streamBannerCropper" class="btn btn-primary" href="">Modifier</a>
+                        </div>
                 </div>
 
                 <div class="form-group">
@@ -101,4 +90,168 @@
             <button type="submit" class="btn btn-primary pull-right">Sauvegarder</button>
         </form>
     </div>
+    <!-- ----------------------------- MODALS ----------------------- -->
+    <div class="modal fade" id="profilePicCropper">
+        <div class="modal-dialog stream-cropit">
+            <div class="modal-content">
+                <div class="stream-cropit modal-body">
+                    <!-- This wraps the whole cropper -->
+                    <div id="profile-cropit">
+
+                        <div class="cropit-image-preview-container">
+                            <!-- Background image container is absolute positioned -->
+                            <div class="cropit-image-background-container">
+                                <!-- Background image is absolute positioned -->
+                                <img class="cropit-image-background" />
+                            </div>
+                            <div class="cropit-image-preview profilePic"></div>
+                        </div>
+
+                        <div class="controlButtons text-center">
+                            <!-- This range input controls zoom -->
+                            <!-- You can add additional elements here, e.g. the image icons -->
+                            <div class="slider-wrapper">
+                                <span class="glyphicon glyphicon-picture imgIconSmall"></span>
+                                <input type="range" class="cropit-image-zoom-input zoomSlider" min="0" max="1" step="0.01"/>
+                                <span class="glyphicon glyphicon-picture imgIconBig"></span>
+                            </div>
+                            @if(Avatar::isNotDefault($user->avatar))
+                                <a class="btn btn-danger" href="{{route('deleteAvatar')}}">Supprimer</a>
+                            @endif
+                            <button class="btn btn-primary newProfilePicBtn">Changer l'image</button>
+                            <input class="cropit-image-input" type="file" id="profilePicInput"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body pull-right">
+                    <button data-dismiss="modal" class="btn btn-default">Annuler</button>
+                    <button class="btn btn-primary uploadProfilePic">Uploader</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="streamBannerCropper">
+        <div class="modal-dialog modal-lg stream-cropit">
+            <div class="modal-content">
+                <div class="stream-cropit modal-body">
+                    <!-- This wraps the whole cropper -->
+                    <div id="streamBanner-cropit">
+
+                        <div class="cropit-image-preview-container">
+                            <!-- Background image container is absolute positioned -->
+                            <div class="cropit-image-background-container">
+                                <!-- Background image is absolute positioned -->
+                                <img class="cropit-image-background" />
+                            </div>
+                            <div class="cropit-image-preview streamBanner"></div>
+                        </div>
+                        <div class="controlButtons text-center">
+                            <!-- This range input controls zoom -->
+                            <!-- You can add additional elements here, e.g. the image icons -->
+                            <div class="slider-wrapper">
+                                <span class="glyphicon glyphicon-picture imgIconSmall"></span>
+                                <input type="range" class="cropit-image-zoom-input zoomSlider" min="0" max="1" step="0.01"/>
+                                <span class="glyphicon glyphicon-picture imgIconBig"></span>
+                            </div>
+                            @if(StreamBanner::isNotDefault($user->stream_banner))
+                                <a class="btn btn-danger" href="{{route('deleteStreamBanner')}}">Supprimer</a>
+                                @endif
+                                        <!-- This is where user selects new image -->
+                                <button class="btn btn-primary newStreamBannerPicBtn">Changer l'image</button>
+                                <input class="cropit-image-input" type="file" id="streamBannerPicInput"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body pull-right">
+                    <button data-dismiss="modal" class="btn btn-default">Annuler</button>
+                    <button class="btn btn-primary uploadStreamBannerPic">Uploader</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@stop
+@section('endBody')
+    <script type="text/javascript" src="{{url('assets/cropit/cropit.js')}}"></script>
+    <script>
+
+        $(function() {
+            var $profileCropit;
+            $profileCropit = $('#profile-cropit').cropit(
+                    {
+                        @if(Avatar::isNotDefault($user->avatar))
+                        imageState : {
+                            src: '{{Avatar::getUrl($user->avatar)}}'
+                        },
+                        @endif
+                        onImageLoaded: function () {
+                            $('.uploadProfilePic').css('display','inline-block');
+                        },
+                        initialZoom:'image'
+                    }
+            );
+            var $streamCropit;
+            $streamCropit = $('#streamBanner-cropit').cropit(
+                    {
+                        @if(StreamBanner::isNotDefault($user->stream_banner))
+                        imageState : {
+                            src: '{{StreamBanner::getUrl($user->stream_banner)}}'
+                        },
+                        @endif
+                        onImageLoaded: function () {
+                            $('.uploadStreamBannerPic').css('display','inline-block');
+                        },
+                        initialZoom:'image'
+                    }
+            );
+
+            $('.newProfilePicBtn').click(function() {
+                $('#profilePicInput').click();
+            });
+            $('.newStreamBannerPicBtn').click(function() {
+                $('#streamBannerPicInput').click();
+            });
+
+            $('.uploadProfilePic').click(function (e) {
+                $(this).prop("disabled",true).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Upload...');
+                var data = {
+                    profilePicInput : $profileCropit.cropit('export'),
+                    _token: '{{csrf_token()}}'
+                };
+                $.ajax({
+                    method: "POST",
+                    url: "{{route('avatarUpload')}}",
+                    data: data,
+                    success:function(data) {
+                        location.reload();
+                    },
+                    error: function () {
+                        location.reload();
+                        console.log('error');
+                    }
+                });
+                e.preventDefault();
+            });
+            $('.uploadStreamBannerPic').click(function(e) {
+                $(this).prop("disabled",true).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Upload...');
+                var data = {
+                    streamBannerPicInput : $streamCropit.cropit('export'),
+                    _token: '{{csrf_token()}}'
+                };
+                $.ajax({
+                    method: "POST",
+                    url: "{{route('streamBannerUpload')}}",
+                    data: data,
+                    success:function(data) {
+                      location.reload();
+                    },
+                    error: function () {
+                        location.reload();
+                        console.log('error');
+                    }
+                });
+                e.preventDefault();
+            });
+        });
+    </script>
 @stop

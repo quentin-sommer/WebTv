@@ -122,13 +122,12 @@ h1 small {
     margin-bottom: 2rem;
 }
 
-.cropit {
-/ / margin : auto;
+.pic {
+ margin : auto;
 }
 
-.profile-cropit {
-/ / height : 300 px;
-/ / width : 300 px;
+.profilePic{
+    width : 300px;
 }
 
 .stream-cropit {
@@ -144,10 +143,53 @@ h1 small {
     left: 30px;
 }
 
-.cropit-image-preview {
+.cropit-image-preview.profilePic {
     width: 300px;
     height: 300px;
     margin: auto;
+}
+.cropit-image-preview.streamBanner {
+    width: 1920px;
+    height: 380px;
+    margin: auto;
+}
+.modal-lg {
+    width: 100%;
+    max-width: 1800px;
+}
+
+.zoomSlider {
+    max-width: 150px;
+    margin: auto;
+    vertical-align: middle;
+    display: inline !important;
+    margin: 0px 20px;
+}
+
+.imgIconSmall {
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.imgIconBig {
+    font-size: 25px;
+    vertical-align: middle;
+}
+
+.controlButtons {
+    margin-top: 20px;
+}
+
+.uploadProfilePic {
+    display: none;
+}
+.uploadStreamBannerPic {
+    display: none;
+}
+/* Hide default file input button if you want to use a custom button */
+input.cropit-image-input {
+    visibility: hidden;
+    display: none;
 }
 
 /* Show load indicator when image is being loaded */
@@ -165,29 +207,102 @@ h1 small {
     opacity: .2;
 }
 
-/* The following styles are only relevant to when background image is enabled */
-
-/* Translucent background image */
-.cropit-image-background {
-    opacity: .1;
+input[type=range].zoomSlider {
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 3.85px 0;
 }
 
-/* Style the background image differently when preview area is hovered */
-.cropit-image-background.cropit-preview-hovered {
-    opacity: .2;
+input[type=range].zoomSlider:focus {
+    outline: none;
 }
 
-/*
- * If the slider or anything else is covered by the background image,
- * use non-static position on it
- */
-input.cropit-image-zoom-input {
-    position: relative;
+input[type=range].zoomSlider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 9.3px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    background: #c8c8c8;
+    border-radius: 25px;
+    border: 0px solid #010101;
 }
 
-/* Limit the background image by adding overflow: hidden */
-#image-cropper {
-    overflow: hidden;
+input[type=range].zoomSlider::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.67), 0px 0px 0px rgba(13, 13, 13, 0.67);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    height: 17px;
+    width: 18px;
+    border-radius: 50px;
+    background: #646464;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -3.85px;
+}
+
+input[type=range].zoomSlider:focus::-webkit-slider-runnable-track {
+    background: #c8c8c8;
+}
+
+input[type=range].zoomSlider::-moz-range-track {
+    width: 100%;
+    height: 9.3px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    background: #c8c8c8;
+    border-radius: 25px;
+    border: 0px solid #010101;
+}
+
+input[type=range].zoomSlider::-moz-range-thumb {
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.67), 0px 0px 0px rgba(13, 13, 13, 0.67);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    height: 17px;
+    width: 18px;
+    border-radius: 50px;
+    background: #646464;
+    cursor: pointer;
+}
+
+input[type=range].zoomSlider::-ms-track {
+    width: 100%;
+    height: 9.3px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+input[type=range].zoomSlider::-ms-fill-lower {
+    background: #c8c8c8;
+    border: 0px solid #010101;
+    border-radius: 50px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+}
+
+input[type=range].zoomSlider::-ms-fill-upper {
+    background: #c8c8c8;
+    border: 0px solid #010101;
+    border-radius: 50px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+}
+
+input[type=range].zoomSlider::-ms-thumb {
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.67), 0px 0px 0px rgba(13, 13, 13, 0.67);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    height: 17px;
+    width: 18px;
+    border-radius: 50px;
+    background: #646464;
+    cursor: pointer;
+    height: 9.3px;
+}
+
+input[type=range].zoomSlider:focus::-ms-fill-lower {
+    background: #c8c8c8;
+}
+
+input[type=range].zoomSlider:focus::-ms-fill-upper {
+    background: #c8c8c8;
 }
 
 @media (min-width: 992px) {
