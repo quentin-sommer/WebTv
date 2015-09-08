@@ -2,8 +2,7 @@
 @section('title','Profile')
 @section('content')
     <div class="col-md-6 col-centered">
-
-        <img class="profilePic img-responsive" src="{{Avatar::getUrl($user->avatar)}}" alt="image de profil"/>
+        <img class="pic profilePic img-responsive" src="{{Avatar::getUrl($user->avatar)}}" alt="image de profil"/>
         <h1>{{$user->pseudo}}</h1>
         @if($streamer)<p>(Streamer: {{$user->twitch_channel}})</p>@endif
         <p>Niveau : {{$level}}</p>

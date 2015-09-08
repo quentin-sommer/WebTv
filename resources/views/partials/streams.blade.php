@@ -18,6 +18,6 @@
     </a>
 
     <div class="caption">
-        {{str_limit($streamer->description, 70)}}
+        {{str_limit($streamer->description, 30)}}
     </div>
 </div>

@@ -37,34 +37,34 @@
         </div>
         </div>
     </div>
-            <div class="col-lg-8 col-md-9 col-sm-12 twitchStream">
-                <object bgcolor="#000000"
-                        data="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf"
-                        height="680"
-                        type="application/x-shockwave-flash"
-                        width="100%"
-                        >
-                    <param name="allowFullScreen"
-                           value="true" />
-                    <param name="allowNetworking"
-                           value="all" />
-                    <param name="allowScriptAccess"
-                           value="always" />
-                    <param name="movie"
-                           value="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf" />
-                    <param name="flashvars"
-                           value="channel={{$streamer->twitch_channel}}&auto_play=true&start_volume=25" />
-                </object>
-            </div>
-            <div class="col-lg-4 col-md-3 col-sm-12 twitchChat">
-            <iframe frameborder="0"
-                    scrolling="no"
-                   id="chat_embed"
-                    src="http://www.twitch.tv/{{$streamer->twitch_channel}}/chat"
-                    height="680"
-                    width="100%">
-            </iframe>
-            </div>
+    <div class="col-lg-8 col-md-9 col-sm-12 twitchStream">
+        <object bgcolor="#000000"
+                data="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf"
+                height="680"
+                type="application/x-shockwave-flash"
+                width="100%"
+                >
+            <param name="allowFullScreen" value="true" />
+            <param name="allowNetworking" value="all" />
+            <param name="allowScriptAccess" value="always" />
+            <param name="movie" value="//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf" />
+            <param name="flashvars" value="channel={{$streamer->twitch_channel}}&auto_play=true&start_volume=25" />
+        </object>
+    </div>
+    <div class="col-lg-4 col-md-3 col-sm-12 twitchChat">
+        <iframe frameborder="0"
+                scrolling="no"
+                id="chat_embed"
+                src="http://www.twitch.tv/{{$streamer->twitch_channel}}/chat"
+                height="680"
+                width="100%">
+        </iframe>
+    </div>
+    <div class="col-lg-12">
+        <div class="jumbotron">
+            <p>{{$streamer->description}}</p>
+        </div>
+    </div>
 @stop
 
 @section('endBody')
