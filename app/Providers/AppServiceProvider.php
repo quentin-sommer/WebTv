@@ -42,7 +42,10 @@ class AppServiceProvider extends ServiceProvider
             return new StreamBannerManager();
         });
         $this->app->bind('TwitchApiClient', function ($app) {
-            return new Client(['base_uri' => 'https://api.twitch.tv']);
+            return new Client([
+                'base_uri'    => 'https://api.twitch.tv',
+                'http_errors' => false
+            ]);
         });
 
         Validator::extend('twitch', function ($attribute, $value, $parameters) {

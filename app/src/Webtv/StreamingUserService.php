@@ -55,42 +55,47 @@ class StreamingUserService
     {
         $streamers = User::streamers()
             ->orderBy('twitch_channel')
+            ->where('twitch_channel', '!=', '')
             ->get();
-        foreach ($streamers as $streamer) {
-            if (!$this->isStreamingOnTwitch($streamer->twitch_channel)) {
-                $streamer->stopStreaming();
+
+        $data = $this->isStreamingOnTwitch($streamers);
+
+        return $data;
+
+    }
+
+    /**
+     * @param $streamers \Illuminate\Database\Eloquent\Collection
+     * @return bool
+     */
+    private function isStreamingOnTwitch($streamers)
+    {
+        $httpClient = app('TwitchApiClient');
+        $promises = [];
+
+        foreach ($streamers as $key => $streamer) {
+            $promises[$key] = $httpClient->getAsync('/kraken/streams/' . $streamer->twitch_channel);
+        }
+
+        try {
+            $results = \GuzzleHttp\Promise\unwrap($promises);
+        } catch (\Exception $e) {
+            return new Collection();
+        }
+
+        foreach ($results as $id => $response) {
+            if ($response->getStatusCode() !== 200) {
+                $streamers->get($id)->stopStreaming();
+            }
+            else {
+                $data = json_decode($response->getBody()->getContents(), true);
+                if ($data['stream'] === null) {
+                    $streamers->get($id)->stopStreaming();
+                }
             }
         }
 
         return $streamers;
-
-    }
-
-    private function isStreamingOnTwitch($streamerName)
-    {
-        if ($streamerName == '' || $streamerName === null) {
-            return false;
-        }
-        $httpClient = app('TwitchApiClient');
-
-        try {
-            $res = $httpClient->get('/kraken/streams/' . $streamerName);
-
-            $data = json_decode($res->getBody()->getContents(), true);
-            if (array_key_exists('error', $data)) {
-                if ($data['status'] == 422) {
-                    return false;
-                }
-            }
-            if ($data['stream'] !== null) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        } catch (\Exception $e) {
-            return false;
-        }
     }
 
     /**
