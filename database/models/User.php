@@ -90,13 +90,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function startStreaming()
     {
-        $this->streaming = 1;
-        $this->save();
+        if (!$this->isStreaming()) {
+            $this->streaming = 1;
+            $this->save();
+        }
     }
 
     public function stopStreaming()
     {
-        $this->streaming = 0;
-        $this->save();
+        if ($this->isStreaming()) {
+            $this->streaming = 0;
+            $this->save();
+        }
     }
 }
