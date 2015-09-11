@@ -17,10 +17,13 @@
 <div class="container-fluid">
         @yield('content')
 </div>
-<footer>
-    @yield('footer')
-</footer>
-
+<!--<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Copyright {{Carbon\Carbon::create()->year}}</p>
+        @yield('footer')
+        </div>
+    </footer>
+    -->
 <script type="text/javascript" src="{{url('assets/js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{ url('assets/bootstrap-3.3.4/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ url('assets/bootstrap-toggle/js/bootstrap-toggle.min.js') }}"></script>

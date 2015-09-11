@@ -26,7 +26,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'experience',
         'password',
         'streaming',
-        'stream_banner'
+        'stream_banner',
+        'stream_preview'
     ];
     protected $hidden = ['password', 'remember_token'];
     protected $with = ['roles'];

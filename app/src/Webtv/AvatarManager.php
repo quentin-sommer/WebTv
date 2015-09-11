@@ -21,6 +21,10 @@ class AvatarManager
      */
     protected $width;
     /**
+     * @var int
+     */
+    protected $height;
+    /**
      * @var string
      */
     protected $default;
@@ -31,6 +35,7 @@ class AvatarManager
         $this->imgManager = app('ImageManager');
         $this->encoding = 'jpg';
         $this->width = env('AVATAR_WIDTH');
+        $this->height = env('AVATAR_HEIGHT');
         $this->default = 'default.jpg';
     }
 
@@ -59,11 +64,19 @@ class AvatarManager
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getWidth()
     {
         return $this->width;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeight()
+    {
+        return $this->height;
     }
 
 
@@ -71,7 +84,7 @@ class AvatarManager
     {
         $manager = $this->imgManager->make($path);
         $manager->orientate();
-        $manager->fit($this->width);
+        $manager->fit($this->width, $this->height);
         $name = $this->getFileName();
 
         $manager->save($this->getUploadPath($name));

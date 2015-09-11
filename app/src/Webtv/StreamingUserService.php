@@ -85,12 +85,18 @@ class StreamingUserService
 
         foreach ($results as $id => $response) {
             if ($response->getStatusCode() !== 200) {
+                $streamer->stream_preview = null;
                 $streamers->get($id)->stopStreaming();
             }
             else {
                 $data = json_decode($response->getBody()->getContents(), true);
                 if ($data['stream'] === null) {
+                    $streamer->stream_preview = null;
                     $streamers->get($id)->stopStreaming();
+                }
+                else {
+                    $streamer->stream_preview = $data['stream']['preview']['medium'];
+                    $streamer->save();
                 }
             }
         }

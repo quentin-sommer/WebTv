@@ -22,6 +22,7 @@ class CreateUserTable extends Migration
             $table->text('description');
             $table->string('avatar', 255)->default('default.jpg');
             $table->string('stream_banner', 255)->default('default.jpg');
+            $table->string('stream_preview', 255)->default(null);
             $table->integer('level', false, true)->default(1);
             $table->dateTime('last_seen_watching')->default(null);
             $table->string('experience_token', 100)->default(null);

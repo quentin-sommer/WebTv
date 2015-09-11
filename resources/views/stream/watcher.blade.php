@@ -3,8 +3,7 @@
 @section('content')
     <div class="col-lg-12">
         <div class="wrapper">
-        <img class="img-responsive" src="{{StreamBanner::getUrl($streamer->stream_banner)}}" alt="">
-
+        <img class="watcherBanner" src="{{StreamBanner::getUrl($streamer->stream_banner)}}" alt="">
         <h1 class="streamHeader">
                 <img class="thumbAvatar img-rounded" src="{{Avatar::getUrl($streamer->avatar)}}" alt="Image du stream">
 

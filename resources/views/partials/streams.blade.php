@@ -14,7 +14,11 @@
         </a>
     </div>
     <a href="{{route('getStream',['streamerName'=>$streamer->twitch_channel])}}">
-        <img class="streamImg" src="{{Avatar::getUrl($streamer->avatar)}}" alt="image de profil"/>
+        @if($streamer->isStreaming())
+            <img class="streamImg" src="{{$streamer->stream_preview}}" alt="image du stream"/>
+        @else
+            <img class="streamImg" src="{{Avatar::getUrl($streamer->avatar)}}" alt="image de profil"/>
+        @endif
     </a>
 
     <!--<div class="caption">

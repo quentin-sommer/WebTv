@@ -92,7 +92,7 @@
     </div>
     <!-- ----------------------------- MODALS ----------------------- -->
     <div class="modal fade" id="profilePicCropper">
-        <div class="modal-dialog stream-cropit">
+        <div class="modal-dialog modal-lg stream-cropit">
             <div class="modal-content">
                 <div class="stream-cropit modal-body">
                     <!-- This wraps the whole cropper -->
@@ -132,7 +132,7 @@
     </div>
 
     <div class="modal fade" id="streamBannerCropper">
-        <div class="modal-dialog modal-lg stream-cropit">
+        <div class="modal-dialog modal-huge stream-cropit">
             <div class="modal-content">
                 <div class="stream-cropit modal-body">
                     <!-- This wraps the whole cropper -->

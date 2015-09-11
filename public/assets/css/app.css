@@ -1,5 +1,21 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
 
+.cropit-image-preview.profilePic {
+    width: 640px;
+    height: 360px;
+    margin: auto;
+}
+
+.watcherBanner {
+    width: 100%;
+}
+
+.cropit-image-preview.streamBanner {
+    width: 1800px;
+    height: 380px;
+    margin: auto;
+}
+
 body, h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif !important;
 }
@@ -11,9 +27,11 @@ body {
 body > .container, .container-fluid {
     margin-top: 21px;
 }
+
 textarea {
     resize: vertical;
 }
+
 .menuSeparator {
     float: left;
     margin-bottom: 0px;
@@ -64,10 +82,6 @@ h1 small {
 
 .streams li p {
     text-align: center;
-}
-
-.streamImg {
-    width: 100%;
 }
 
 .singlePage {
@@ -125,13 +139,8 @@ h1 small {
 }
 
 .pic {
- margin : auto;
+    margin: auto;
 }
-
-.profilePic{
-    width : 300px;
-}
-
 
 .streaming {
     position: absolute;
@@ -141,17 +150,7 @@ h1 small {
     left: 30px;
 }
 
-.cropit-image-preview.profilePic {
-    width: 300px;
-    height: 300px;
-    margin: auto;
-}
-.cropit-image-preview.streamBanner {
-    width: 1800px;
-    height: 380px;
-    margin: auto;
-}
-.modal-lg {
+.modal-huge {
     width: 100%;
 }
 
@@ -177,12 +176,28 @@ h1 small {
     margin-top: 20px;
 }
 
+footer {
+    margin-top: 20px;
+    background-color: #FFF;
+    border-color: #EEE;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 40px;
+}
+
+footer .container p {
+    margin-top: 10px;
+}
+
 .uploadProfilePic {
     display: none;
 }
+
 .uploadStreamBannerPic {
     display: none;
 }
+
 /* Hide default file input button if you want to use a custom button */
 input.cropit-image-input {
     visibility: hidden;
