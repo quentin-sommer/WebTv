@@ -29,7 +29,9 @@
             <span class="ncs"></span>
             <span class="nbs"></span>
         </div>
+
         <div id="nav" class="vis elem">
+            <a id="homeBtn" href="{{route('streams')}}">LE SPAWN</a>
             <div id="menu" class="elem-anim">
                 <a>Calendrier<span class="transition"></span></a>
                 <a data-page="0" class="active">Accueil <span class="transition"></span></a>
@@ -159,7 +161,7 @@
                                     <div>
                                     <ul class="streams">
                                         @foreach($streams as $streamer)
-                                            <li class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                            <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                 @include('partials.streams')
                                             </li>
                                         @endforeach

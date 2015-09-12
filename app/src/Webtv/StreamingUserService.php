@@ -95,7 +95,7 @@ class StreamingUserService
                     $streamers->get($id)->stopStreaming();
                 }
                 else {
-                    $streamer->stream_preview = $data['stream']['preview']['medium'];
+                    $streamer->stream_preview = $data['stream']['preview']['large'];
                     $streamer->save();
                 }
             }
