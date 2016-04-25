@@ -2,5 +2,5 @@
 
 ## WebTv
 
-WebTv utilisant Twitch et intégrant un système d'experience
+WebTv constuite avec [Lumen](https://github.com/laravel/lumen) alimentée par Twitch et intégrant un système d'experience
 
